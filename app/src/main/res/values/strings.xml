@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">arcana mini</string>
+
+
+    <string name="librarium_title">The Librarium</string>
+    <string name="minor_button_text">minor arcana/suits</string>
+    <string name="major_button_text">major arcana</string>
+    <string name="techniques_button_text">Basic techniques</string>
 </resources>
