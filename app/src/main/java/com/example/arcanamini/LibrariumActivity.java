@@ -2,6 +2,7 @@ package com.example.arcanamini;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,10 @@ public class LibrariumActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == findViewById(R.id.minorButton)){
-
+            Intent intent = new Intent (this, CardRecyclerActivity.class);
+            String tableName = "Mini";
+            intent.putExtra ("TABLE_NAME", tableName );
+            this.startActivity(intent);
         } else if (v == findViewById(R.id.majorButton)){
 
         } else if (v == findViewById(R.id.techniquesButton)){

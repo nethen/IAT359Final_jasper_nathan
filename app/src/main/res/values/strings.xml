@@ -6,4 +6,13 @@
     <string name="minor_button_text">minor arcana/suits</string>
     <string name="major_button_text">major arcana</string>
     <string name="techniques_button_text">Basic techniques</string>
+
+<!--    temporary values for initializing database-->
+    <string-array name="my_array">
+        <item>string 1</item>
+        <item>string 2</item>
+        <item>string 3</item>
+        <item>string 4</item>
+        <item>string 5</item>
+    </string-array>
 </resources>
