@@ -62,7 +62,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if(v==findViewById(R.id.addButton)){
-            long id = db.insertData("name1", "suit1", "status1");
+            long id = db.insertData("name1", "suit1", "status1", "definition1");
             if (id < 0)
             {
                 Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();

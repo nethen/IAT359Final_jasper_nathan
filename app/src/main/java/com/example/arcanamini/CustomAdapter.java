@@ -17,6 +17,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public ArrayList<String> list;
     Context context;
 
+
     public CustomAdapter(ArrayList<String> list) {
         this.list = list;
     }
@@ -30,7 +31,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(CustomAdapter.MyViewHolder holder, int position) {
-
         String[] results = (list.get(position).toString()).split(",");
         holder.nameTextView.setText(results[0]);
 
@@ -45,8 +45,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView nameTextView;
-        public TextView typeTextView;
-        public TextView locationTextView;
         public LinearLayout myLayout;
 
         Context context;
@@ -64,12 +62,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         @Override
         public void onClick(View view) {
+            int position = getAdapterPosition(); //what item has been clicked
             Toast.makeText(context,
                     "You have clicked " + ((TextView) view.findViewById(R.id.cardNameTextView)).getText().toString(),
                     Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
-            //intent.putExtra ("ITEM_KEY", position );
+            intent.putExtra ("ITEM_KEY", position);
             view.getContext().startActivity(intent);
         }
     }
