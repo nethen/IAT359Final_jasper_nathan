@@ -19,7 +19,8 @@ public class MyHelper extends SQLiteOpenHelper {
                     Constants.NAME + " TEXT, " +
                     Constants.SUIT + " TEXT, " +
                     Constants.STATUS + " TEXT, " +
-                    Constants.DEFINITION + " TEXT);" ;
+                    Constants.DEF_UPRIGHT + " TEXT, " +
+                    Constants.DEF_REVERSED + " TEXT);" ;
 
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.MINI_TABLE;
 
@@ -43,7 +44,8 @@ public class MyHelper extends SQLiteOpenHelper {
                 values.put(Constants.NAME, item);
                 values.put(Constants.SUIT, DEFAULT_THIRD_COLUMN);
                 values.put(Constants.STATUS, DEFAULT_FOURTH_COLUMN);
-                values.put(Constants.DEFINITION, DEFAULT_FOURTH_COLUMN);
+                values.put(Constants.DEF_UPRIGHT, DEFAULT_FOURTH_COLUMN);
+                values.put(Constants.DEF_REVERSED, DEFAULT_FOURTH_COLUMN);
                 db.insert(Constants.MINI_TABLE, null, values);
             }
 

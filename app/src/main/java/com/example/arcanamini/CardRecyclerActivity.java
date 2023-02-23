@@ -31,6 +31,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
         db = new MyDatabase(this);
         helper = new MyHelper(this);
 
+
         Cursor cursor = db.getData();
 
         int index1 = cursor.getColumnIndex(Constants.NAME);
@@ -62,7 +63,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if(v==findViewById(R.id.addButton)){
-            long id = db.insertData("name1", "suit1", "status1", "definition1");
+            long id = db.insertData("name1", "suit1", "status1", "definition1", "definition2");
             if (id < 0)
             {
                 Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();

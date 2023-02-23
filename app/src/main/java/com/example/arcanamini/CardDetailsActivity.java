@@ -29,15 +29,17 @@ public class CardDetailsActivity extends AppCompatActivity {
         int index1 = cursor.getColumnIndex(Constants.NAME);
         int index2 = cursor.getColumnIndex(Constants.SUIT);
         int index3 = cursor.getColumnIndex(Constants.STATUS);
-        int index4 = cursor.getColumnIndex(Constants.DEFINITION);
+        int index4 = cursor.getColumnIndex(Constants.DEF_UPRIGHT);
+        int index5 = cursor.getColumnIndex(Constants.DEF_REVERSED);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             String cardName = cursor.getString(index1);
             String cardSuit = cursor.getString(index2);
             String cardStatus = cursor.getString(index3);
-            String cardDefinition = cursor.getString(index4);
-            String s = cardName +"," + cardSuit + "," + cardStatus + "," + cardDefinition;
+            String cardDefUpright = cursor.getString(index4);
+            String cardDefReversed = cursor.getString(index5);
+            String s = cardName +"," + cardSuit + "," + cardStatus + "," + cardDefUpright + "," + cardDefReversed;
             mArrayList.add(s);
             cursor.moveToNext();
         }
@@ -56,9 +58,15 @@ public class CardDetailsActivity extends AppCompatActivity {
             String name = results[0];
             String suit = results[1];
             String status = results[2];
-            String definition = results[3];
+            String defUpright = results[3];
+            String defReversed = results[4];
             cardTitle.setText(name + " " + suit);
-            cardDefinition.setText(definition);
+            if(status == "Upright"){
+                cardDefinition.setText(defUpright);
+            }else{
+                cardDefinition.setText(defReversed);
+            }
+
         } else{
             // did not receive bundle with extra data
             Toast.makeText(this, "Didn't receive any data", Toast.LENGTH_SHORT).show();
