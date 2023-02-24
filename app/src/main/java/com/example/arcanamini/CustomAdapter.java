@@ -32,7 +32,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(CustomAdapter.MyViewHolder holder, int position) {
         String[] results = (list.get(position).toString()).split(",");
-        holder.nameTextView.setText(results[0]);
+        holder.nameTextView.setText(results[0] + " " + results[1]);
 
     }
 
@@ -69,6 +69,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
             Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
             intent.putExtra ("ITEM_KEY", position);
+            //intent.putExtra ("TABLE", );
             view.getContext().startActivity(intent);
         }
     }

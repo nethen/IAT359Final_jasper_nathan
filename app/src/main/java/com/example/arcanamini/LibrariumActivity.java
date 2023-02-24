@@ -27,11 +27,14 @@ public class LibrariumActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         if (v == findViewById(R.id.minorButton)){
             Intent intent = new Intent (this, CardRecyclerActivity.class);
-            String tableName = "Mini";
-            intent.putExtra ("TABLE_NAME", tableName );
+            int table = 0;
+            intent.putExtra ("TABLE", table );
             this.startActivity(intent);
         } else if (v == findViewById(R.id.majorButton)){
-
+            Intent intent = new Intent (this, CardRecyclerActivity.class);
+            int table = 1;
+            intent.putExtra ("TABLE", table );
+            this.startActivity(intent);
         } else if (v == findViewById(R.id.techniquesButton)){
 
         }

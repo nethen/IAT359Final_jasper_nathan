@@ -15,7 +15,7 @@ public class MyDatabase {
         helper = new MyHelper(context);
     }
 
-    public long insertData (String name, String suit, String status, String defUpright, String defReversed)
+    public long insertDataMini (String name, String suit, int status, String defUpright, String defReversed)
     {
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -28,15 +28,33 @@ public class MyDatabase {
         return id;
     }
 
-    public Cursor getData()
+    public long insertDataMajor (String name, int status, String defUpright, String defReversed)
+    {
+        db = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constants.NAME, name);
+        contentValues.put(Constants.STATUS, status);
+        contentValues.put(Constants.DEF_UPRIGHT, defUpright);
+        contentValues.put(Constants.DEF_REVERSED, defReversed);
+        long id = db.insert(Constants.MAJOR_TABLE, null, contentValues);
+        return id;
+    }
+
+    public Cursor getMiniData()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-
         String[] columns = {Constants.UID, Constants.NAME, Constants.SUIT, Constants.STATUS, Constants.DEF_UPRIGHT, Constants.DEF_REVERSED};
         Cursor cursor = db.query(Constants.MINI_TABLE, columns, null, null, null, null, null);
         return cursor;
     }
 
+    public Cursor getMajorData()
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns = {Constants.UID, Constants.NAME, Constants.STATUS, Constants.DEF_UPRIGHT, Constants.DEF_REVERSED};
+        Cursor cursor = db.query(Constants.MAJOR_TABLE, columns, null, null, null, null, null);
+        return cursor;
+    }
 }
 
 

@@ -24,7 +24,7 @@ public class CardDetailsActivity extends AppCompatActivity {
         db = new MyDatabase(this);
         helper = new MyHelper(this);
 
-        Cursor cursor = db.getData();
+        Cursor cursor = db.getMiniData();
 
         int index1 = cursor.getColumnIndex(Constants.NAME);
         int index2 = cursor.getColumnIndex(Constants.SUIT);
@@ -57,13 +57,15 @@ public class CardDetailsActivity extends AppCompatActivity {
             String[] results = (mArrayList.get(position).toString()).split(",");
             String name = results[0];
             String suit = results[1];
-            String status = results[2];
+            int status = Integer.parseInt(results[2]);
             String defUpright = results[3];
             String defReversed = results[4];
             cardTitle.setText(name + " " + suit);
-            if(status == "Upright"){
+
+            //status 0=upright, 1=reversed
+            if(status == 0){
                 cardDefinition.setText(defUpright);
-            }else{
+            }else if (status == 1){
                 cardDefinition.setText(defReversed);
             }
 
