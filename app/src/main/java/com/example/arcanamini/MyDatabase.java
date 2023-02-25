@@ -15,12 +15,11 @@ public class MyDatabase {
         helper = new MyHelper(context);
     }
 
-    public long insertDataMini (String name, String suit, int status, String defUpright, String defReversed)
+    public long insertDataMini (String name, int status, String defUpright, String defReversed)
     {
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.NAME, name);
-        contentValues.put(Constants.SUIT, suit);
         contentValues.put(Constants.STATUS, status);
         contentValues.put(Constants.DEF_UPRIGHT, defUpright);
         contentValues.put(Constants.DEF_REVERSED, defReversed);
@@ -43,7 +42,7 @@ public class MyDatabase {
     public Cursor getMiniData()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {Constants.UID, Constants.NAME, Constants.SUIT, Constants.STATUS, Constants.DEF_UPRIGHT, Constants.DEF_REVERSED};
+        String[] columns = {Constants.UID, Constants.NAME, Constants.STATUS, Constants.DEF_UPRIGHT, Constants.DEF_REVERSED};
         Cursor cursor = db.query(Constants.MINI_TABLE, columns, null, null, null, null, null);
         return cursor;
     }
@@ -54,6 +53,56 @@ public class MyDatabase {
         String[] columns = {Constants.UID, Constants.NAME, Constants.STATUS, Constants.DEF_UPRIGHT, Constants.DEF_REVERSED};
         Cursor cursor = db.query(Constants.MAJOR_TABLE, columns, null, null, null, null, null);
         return cursor;
+    }
+
+    public String getSelectedDataMinor(String name)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns = {Constants.NAME, Constants.STATUS, Constants.DEF_UPRIGHT, Constants.DEF_REVERSED};
+
+        String selection = Constants.NAME + "='" +name+ "'";  //Constants.TYPE = 'type'
+        Cursor cursor = db.query(Constants.MINI_TABLE, columns, selection, null, null, null, null);
+
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+
+            int index1 = cursor.getColumnIndex(Constants.NAME);
+            int index2 = cursor.getColumnIndex(Constants.STATUS);
+            int index3 = cursor.getColumnIndex(Constants.DEF_UPRIGHT);
+            int index4 = cursor.getColumnIndex(Constants.DEF_REVERSED);
+
+            String cardName = cursor.getString(index1);
+            String cardStatus = cursor.getString(index2);
+            String cardDefUpright = cursor.getString(index3);
+            String cardDefReversed = cursor.getString(index4);
+            buffer.append(cardName + "," + cardStatus + "," + cardDefUpright + "," + cardDefReversed + "\n"); //
+        }
+        return buffer.toString();
+    }
+
+    public String getSelectedDataMajor(String name)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns = {Constants.NAME, Constants.STATUS, Constants.DEF_UPRIGHT, Constants.DEF_REVERSED};
+
+        String selection = Constants.NAME + "='" +name+ "'";  //Constants.TYPE = 'type'
+        Cursor cursor = db.query(Constants.MAJOR_TABLE, columns, selection, null, null, null, null);
+
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+
+            int index1 = cursor.getColumnIndex(Constants.NAME);
+            int index2 = cursor.getColumnIndex(Constants.STATUS);
+            int index3 = cursor.getColumnIndex(Constants.DEF_UPRIGHT);
+            int index4 = cursor.getColumnIndex(Constants.DEF_REVERSED);
+
+            String cardName = cursor.getString(index1);
+            String cardStatus = cursor.getString(index2);
+            String cardDefUpright = cursor.getString(index3);
+            String cardDefReversed = cursor.getString(index4);
+            buffer.append(cardName + "," + cardStatus + "," + cardDefUpright + "," + cardDefReversed + "\n"); //
+        }
+        return buffer.toString();
     }
 }
 

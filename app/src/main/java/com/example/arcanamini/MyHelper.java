@@ -17,7 +17,6 @@ public class MyHelper extends SQLiteOpenHelper {
                     Constants.MINI_TABLE + " (" +
                     Constants.UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     Constants.NAME + " TEXT, " +
-                    Constants.SUIT + " TEXT, " +
                     Constants.STATUS + " TEXT, " +
                     Constants.DEF_UPRIGHT + " TEXT, " +
                     Constants.DEF_REVERSED + " TEXT);" ;

@@ -45,15 +45,13 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
                 Cursor cursor = db.getMiniData();
 
                 int index1 = cursor.getColumnIndex(Constants.NAME);
-                int index2 = cursor.getColumnIndex(Constants.SUIT);
-                int index3 = cursor.getColumnIndex(Constants.STATUS);
+                int index2 = cursor.getColumnIndex(Constants.STATUS);
 
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
                     String cardName = cursor.getString(index1);
-                    String cardSuit = cursor.getString(index2);
-                    String cardStatus = cursor.getString(index3);
-                    String s = cardName +"," + cardSuit + "," + cardStatus;
+                    String cardStatus = cursor.getString(index2);
+                    String s = cardName + "," + cardStatus;
                     mArrayList.add(s);
                     cursor.moveToNext();
                 }
@@ -99,7 +97,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         if(v==findViewById(R.id.addButton)){
             if(table ==0){
-                long id = db.insertDataMini("name1", "suit1", 0, "definition1", "definition2");
+                long id = db.insertDataMini("name1", 0, "definition1", "definition2");
                 if (id < 0)
                 {
                     Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
