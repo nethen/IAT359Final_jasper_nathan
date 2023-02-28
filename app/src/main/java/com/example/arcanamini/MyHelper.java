@@ -30,9 +30,18 @@ public class MyHelper extends SQLiteOpenHelper {
                     Constants.DEF_UPRIGHT + " TEXT, " +
                     Constants.DEF_REVERSED + " TEXT);" ;
 
+    private static final String CREATE_TECHNIQUES_TABLE =
+            "CREATE TABLE "+
+                    Constants.MAJOR_TABLE + " (" +
+                    Constants.UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    Constants.NAME + " TEXT, " +
+                    Constants.TECHNIQUE_TEXT + " TEXT);" ;
+
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.MINI_TABLE;
 
     private static final String DROP_TABLE2 = "DROP TABLE IF EXISTS " + Constants.MAJOR_TABLE;
+
+    private static final String DROP_TABLE3 = "DROP TABLE IF EXISTS " + Constants.TECHNIQUES_TABLE;
     public MyHelper(Context context){
         super (context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
         this.context = context;
@@ -45,6 +54,8 @@ public class MyHelper extends SQLiteOpenHelper {
 
 
             db.execSQL(CREATE_MAJOR_TABLE);
+
+            db.execSQL(CREATE_TECHNIQUES_TABLE);
 
 //            // Initialize the db with values from my_array.xml
 //            final int DEFAULT_THIRD_COLUMN = 1;
@@ -71,10 +82,13 @@ public class MyHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(DROP_TABLE);
             db.execSQL(DROP_TABLE2);
+            db.execSQL(DROP_TABLE3);
             onCreate(db);
             Toast.makeText(context, "onUpgrade called", Toast.LENGTH_LONG).show();
         } catch (SQLException e) {
             Toast.makeText(context, "exception onUpgrade() db", Toast.LENGTH_LONG).show();
         }
     }
+
+
 }

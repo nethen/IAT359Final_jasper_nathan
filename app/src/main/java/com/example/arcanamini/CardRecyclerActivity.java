@@ -73,7 +73,19 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
                     cursor.moveToNext();
                 }
             }else if (table == 2){
+                Cursor cursor = db.getTechniquesData();
 
+                int index1 = cursor.getColumnIndex(Constants.NAME);
+                int index2 = cursor.getColumnIndex(Constants.TECHNIQUE_TEXT);
+
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    String techniqueName = cursor.getString(index1);
+                    String techniqueText = cursor.getString(index2);
+                    String s = techniqueName + "," + techniqueText;
+                    mArrayList.add(s);
+                    cursor.moveToNext();
+                }
             }
 
         } else{
@@ -108,6 +120,16 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
                 }
             }else if(table==1){
                 long id = db.insertDataMajor("name1", 0, "definition1", "definition2");
+                if (id < 0)
+                {
+                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
+                }
+            }else if(table==2){
+                long id = db.insertDataTechniques("name1", "technique text");
                 if (id < 0)
                 {
                     Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();

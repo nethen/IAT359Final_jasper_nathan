@@ -4,16 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class CardDetailsActivity extends AppCompatActivity {
+public class CardDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView cardTitle, cardDefinition;
     private MyHelper helper;
     private MyDatabase db;
     String queryResults;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,36 +30,26 @@ public class CardDetailsActivity extends AppCompatActivity {
         db = new MyDatabase(this);
         helper = new MyHelper(this);
 
-        Cursor cursor = db.getMiniData();
-
-        int index1 = cursor.getColumnIndex(Constants.NAME);
-        int index2 = cursor.getColumnIndex(Constants.STATUS);
-        int index3 = cursor.getColumnIndex(Constants.DEF_UPRIGHT);
-        int index4 = cursor.getColumnIndex(Constants.DEF_REVERSED);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            String cardName = cursor.getString(index1);
-            String cardStatus = cursor.getString(index2);
-            String cardDefUpright = cursor.getString(index3);
-            String cardDefReversed = cursor.getString(index4);
-            String s = cardName + "," + cardStatus + "," + cardDefUpright + "," + cardDefReversed;
-            mArrayList.add(s);
-            cursor.moveToNext();
-        }
-
         //initialize text views
         cardTitle = findViewById(R.id.cardTitleDetailsTextView);
         cardDefinition = findViewById(R.id.cardDefinitionDetailsTextView);
+        //initialize spinner
+        spinner = findViewById(R.id.card_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.card_status_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        //listener for spinner
+        spinner.setOnItemSelectedListener(this);
 
         // retrieve the bundle from the intent that started this activity
         Bundle extra_data = getIntent().getExtras();
 
         // check if the bundle was received (bundle not null)
         if (extra_data!= null) {
-            int position = extra_data.getInt("ITEM_KEY");
             String itemName = extra_data.getString("ITEM_NAME");
-
 
             if(db.getSelectedDataMinor(itemName).contains(itemName) ){
                 queryResults = db.getSelectedDataMinor(itemName);
@@ -94,6 +89,21 @@ public class CardDetailsActivity extends AppCompatActivity {
                 }
             }
 
+            if (db.getSelectedDataTechniques(itemName).contains(itemName) ){
+                queryResults = db.getSelectedDataTechniques(itemName);
+                Toast.makeText(this, queryResults,
+                        Toast.LENGTH_SHORT).show();
+                String[] results = queryResults.split(",");
+                String name = results[0];
+                String text = results[1];
+                cardTitle.setText(name);
+
+                cardDefinition.setText(text);
+
+                //no dropdown menu for this table
+                spinner.setVisibility(spinner.GONE);
+            }
+
 
         } else{
             // did not receive bundle with extra data
@@ -102,5 +112,74 @@ public class CardDetailsActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Bundle extra_data = getIntent().getExtras();
+        if (extra_data!= null) {
+            String itemName = extra_data.getString("ITEM_NAME");
+            //minor
+            if(db.getSelectedDataMinor(itemName).contains(itemName) ) {
+                queryResults = db.getSelectedDataMinor(itemName);
+                String[] results = queryResults.split(",");
+                String name = results[0];
+                int status = Integer.parseInt(results[1]);
+                String defUpright = results[2];
+                String defReversed = results[3];
 
+                switch(position){
+                    case 0:
+                        //select upright
+                        Toast.makeText(this, "to go upright", Toast.LENGTH_LONG).show();
+                        db.updateMiniCard(name, 1);
+
+                        break;
+                    case 1:
+                        //select reversed
+                        Toast.makeText(this, "to go reversed", Toast.LENGTH_LONG).show();
+                        db.updateMiniCard(name,0);
+                        break;
+                }
+                //status 0=upright, 1=reversed
+                if(status == 0){
+                    cardDefinition.setText(defUpright);
+                }else if (status == 1){
+                    cardDefinition.setText(defReversed);
+                }
+            }
+            //major
+            if(db.getSelectedDataMajor(itemName).contains(itemName) ){
+                queryResults = db.getSelectedDataMajor(itemName);
+                String[] results = queryResults.split(",");
+                String name = results[0];
+                int status = Integer.parseInt(results[1]);
+                String defUpright = results[2];
+                String defReversed = results[3];
+
+                switch(position){
+                    case 0:
+                        //select upright
+                        Toast.makeText(this, "to go upright", Toast.LENGTH_LONG).show();
+                        db.updateMajorCard(name, 1);
+
+                        break;
+                    case 1:
+                        //select reversed
+                        Toast.makeText(this, "to go reversed", Toast.LENGTH_LONG).show();
+                        db.updateMajorCard(name,0);
+                        break;
+                }
+                //status 0=upright, 1=reversed
+                if(status == 0){
+                    cardDefinition.setText(defUpright);
+                }else if (status == 1){
+                    cardDefinition.setText(defReversed);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
