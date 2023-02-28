@@ -12,6 +12,18 @@
         android:theme="@style/Theme.ArcanaMini"
         tools:targetApi="31">
         <activity
+            android:name=".CustomAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".LibrariumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CardDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CardRecyclerActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
