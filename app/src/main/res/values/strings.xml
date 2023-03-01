@@ -3,7 +3,7 @@
 
     <string name="welcome">Welcome back,</string>
     <string name="welcome_init">Welcome,</string>
-    <string name="placeholder_date">MTH DD, YYYY</string>
+    <string name="placeholder_date">MMM dd, yyyy</string>
 
     <string name="librarium_title">The Librarium</string>
     <string name="minor_button_text">minor arcana/suits</string>
