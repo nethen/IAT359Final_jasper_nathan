@@ -92,7 +92,7 @@ public class MyDatabase {
             String cardStatus = cursor.getString(index2);
             String cardDefUpright = cursor.getString(index3);
             String cardDefReversed = cursor.getString(index4);
-            buffer.append(cardName + "," + cardStatus + "," + cardDefUpright + "," + cardDefReversed + "\n"); //
+            buffer.append(cardName + "_" + cardStatus + "_" + cardDefUpright + "_" + cardDefReversed + "\n"); //
         }
         return buffer.toString();
     }
@@ -117,7 +117,7 @@ public class MyDatabase {
             String cardStatus = cursor.getString(index2);
             String cardDefUpright = cursor.getString(index3);
             String cardDefReversed = cursor.getString(index4);
-            buffer.append(cardName + "," + cardStatus + "," + cardDefUpright + "," + cardDefReversed + "\n"); //
+            buffer.append(cardName + "_" + cardStatus + "_" + cardDefUpright + "_" + cardDefReversed + "\n"); //
         }
         return buffer.toString();
     }
@@ -139,7 +139,7 @@ public class MyDatabase {
 
             String techniqueName = cursor.getString(index1);
             String techniqueText = cursor.getString(index2);
-            buffer.append(techniqueName + "," + techniqueText + "\n"); //
+            buffer.append(techniqueName + "_" + techniqueText + "\n"); //
         }
         return buffer.toString();
     }

@@ -55,11 +55,20 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                 queryResults = db.getSelectedDataMinor(itemName);
                 Toast.makeText(this, queryResults,
                         Toast.LENGTH_SHORT).show();
-                String[] results = queryResults.split(",");
+                String[] results = queryResults.split("_");
                 String name = results[0];
                 int status = Integer.parseInt(results[1]);
-                String defUpright = results[2];
-                String defReversed = results[3];
+                String defUpright = "";
+                String defReversed = "";
+
+                String[] defUprightSplit = results[2].split("~");
+                for(int i = 0; i<defUprightSplit.length; i++){
+                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
+                }
+                String[] defReversedSplit = results[3].split("~");
+                for(int i = 0; i<defReversedSplit.length; i++){
+                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
+                }
                 cardTitle.setText(name);
 
                 //status 0=upright, 1=reversed
@@ -74,11 +83,20 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                 queryResults = db.getSelectedDataMajor(itemName);
                 Toast.makeText(this, queryResults,
                         Toast.LENGTH_SHORT).show();
-                String[] results = queryResults.split(",");
+                String[] results = queryResults.split("_");
                 String name = results[0];
                 int status = Integer.parseInt(results[1]);
-                String defUpright = results[2];
-                String defReversed = results[3];
+                String defUpright = "";
+                String defReversed = "";
+
+                String[] defUprightSplit = results[2].split("~");
+                for(int i = 0; i<defUprightSplit.length; i++){
+                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
+                }
+                String[] defReversedSplit = results[3].split("~");
+                for(int i = 0; i<defReversedSplit.length; i++){
+                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
+                }
                 cardTitle.setText(name);
 
                 //status 0=upright, 1=reversed
@@ -93,7 +111,7 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                 queryResults = db.getSelectedDataTechniques(itemName);
                 Toast.makeText(this, queryResults,
                         Toast.LENGTH_SHORT).show();
-                String[] results = queryResults.split(",");
+                String[] results = queryResults.split("_");
                 String name = results[0];
                 String text = results[1];
                 cardTitle.setText(name);
@@ -120,11 +138,20 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
             //minor
             if(db.getSelectedDataMinor(itemName).contains(itemName) ) {
                 queryResults = db.getSelectedDataMinor(itemName);
-                String[] results = queryResults.split(",");
+                String[] results = queryResults.split("_");
                 String name = results[0];
                 int status = Integer.parseInt(results[1]);
-                String defUpright = results[2];
-                String defReversed = results[3];
+                String defUpright = "";
+                String defReversed = "";
+
+                String[] defUprightSplit = results[2].split("~");
+                for(int i = 0; i<defUprightSplit.length; i++){
+                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
+                }
+                String[] defReversedSplit = results[3].split("~");
+                for(int i = 0; i<defReversedSplit.length; i++){
+                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
+                }
 
                 switch(position){
                     case 0:
@@ -149,11 +176,20 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
             //major
             if(db.getSelectedDataMajor(itemName).contains(itemName) ){
                 queryResults = db.getSelectedDataMajor(itemName);
-                String[] results = queryResults.split(",");
+                String[] results = queryResults.split("_");
                 String name = results[0];
                 int status = Integer.parseInt(results[1]);
-                String defUpright = results[2];
-                String defReversed = results[3];
+                String defUpright = "";
+                String defReversed = "";
+
+                String[] defUprightSplit = results[2].split("~");
+                for(int i = 0; i<defUprightSplit.length; i++){
+                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
+                }
+                String[] defReversedSplit = results[3].split("~");
+                for(int i = 0; i<defReversedSplit.length; i++){
+                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
+                }
 
                 switch(position){
                     case 0:
