@@ -1,15 +1,22 @@
 <resources>
     <string name="app_name">arcana mini</string>
 
+    <string name="welcome">Welcome back,</string>
+    <string name="welcome_init">Welcome,</string>
+    <string name="placeholder_date">MMM dd, yyyy</string>
 
     <string name="librarium_title">The Librarium</string>
     <string name="minor_button_text">minor arcana/suits</string>
     <string name="major_button_text">major arcana</string>
     <string name="techniques_button_text">Basic techniques</string>
 
+
 <!-- values for initializing card spinner-->
     <string-array name="card_status_array">
         <item>upright</item>
         <item>reversed</item>
+
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
