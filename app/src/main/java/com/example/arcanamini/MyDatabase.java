@@ -15,7 +15,7 @@ public class MyDatabase {
         helper = new MyHelper(context);
     }
 
-    public long insertDataMini (String name, int status, String defUpright, String defReversed)
+    public long insertDataMinor (String name, int status, String defUpright, String defReversed)
     {
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -23,7 +23,7 @@ public class MyDatabase {
         contentValues.put(Constants.STATUS, status);
         contentValues.put(Constants.DEF_UPRIGHT, defUpright);
         contentValues.put(Constants.DEF_REVERSED, defReversed);
-        long id = db.insert(Constants.MINI_TABLE, null, contentValues);
+        long id = db.insert(Constants.MINOR_TABLE, null, contentValues);
         return id;
     }
 
@@ -48,11 +48,11 @@ public class MyDatabase {
         long id = db.insert(Constants.TECHNIQUES_TABLE, null, contentValues);
         return id;
     }
-    public Cursor getMiniData()
+    public Cursor getMinorData()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] columns = {Constants.UID, Constants.NAME, Constants.STATUS, Constants.DEF_UPRIGHT, Constants.DEF_REVERSED};
-        Cursor cursor = db.query(Constants.MINI_TABLE, columns, null, null, null, null, null);
+        Cursor cursor = db.query(Constants.MINOR_TABLE, columns, null, null, null, null, null);
         return cursor;
     }
 
@@ -78,7 +78,7 @@ public class MyDatabase {
         String[] columns = {Constants.NAME, Constants.STATUS, Constants.DEF_UPRIGHT, Constants.DEF_REVERSED};
 
         String selection = Constants.NAME + "='" +name+ "'";  //Constants.TYPE = 'type'
-        Cursor cursor = db.query(Constants.MINI_TABLE, columns, selection, null, null, null, null);
+        Cursor cursor = db.query(Constants.MINOR_TABLE, columns, selection, null, null, null, null);
 
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {
@@ -144,13 +144,13 @@ public class MyDatabase {
         return buffer.toString();
     }
 
-    public void updateMiniCard(String name, int newStatus){
+    public void updateMinorCard(String name, int newStatus){
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(Constants.STATUS, newStatus);
         String selection = Constants.NAME + " LIKE ?";
         String[] selection_arg = {name};
-        db.update(Constants.MINI_TABLE, values,selection , selection_arg);
+        db.update(Constants.MINOR_TABLE, values,selection , selection_arg);
     }
 
     public void updateMajorCard(String name, int newStatus){

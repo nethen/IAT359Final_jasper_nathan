@@ -157,13 +157,13 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                     case 0:
                         //select upright
                         Toast.makeText(this, "to go upright", Toast.LENGTH_LONG).show();
-                        db.updateMiniCard(name, 1);
+                        db.updateMinorCard(name, 1);
 
                         break;
                     case 1:
                         //select reversed
                         Toast.makeText(this, "to go reversed", Toast.LENGTH_LONG).show();
-                        db.updateMiniCard(name,0);
+                        db.updateMinorCard(name,0);
                         break;
                 }
                 //status 0=upright, 1=reversed

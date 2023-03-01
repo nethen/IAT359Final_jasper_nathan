@@ -41,8 +41,8 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
         if (extra_data!= null) {
             table = extra_data.getInt("TABLE");
             if(table == 0){
-                //mini table
-                Cursor cursor = db.getMiniData();
+                //minor table
+                Cursor cursor = db.getMinorData();
 
                 int index1 = cursor.getColumnIndex(Constants.NAME);
                 int index2 = cursor.getColumnIndex(Constants.STATUS);
@@ -109,7 +109,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         if(v==findViewById(R.id.addButton)){
             if(table ==0){
-                long id = db.insertDataMini("name1", 0, "definition1", "definition2");
+                long id = db.insertDataMinor("name1", 0, "definition1", "definition2");
                 if (id < 0)
                 {
                     Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
