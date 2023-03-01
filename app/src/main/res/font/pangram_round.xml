@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="100"
+        android:font="@font/pangramr_thin" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="230"
+        android:font="@font/pangramr_light" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="340"
+        android:font="@font/pangramr_regular" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="470"
+        android:font="@font/pangramr_medium" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="620"
+        android:font="@font/pangramr_semibold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="760"
+        android:font="@font/pangramr_bold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="900"
+        android:font="@font/pangramr_extrabold" />
+</font-family>
