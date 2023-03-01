@@ -9,12 +9,15 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.transition.Explode;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 import android.widget.Toast;
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     FragmentManager supportFragmentManager = getSupportFragmentManager();
     Button librariumButton;
+
+//    final View androidRobotView = findViewById(R.id.bottom_nav);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         librariumButton = findViewById(R.id.goToLibrariumButton);
         librariumButton.setOnClickListener(this);
+
     }
 
     HomeFragment homeFragment = new HomeFragment();

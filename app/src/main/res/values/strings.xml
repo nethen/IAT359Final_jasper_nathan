@@ -5,6 +5,10 @@
     <string name="welcome_init">Welcome,</string>
     <string name="placeholder_date">MMM dd, yyyy</string>
 
+    <string name="spread_type">Spread</string>
+    <string name="spread_intent">Unknown</string>
+    <string name="spread_time">(hh:mmxx)</string>
+
     <string name="librarium_title">The Librarium</string>
     <string name="minor_button_text">minor arcana/suits</string>
     <string name="major_button_text">major arcana</string>
