@@ -36,7 +36,10 @@ public class LibrariumActivity extends AppCompatActivity implements View.OnClick
             intent.putExtra ("TABLE", table );
             this.startActivity(intent);
         } else if (v == findViewById(R.id.techniquesButton)){
-
+            Intent intent = new Intent (this, CardRecyclerActivity.class);
+            int table = 2;
+            intent.putExtra ("TABLE", table );
+            this.startActivity(intent);
         }
     }
 }

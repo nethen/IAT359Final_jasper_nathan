@@ -10,13 +10,12 @@
     <string name="major_button_text">major arcana</string>
     <string name="techniques_button_text">Basic techniques</string>
 
-    <!--    temporary values for initializing database-->
-    <string-array name="my_array">
-        <item>string 1</item>
-        <item>string 2</item>
-        <item>string 3</item>
-        <item>string 4</item>
-        <item>string 5</item>
+
+<!-- values for initializing card spinner-->
+    <string-array name="card_status_array">
+        <item>upright</item>
+        <item>reversed</item>
+
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
