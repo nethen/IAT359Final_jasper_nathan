@@ -16,7 +16,8 @@
     <string name="meet_the_cards">Meet the cards</string>
     <string name="spreads_methods">Spreads and methods</string>
 
-<!-- values for initializing card spinner-->
+    <string name="librarium_path">librariumdatabase.db</string>
+    <!-- values for initializing card spinner-->
     <string-array name="card_status_array">
         <item>upright</item>
         <item>reversed</item>
@@ -24,4 +25,13 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_librarium2">LibrariumActivity2</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
