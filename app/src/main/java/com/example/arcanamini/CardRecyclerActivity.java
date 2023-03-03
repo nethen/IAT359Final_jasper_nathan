@@ -5,19 +5,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CardRecyclerActivity extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView myRecycler;
-    private CustomAdapter customAdapter;
     private LinearLayoutManager mLayoutManager;
-    private MyHelper db;
+
+    private SQLiteDatabase mDb;
+
+
+    public static List<String> data;
     int table;
     TextView title;
 
@@ -30,74 +38,42 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
         myRecycler = (RecyclerView) findViewById(R.id.recyclerView);
         ArrayList<String> mArrayList = new ArrayList<String>();
 
-        db = new MyDatabase(this);
-        helper = new MyHelper(this);
-
         title = findViewById(R.id.categoryTitleTextView);
+
 
         //retrieve extra
         Bundle extra_data = getIntent().getExtras();
 
-        // check if the bundle was received (bundle not null)
-        if (extra_data!= null) {
-            table = extra_data.getInt("TABLE");
-            if(table == 0){
-                //minor table
-                title.setText("Minor arcana");
-                Cursor cursor = db.getMinorData();
+//        // check if the bundle was received (bundle not null)
+//        if (extra_data!= null) {
+//            table = extra_data.getInt("TABLE");
+//            Log.i("TABLE", String.valueOf(table));
+//            if(table == 0){
+//                //major table
+//                title.setText("Major arcana");
+//                Cursor cursor = db.getMajorData();
+//
+//                int index1 = cursor.getColumnIndex(Constants.NAME);
+//                int index2 = cursor.getColumnIndex(Constants.STATUS);
+//
+//
+//                cursor.moveToFirst();
+//                while (!cursor.isAfterLast()) {
+//                    String cardName = cursor.getString(index1);
+//                    String cardStatus = cursor.getString(index2);
+//                    String s = cardName + "," + cardStatus;
+//                    mArrayList.add(s);
+//                    cursor.moveToNext();
+//                }
+//            }
+//
+//        } else{
+//            // did not receive bundle with extra data
+//            Toast.makeText(this, "Didn't receive any data", Toast.LENGTH_SHORT).show();
+//        }
 
-                int index1 = cursor.getColumnIndex(Constants.NAME);
-                int index2 = cursor.getColumnIndex(Constants.STATUS);
-
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    String cardName = cursor.getString(index1);
-                    String cardStatus = cursor.getString(index2);
-                    String s = cardName + "," + cardStatus;
-                    mArrayList.add(s);
-                    cursor.moveToNext();
-                }
-
-            }else if(table == 1){
-                //major table
-                title.setText("Major arcana");
-                Cursor cursor = db.getMajorData();
-
-                int index1 = cursor.getColumnIndex(Constants.NAME);
-                int index2 = cursor.getColumnIndex(Constants.STATUS);
-
-
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    String cardName = cursor.getString(index1);
-                    String cardStatus = cursor.getString(index2);
-                    String s = cardName + "," + cardStatus;
-                    mArrayList.add(s);
-                    cursor.moveToNext();
-                }
-            }else if (table == 2){
-                Cursor cursor = db.getTechniquesData();
-                title.setText("Basic techniques");
-                int index1 = cursor.getColumnIndex(Constants.NAME);
-                int index2 = cursor.getColumnIndex(Constants.TECHNIQUE_TEXT);
-
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    String techniqueName = cursor.getString(index1);
-                    String techniqueText = cursor.getString(index2);
-                    String s = techniqueName + "," + techniqueText;
-                    mArrayList.add(s);
-                    cursor.moveToNext();
-                }
-            }
-
-        } else{
-            // did not receive bundle with extra data
-            Toast.makeText(this, "Didn't receive any data", Toast.LENGTH_SHORT).show();
-        }
-
-        customAdapter = new CustomAdapter(mArrayList);
-        myRecycler.setAdapter(customAdapter);
+//        customAdapter = new CustomAdapter(mArrayList);
+//        myRecycler.setAdapter(customAdapter);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
@@ -107,42 +83,22 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
         myButton.setOnClickListener(this);
     }
 
-    public void fetchData()
-    {
-        // Before fetching the data
-        // directly from the database.
-        // first we have to creates an empty
-        // database on the system and
-        // rewrites it with your own database.
-        // Then we have to open the
-        // database to fetch the data from it.
-        db = new MyHelper(this);
-        try {
-            db.createDataBase();
-            db.openDataBase();
-            Toast.makeText(this, "copied database",Toast.LENGTH_LONG).show();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "failed to copy",Toast.LENGTH_LONG).show();
-        }
-    }
 
     @Override
     public void onClick(View v) {
-        if(v==findViewById(R.id.addButton)){
-            if(table ==2){
-                long id = db.insertDataTechniques("name1", "technique text");
-                if (id < 0)
-                {
-                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-        }
+//        if(v==findViewById(R.id.addButton)){
+//            if(table ==2){
+//                long id = db.insertDataTechniques("name1", "technique text");
+//                if (id < 0)
+//                {
+//                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
+//                }
+//                else
+//                {
+//                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//        }
     }
 }

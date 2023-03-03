@@ -15,27 +15,28 @@ public class LibrariumActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_librarium);
 
-        minorButton = findViewById(R.id.minorButton);
-        minorButton.setOnClickListener(this);
         majorButton = findViewById(R.id.majorButton);
         majorButton.setOnClickListener(this);
+        minorButton = findViewById(R.id.minorButton);
+        minorButton.setOnClickListener(this);
         techniquesButton = findViewById(R.id.techniquesButton);
         techniquesButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == findViewById(R.id.minorButton)){
+        if (v == findViewById(R.id.majorButton)){
             Intent intent = new Intent (this, CardRecyclerActivity.class);
             int table = 0;
             intent.putExtra ("TABLE", table );
             this.startActivity(intent);
-        } else if (v == findViewById(R.id.majorButton)){
+        } else if (v == findViewById(R.id.minorButton)){
             Intent intent = new Intent (this, CardRecyclerActivity.class);
             int table = 1;
             intent.putExtra ("TABLE", table );
             this.startActivity(intent);
-        } else if (v == findViewById(R.id.techniquesButton)){
+        }
+        else if (v == findViewById(R.id.techniquesButton)){
             Intent intent = new Intent (this, CardRecyclerActivity.class);
             int table = 2;
             intent.putExtra ("TABLE", table );
