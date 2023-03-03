@@ -17,7 +17,8 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
     private RecyclerView myRecycler;
     private CustomAdapter customAdapter;
     private LinearLayoutManager mLayoutManager;
-    private MyHelper db;
+    private MyHelper helper;
+    private MyDatabase db;
     int table;
     TextView title;
 
@@ -105,27 +106,6 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
 
         myButton=findViewById(R.id.addButton);
         myButton.setOnClickListener(this);
-    }
-
-    public void fetchData()
-    {
-        // Before fetching the data
-        // directly from the database.
-        // first we have to creates an empty
-        // database on the system and
-        // rewrites it with your own database.
-        // Then we have to open the
-        // database to fetch the data from it.
-        db = new MyHelper(this);
-        try {
-            db.createDataBase();
-            db.openDataBase();
-            Toast.makeText(this, "copied database",Toast.LENGTH_LONG).show();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "failed to copy",Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override

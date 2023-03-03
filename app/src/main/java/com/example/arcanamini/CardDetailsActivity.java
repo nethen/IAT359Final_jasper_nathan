@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class CardDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView cardTitle, cardDefinition;
-    private MyHelper db;
+    private MyDatabase db;
     String queryResults;
     Spinner spinner;
 
@@ -26,7 +26,8 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
 
         ArrayList<String> mArrayList = new ArrayList<String>();
 
-        db = new MyHelper(this);
+
+        db = new MyDatabase(this);
 
         //initialize text views
         cardTitle = findViewById(R.id.cardTitleDetailsTextView);

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(CustomAdapter.MyViewHolder holder, int position) {
         String[] results = (list.get(position).toString()).split(",");
-        holder.nameTextView.setText(results[0]);
+        holder.nameButton.setText(results[0]);
 
     }
 
@@ -42,10 +43,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         return list.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameTextView;
         public LinearLayout myLayout;
+        public Button nameButton;
 
         Context context;
 
@@ -53,24 +54,26 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             super(itemView);
             myLayout = (LinearLayout) itemView;
 
-            nameTextView = (TextView) itemView.findViewById(R.id.cardNameTextView);
 
-            itemView.setOnClickListener(this);
+            nameButton = (Button) itemView.findViewById(R.id.cardNameButton);
+            nameButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition(); //what item has been clicked
+                    Toast.makeText(context,
+                            "You have clicked " + ((TextView) view.findViewById(R.id.cardNameButton)).getText().toString(),
+                            Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
+                    intent.putExtra ("ITEM_KEY", position);
+                    intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.cardNameButton)).getText().toString());
+                    view.getContext().startActivity(intent);
+                }
+            });
+
             context = itemView.getContext();
 
         }
 
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition(); //what item has been clicked
-            Toast.makeText(context,
-                    "You have clicked " + ((TextView) view.findViewById(R.id.cardNameTextView)).getText().toString(),
-                    Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
-            intent.putExtra ("ITEM_KEY", position);
-            intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.cardNameTextView)).getText().toString());
-            view.getContext().startActivity(intent);
-        }
     }
 }
