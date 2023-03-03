@@ -15,8 +15,7 @@ import java.util.ArrayList;
 
 public class CardDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView cardTitle, cardDefinition;
-    private MyHelper helper;
-    private MyDatabase db;
+    private MyHelper db;
     String queryResults;
     Spinner spinner;
 
@@ -27,8 +26,7 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
 
         ArrayList<String> mArrayList = new ArrayList<String>();
 
-        db = new MyDatabase(this);
-        helper = new MyHelper(this);
+        db = new MyHelper(this);
 
         //initialize text views
         cardTitle = findViewById(R.id.cardTitleDetailsTextView);
@@ -157,13 +155,13 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                     case 0:
                         //select upright
                         Toast.makeText(this, "to go upright", Toast.LENGTH_LONG).show();
-                        db.updateMiniCard(name, 1);
+                        db.updateMinorCard(name, 1);
 
                         break;
                     case 1:
                         //select reversed
                         Toast.makeText(this, "to go reversed", Toast.LENGTH_LONG).show();
-                        db.updateMiniCard(name,0);
+                        db.updateMinorCard(name,0);
                         break;
                 }
                 //status 0=upright, 1=reversed

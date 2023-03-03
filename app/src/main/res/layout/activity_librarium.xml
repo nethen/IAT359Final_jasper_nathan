@@ -9,36 +9,62 @@
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingLeft="16dip"
+        android:paddingTop="32dip"
+        android:paddingRight="16dip"
+        android:paddingBottom="32dip">
+
 
         <TextView
             android:id="@+id/librariumTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/librarium_title" />
+            android:text="@string/librarium_title"
+            android:textColor="#000000"
+            android:textSize="@dimen/text_lg" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dip"
+            android:text="@string/meet_the_cards"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/minorButton"
+            style="@style/LibrariumButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/minor_button_text" />
+            android:text="@string/minor_button_text"
+            app:backgroundTint="@null" />
 
         <Button
             android:id="@+id/majorButton"
+            style="@style/LibrariumButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/major_button_text" />
+            android:text="@string/major_button_text"
+            app:backgroundTint="@null" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dip"
+            android:text="@string/spreads_methods"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/techniquesButton"
+            style="@style/LibrariumButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/techniques_button_text" />
+            android:text="@string/techniques_button_text"
+            app:backgroundTint="@null" />
+
 
     </LinearLayout>
 

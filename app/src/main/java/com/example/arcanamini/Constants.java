@@ -1,8 +1,8 @@
 package com.example.arcanamini;
 
 public class Constants {
-    public static final String DATABASE_NAME = "librariumdatabase";
-    public static final String MINI_TABLE = "MINITABLE";
+    public static final String DATABASE_NAME = "librariumdatabase.db";
+    public static final String MINOR_TABLE = "MINORTABLE";
     public static final String MAJOR_TABLE = "MAJORTABLE";
     public static final String TECHNIQUES_TABLE = "TECHNIQUESTABLE";
     public static final String UID = "_id";

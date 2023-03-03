@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,9 +17,9 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
     private RecyclerView myRecycler;
     private CustomAdapter customAdapter;
     private LinearLayoutManager mLayoutManager;
-    private MyHelper helper;
-    private MyDatabase db;
+    private MyHelper db;
     int table;
+    TextView title;
 
     Button myButton;
     @Override
@@ -32,7 +33,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
         db = new MyDatabase(this);
         helper = new MyHelper(this);
 
-
+        title = findViewById(R.id.categoryTitleTextView);
 
         //retrieve extra
         Bundle extra_data = getIntent().getExtras();
@@ -41,8 +42,9 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
         if (extra_data!= null) {
             table = extra_data.getInt("TABLE");
             if(table == 0){
-                //mini table
-                Cursor cursor = db.getMiniData();
+                //minor table
+                title.setText("Minor arcana");
+                Cursor cursor = db.getMinorData();
 
                 int index1 = cursor.getColumnIndex(Constants.NAME);
                 int index2 = cursor.getColumnIndex(Constants.STATUS);
@@ -58,6 +60,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
 
             }else if(table == 1){
                 //major table
+                title.setText("Major arcana");
                 Cursor cursor = db.getMajorData();
 
                 int index1 = cursor.getColumnIndex(Constants.NAME);
@@ -74,7 +77,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
                 }
             }else if (table == 2){
                 Cursor cursor = db.getTechniquesData();
-
+                title.setText("Basic techniques");
                 int index1 = cursor.getColumnIndex(Constants.NAME);
                 int index2 = cursor.getColumnIndex(Constants.TECHNIQUE_TEXT);
 
@@ -104,31 +107,31 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
         myButton.setOnClickListener(this);
     }
 
+    public void fetchData()
+    {
+        // Before fetching the data
+        // directly from the database.
+        // first we have to creates an empty
+        // database on the system and
+        // rewrites it with your own database.
+        // Then we have to open the
+        // database to fetch the data from it.
+        db = new MyHelper(this);
+        try {
+            db.createDataBase();
+            db.openDataBase();
+            Toast.makeText(this, "copied database",Toast.LENGTH_LONG).show();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "failed to copy",Toast.LENGTH_LONG).show();
+        }
+    }
 
     @Override
     public void onClick(View v) {
         if(v==findViewById(R.id.addButton)){
-            if(table ==0){
-                long id = db.insertDataMini("name1", 0, "definition1", "definition2");
-                if (id < 0)
-                {
-                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
-                }
-            }else if(table==1){
-                long id = db.insertDataMajor("name1", 0, "definition1", "definition2");
-                if (id < 0)
-                {
-                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
-                }
-            }else if(table==2){
+            if(table ==2){
                 long id = db.insertDataTechniques("name1", "technique text");
                 if (id < 0)
                 {
