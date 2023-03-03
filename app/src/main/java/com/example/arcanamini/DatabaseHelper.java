@@ -10,6 +10,16 @@ import java.util.ArrayList;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static final String SQL_CREATE_ENTRIES =
+            "CREATE TABLE " + Constants.READING_TABLE + " (" +
+                    "_id" + " INTEGER PRIMARY KEY," +
+                    Constants.READING_OCCURED + " TEXT," +
+                    Constants.READING_TYPE+ " TEXT," +
+                    Constants.READING_CARDS + "TEXT)";
+
+    private static final String SQL_DELETE_ENTRIES =
+            "DROP TABLE IF EXISTS " + Constants.READING_TABLE;
     public static String DBNAME;
     public static String TABLE;
     public static String DBLOCATION;
