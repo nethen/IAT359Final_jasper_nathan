@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public ArrayList<String> list;
     Context context;
+
 
     public MyAdapter(ArrayList<String> list) {
         this.list = list;
@@ -28,11 +29,11 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(MyAdapter.MyViewHolder holder, int position) {
         String[] results = (list.get(position).toString()).split(",");
         holder.nameTextView.setText(results[0]);
-    }
 
+    }
 
 
     @Override
@@ -59,7 +60,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
 
         }
     }

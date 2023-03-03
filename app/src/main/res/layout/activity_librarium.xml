@@ -34,19 +34,19 @@
             android:textColor="@color/black" />
 
         <Button
-            android:id="@+id/minorButton"
-            style="@style/LibrariumButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/minor_button_text"
-            app:backgroundTint="@null" />
-
-        <Button
             android:id="@+id/majorButton"
             style="@style/LibrariumButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/major_button_text"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/minorButton"
+            style="@style/LibrariumButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/minor_button_text"
             app:backgroundTint="@null" />
 
         <TextView

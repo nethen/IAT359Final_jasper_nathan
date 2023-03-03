@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -14,10 +15,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static String DBLOCATION;
     private Context mContext;
     private SQLiteDatabase mDatabase;
-    public DatabaseHelper(Context context, String DBname){
+    public DatabaseHelper(Context context, String DBname, String table){
         super(context, DBNAME, null, 1);
         DBNAME = DBname+".db";
-        TABLE = "MAJORTABLE";
+        TABLE = table;
         DBLOCATION = "/data/data/" + context.getPackageName()+"/databases";
         mContext = context;
     }
@@ -34,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void openDatabase() {
         String DBPath = mContext.getDatabasePath(DBNAME).getPath();
+        Log.i("Open", DBPath);
         if(mDatabase != null && mDatabase.isOpen()){
             return;
         }
@@ -54,7 +56,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("select * from "+TABLE, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
-            s = new String(cursor.getString(2));
+            //Index 1 for card name
+            s = new String(cursor.getString(1));
             arraylistString.add(s);
             cursor.moveToNext();
         }
