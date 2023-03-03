@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyAdapter.MyViewHolder holder, int position) {
         String[] results = (list.get(position).toString()).split(",");
-        holder.nameTextView.setText(results[0]);
+        holder.nameButton.setText(results[0]);
 
     }
 
@@ -41,10 +42,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return list.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameTextView;
         public LinearLayout myLayout;
+        public Button nameButton;
 
         Context context;
 
@@ -52,9 +53,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
             myLayout = (LinearLayout) itemView;
 
-            nameTextView = (TextView) itemView.findViewById(R.id.cardNameTextView);
 
-            itemView.setOnClickListener(this);
+            nameButton = (Button) itemView.findViewById(R.id.cardNameButton);
+            nameButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition(); //what item has been clicked
+                    Toast.makeText(context,
+                            "You have clicked " + ((TextView) view.findViewById(R.id.cardNameButton)).getText().toString(),
+                            Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
+                    intent.putExtra ("ITEM_KEY", position);
+                    intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.cardNameButton)).getText().toString());
+                    view.getContext().startActivity(intent);
+                }
+            });
+
             context = itemView.getContext();
 
         }

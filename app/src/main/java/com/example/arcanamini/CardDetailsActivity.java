@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
     TextView cardTitle, cardDefinition;
     String queryResults;
     Spinner spinner;
+    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,9 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
         spinner.setAdapter(adapter);
         //listener for spinner
         spinner.setOnItemSelectedListener(this);
+
+        //image
+        image=(ImageView) findViewById(R.id.detailsImageView);
 
         // retrieve the bundle from the intent that started this activity
         Bundle extra_data = getIntent().getExtras();
