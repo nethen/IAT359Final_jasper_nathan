@@ -7,6 +7,7 @@
     tools:context=".LibrariumActivity">
 
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -14,6 +15,7 @@
         android:paddingTop="32dip"
         android:paddingRight="16dip"
         android:paddingBottom="32dip">
+
 
         <TextView
             android:id="@+id/librariumTitleTextView"
@@ -63,5 +65,22 @@
             android:text="@string/techniques_button_text"
             app:backgroundTint="@null" />
 
+
     </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        app:itemPaddingBottom="4sp"
+        app:itemPaddingTop="4sp"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintTop_toBottomOf="@id/linear"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_bottom_nav"
+        tools:layout_editor_absoluteY="184dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
