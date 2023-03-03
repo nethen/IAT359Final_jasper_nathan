@@ -13,6 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -37,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyAdapter.MyViewHolder holder, int position) {
         String[] results = (list.get(position).toString()).split(",");
-        holder.nameButton.setText(results[0]);
+        holder.title.setText(results[0]);
 
     }
 
@@ -50,8 +54,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public LinearLayout myLayout;
-        public Button nameButton;
+
         int table;
+
+        public MaterialCardView mcardview;
+        public TextView title;
+        public TextView subtitle;
+
+
         Context context;
 
         public MyViewHolder(View itemView, int table) {
@@ -60,19 +70,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             this.table = table;
 
 
-            nameButton = (Button) itemView.findViewById(R.id.cardNameButton);
-            nameButton.setOnClickListener(new View.OnClickListener() {
+            mcardview = itemView.findViewById(R.id.card_row);
+            title = itemView.findViewById(R.id.card_title);
+            subtitle = itemView.findViewById(R.id.card_subtitle);
+            mcardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition(); //what item has been clicked
                     Toast.makeText(context,
-                            "You have clicked " + ((TextView) view.findViewById(R.id.cardNameButton)).getText().toString(),
+                            "You have clicked " + ((TextView) view.findViewById(R.id.card_row)).getText().toString(),
                             Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
                     intent.putExtra ("ITEM_KEY", position);
+
                     intent.putExtra ("ITEM_TABLE", table);
-                    intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.cardNameButton)).getText().toString());
+
+                    intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.card_row)).getText().toString());
+
                     view.getContext().startActivity(intent);
                 }
             });
