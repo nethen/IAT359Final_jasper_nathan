@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_home">
+    app:startDestination="@id/activity_main">
 
 
     <fragment
-        android:id="@+id/fragment_home"
+        android:id="@+id/activity_main"
         android:name="com.example.arcanamini.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/fragment_librarium"
-        android:name="com.example.arcanamini.LibrariumFragment"
-        android:label="fragment_librarium"
-        tools:layout="@layout/fragment_librarium" />
     <fragment
         android:id="@+id/fragment_archive"
         android:name="com.example.arcanamini.ArchiveFragment"
         android:label="fragment_archive"
         tools:layout="@layout/fragment_archive" />
+    <activity
+        android:id="@+id/activity_librarium2"
+        android:name="com.example.arcanamini.LibrariumActivity2"
+        android:label="activity_librarium2"
+        tools:layout="@layout/activity_librarium2" />
 </navigation>

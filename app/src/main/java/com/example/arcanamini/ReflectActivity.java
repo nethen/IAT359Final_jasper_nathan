@@ -1,5 +1,13 @@
 package com.example.arcanamini;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
@@ -8,22 +16,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Intent;
-import android.os.Bundle;
-
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-
-import android.widget.Toast;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class ReflectActivity extends AppCompatActivity implements View.OnClickListener {
     AppBarConfiguration appBarConfiguration;
     BottomNavigationView bottomNavigationView;
+
     FragmentManager supportFragmentManager = getSupportFragmentManager();
     Button librariumButton;
 
@@ -46,9 +45,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-//    HomeFragment homeFragment = new HomeFragment();
-//    LibrariumFragment librariumFragment = new LibrariumFragment();
-//    ArchiveFragment archiveFragment = new ArchiveFragment();
+    HomeFragment homeFragment = new HomeFragment();
+    LibrariumFragment librariumFragment = new LibrariumFragment();
+    ArchiveFragment archiveFragment = new ArchiveFragment();
 
     @Override
     public void onClick(View v) {
@@ -56,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent (this, LibrariumActivity.class);
             this.startActivity(intent);
         }
+
     }
 
     @Override
