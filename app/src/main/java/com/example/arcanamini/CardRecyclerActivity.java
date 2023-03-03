@@ -34,6 +34,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
 
     public static ArrayList<String> list;
     int table;
+    String inpTable;
     TextView title;
 
     Button myButton;
@@ -47,7 +48,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
         //retrieve extra
         Bundle extra_data = getIntent().getExtras();
 
-        String inpTable = new String();
+        inpTable = new String();
 //        // check if the bundle was received (bundle not null)
         if (extra_data!= null) {
             table = extra_data.getInt("TABLE");
@@ -75,7 +76,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
 
         }
         list = databaseHelper.getItems();
-        myAdapter = new MyAdapter(list);
+        myAdapter = new MyAdapter(list, table);
         myAdapter.notifyDataSetChanged();
         myRecycler.setAdapter(myAdapter);
 

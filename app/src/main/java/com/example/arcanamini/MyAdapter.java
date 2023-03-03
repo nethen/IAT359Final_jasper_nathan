@@ -21,17 +21,20 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public ArrayList<String> list;
+    int table;
     Context context;
 
 
-    public MyAdapter(ArrayList<String> list) {
+    public MyAdapter(ArrayList<String> list, int table) {
+
         this.list = list;
+        this.table = table;
     }
 
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_row, parent, false);
-        MyViewHolder viewHolder = new MyViewHolder(v);
+        MyViewHolder viewHolder = new MyViewHolder(v, table);
         return viewHolder;
     }
 
@@ -51,15 +54,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public LinearLayout myLayout;
+
+        int table;
+
         public MaterialCardView mcardview;
         public TextView title;
         public TextView subtitle;
 
+
         Context context;
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView, int table) {
             super(itemView);
             myLayout = (LinearLayout) itemView;
+            this.table = table;
 
 
             mcardview = itemView.findViewById(R.id.card_row);
@@ -75,7 +83,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                     Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
                     intent.putExtra ("ITEM_KEY", position);
+
+                    intent.putExtra ("ITEM_TABLE", table);
+
                     intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.card_row)).getText().toString());
+
                     view.getContext().startActivity(intent);
                 }
             });
@@ -83,6 +95,5 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             context = itemView.getContext();
 
         }
-
     }
 }
