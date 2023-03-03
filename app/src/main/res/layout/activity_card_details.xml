@@ -34,11 +34,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0" />
+
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/detailsImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/button_shape" />
 
         <TextView
             android:id="@+id/cardDefinitionDetailsTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
