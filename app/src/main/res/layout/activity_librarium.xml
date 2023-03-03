@@ -9,63 +9,155 @@
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:paddingLeft="16dip"
         android:paddingTop="32dip"
         android:paddingRight="16dip"
-        android:paddingBottom="32dip">
-
+        android:paddingBottom="32dip"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/librariumTitleTextView"
+            android:id="@+id/librariumTitleText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/librarium_title"
             android:textColor="#000000"
             android:textSize="@dimen/text_lg" />
 
-        <TextView
-            android:id="@+id/textView"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="30dip"
-            android:text="@string/meet_the_cards"
-            android:textColor="@color/black" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/majorButton"
-            style="@style/LibrariumButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/major_button_text"
-            app:backgroundTint="@null" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <Button
-            android:id="@+id/minorButton"
-            style="@style/LibrariumButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/minor_button_text"
-            app:backgroundTint="@null" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:text="@string/meet_the_cards"
+                    android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="30dip"
-            android:text="@string/spreads_methods"
-            android:textColor="@color/black" />
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_arcanaMajor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="8sp"
+                    app:cardBackgroundColor="@color/black"
+                    app:cardCornerRadius="8sp"
+                    app:contentPadding="16sp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2sp">
 
-        <Button
-            android:id="@+id/techniquesButton"
-            style="@style/LibrariumButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/techniques_button_text"
-            app:backgroundTint="@null" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/major_button_text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_base" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Explore the pivotal"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_xs" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_arcanaMinor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8sp"
+                    app:cardBackgroundColor="@color/black"
+                    app:cardCornerRadius="8sp"
+                    app:contentPadding="16sp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2sp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/minor_button_text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_base" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/spread_intent"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_xs" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:text="@string/spreads_methods"
+                    android:textColor="@color/black" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_spreadsMethods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8sp"
+                    android:layout_marginBottom="32sp"
+                    app:cardBackgroundColor="@color/black"
+                    app:cardCornerRadius="8sp"
+                    app:contentPadding="16sp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2sp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/techniques_button_text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_base" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/spread_intent"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_xs" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

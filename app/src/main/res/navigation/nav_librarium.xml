@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_librarium"
+    app:startDestination="@id/librariumFragment">
+
+    <fragment
+        android:id="@+id/librariumFragment"
+        android:name="com.example.arcanamini.LibrariumFragment"
+        android:label="fragment_librarium"
+        tools:layout="@layout/fragment_librarium" >
+        <action
+            android:id="@+id/action_librariumFragment_to_fragment_cardrecycler"
+            app:destination="@id/fragment_cardrecycler"
+            app:enterAnim="@android:anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_cardrecycler"
+        android:name="com.example.arcanamini.fragment_cardrecycler"
+        android:label="fragment_cardrecycler"
+        tools:layout="@layout/fragment_cardrecycler" >
+        <action
+            android:id="@+id/action_fragment_cardrecycler_to_card_details"
+            app:destination="@id/fragment_carddetails"
+            app:enterAnim="@android:anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_carddetails"
+        android:name="com.example.arcanamini.fragment_carddetails"
+        android:label="fragment_carddetails"
+        tools:layout="@layout/fragment_card_details" />
+    <activity
+        android:id="@+id/activity_main"
+        android:name="com.example.arcanamini.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+</navigation>

@@ -1,6 +1,5 @@
 package com.example.arcanamini;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
@@ -9,15 +8,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.transition.Explode;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 
 import android.widget.Toast;
@@ -28,7 +24,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     AppBarConfiguration appBarConfiguration;
     BottomNavigationView bottomNavigationView;
-
     FragmentManager supportFragmentManager = getSupportFragmentManager();
     Button librariumButton;
 
@@ -43,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        appBarConfiguration = new AppBarConfiguration.Builder(R.id.fragment_home, R.id.fragment_librarium, R.id.fragment_archive).build();
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.activity_main, R.id.activity_librarium2, R.id.fragment_archive).build();
         Log.i("navHost", String.valueOf(navHostFragment));
 
         librariumButton = findViewById(R.id.goToLibrariumButton);
@@ -51,9 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    HomeFragment homeFragment = new HomeFragment();
-    LibrariumFragment librariumFragment = new LibrariumFragment();
-    ArchiveFragment archiveFragment = new ArchiveFragment();
+//    HomeFragment homeFragment = new HomeFragment();
+//    LibrariumFragment librariumFragment = new LibrariumFragment();
+//    ArchiveFragment archiveFragment = new ArchiveFragment();
 
     @Override
     public void onClick(View v) {
@@ -61,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent (this, LibrariumActivity.class);
             this.startActivity(intent);
         }
-
     }
 
     @Override
