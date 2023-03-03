@@ -19,6 +19,7 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
     String queryResults;
     Spinner spinner;
     ImageView image;
+    DetailsLoader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,77 +51,81 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
         // check if the bundle was received (bundle not null)
         if (extra_data!= null) {
             String itemName = extra_data.getString("ITEM_NAME");
+            int table = extra_data.getInt("ITEM_TABLE");
+            loader = new DetailsLoader(this, table);
 
-//            if(db.getSelectedDataMinor(itemName).contains(itemName) ){
-//                queryResults = db.getSelectedDataMinor(itemName);
-//                Toast.makeText(this, queryResults,
-//                        Toast.LENGTH_SHORT).show();
-//                String[] results = queryResults.split("_");
-//                String name = results[0];
-//                int status = Integer.parseInt(results[1]);
-//                String defUpright = "";
-//                String defReversed = "";
-//
-//                String[] defUprightSplit = results[2].split("~");
-//                for(int i = 0; i<defUprightSplit.length; i++){
-//                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
-//                }
-//                String[] defReversedSplit = results[3].split("~");
-//                for(int i = 0; i<defReversedSplit.length; i++){
-//                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
-//                }
-//                cardTitle.setText(name);
-//
-//                //status 0=upright, 1=reversed
-//                if(status == 0){
-//                    cardDefinition.setText(defUpright);
-//                }else if (status == 1){
-//                    cardDefinition.setText(defReversed);
-//                }
-//            }
 
-//            if (db.getSelectedDataMajor(itemName).contains(itemName) ){
-//                queryResults = db.getSelectedDataMajor(itemName);
-//                Toast.makeText(this, queryResults,
-//                        Toast.LENGTH_SHORT).show();
-//                String[] results = queryResults.split("_");
-//                String name = results[0];
-//                int status = Integer.parseInt(results[1]);
-//                String defUpright = "";
-//                String defReversed = "";
-//
-//                String[] defUprightSplit = results[2].split("~");
-//                for(int i = 0; i<defUprightSplit.length; i++){
-//                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
-//                }
-//                String[] defReversedSplit = results[3].split("~");
-//                for(int i = 0; i<defReversedSplit.length; i++){
-//                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
-//                }
-//                cardTitle.setText(name);
-//
-//                //status 0=upright, 1=reversed
-//                if(status == 0){
-//                    cardDefinition.setText(defUpright);
-//                }else if (status == 1){
-//                    cardDefinition.setText(defReversed);
-//                }
-//            }
 
-//            if (db.getSelectedDataTechniques(itemName).contains(itemName) ){
-//                queryResults = db.getSelectedDataTechniques(itemName);
-//                Toast.makeText(this, queryResults,
-//                        Toast.LENGTH_SHORT).show();
-//                String[] results = queryResults.split("_");
-//                String name = results[0];
-//                String text = results[1];
-//                cardTitle.setText(name);
-//
-//                cardDefinition.setText(text);
-//
-//                //no dropdown menu for this table
-//                spinner.setVisibility(spinner.GONE);
-//            }
+            if(loader.getSelectedDataMinor(itemName).contains(itemName) ){
+                queryResults = loader.getSelectedDataMinor(itemName);
+                Toast.makeText(this, queryResults,
+                        Toast.LENGTH_SHORT).show();
+                String[] results = queryResults.split("_");
+                String name = results[0];
+                int status = Integer.parseInt(results[1]);
+                String defUpright = "";
+                String defReversed = "";
+
+                String[] defUprightSplit = results[2].split("~");
+                for(int i = 0; i<defUprightSplit.length; i++){
+                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
+                }
+                String[] defReversedSplit = results[3].split("~");
+                for(int i = 0; i<defReversedSplit.length; i++){
+                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
+                }
+                cardTitle.setText(name);
+
+                //status 0=upright, 1=reversed
+                if(status == 0){
+                    cardDefinition.setText(defUpright);
+                }else if (status == 1){
+                    cardDefinition.setText(defReversed);
+                }
+            }
+
+            if (loader.getSelectedDataMajor(itemName).contains(itemName) ){
+                queryResults = loader.getSelectedDataMajor(itemName);
+                Toast.makeText(this, queryResults,
+                        Toast.LENGTH_SHORT).show();
+                String[] results = queryResults.split("_");
+                String name = results[0];
+                int status = Integer.parseInt(results[1]);
+                String defUpright = "";
+                String defReversed = "";
+
+                String[] defUprightSplit = results[2].split("~");
+                for(int i = 0; i<defUprightSplit.length; i++){
+                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
+                }
+                String[] defReversedSplit = results[3].split("~");
+                for(int i = 0; i<defReversedSplit.length; i++){
+                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
+                }
+                cardTitle.setText(name);
+
+                //status 0=upright, 1=reversed
+                if(status == 0){
+                    cardDefinition.setText(defUpright);
+                }else if (status == 1){
+                    cardDefinition.setText(defReversed);
+                }
+            }
+
+            if (loader.getSelectedDataTechniques(itemName).contains(itemName) ){
+                queryResults = loader.getSelectedDataTechniques(itemName);
+                Toast.makeText(this, queryResults,
+                        Toast.LENGTH_SHORT).show();
+                String[] results = queryResults.split("_");
+                String name = results[0];
+                String text = results[1];
+                cardTitle.setText(name);
+
+                cardDefinition.setText(text);
+
+                //no dropdown menu for this table
+                spinner.setVisibility(spinner.GONE);
+            }
 
 
         } else{
@@ -133,85 +138,85 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Bundle extra_data = getIntent().getExtras();
-//        if (extra_data!= null) {
-//            String itemName = extra_data.getString("ITEM_NAME");
-//            //minor
-//            if(db.getSelectedDataMinor(itemName).contains(itemName) ) {
-//                queryResults = db.getSelectedDataMinor(itemName);
-//                String[] results = queryResults.split("_");
-//                String name = results[0];
-//                int status = Integer.parseInt(results[1]);
-//                String defUpright = "";
-//                String defReversed = "";
-//
-//                String[] defUprightSplit = results[2].split("~");
-//                for(int i = 0; i<defUprightSplit.length; i++){
-//                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
-//                }
-//                String[] defReversedSplit = results[3].split("~");
-//                for(int i = 0; i<defReversedSplit.length; i++){
-//                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
-//                }
-//
-//                switch(position){
-//                    case 0:
-//                        //select upright
-//                        Toast.makeText(this, "to go upright", Toast.LENGTH_LONG).show();
-//                        db.updateMinorCard(name, 1);
-//
-//                        break;
-//                    case 1:
-//                        //select reversed
-//                        Toast.makeText(this, "to go reversed", Toast.LENGTH_LONG).show();
-//                        db.updateMinorCard(name,0);
-//                        break;
-//                }
-//                //status 0=upright, 1=reversed
-//                if(status == 0){
-//                    cardDefinition.setText(defUpright);
-//                }else if (status == 1){
-//                    cardDefinition.setText(defReversed);
-//                }
-//            }
-//            //major
-//            if(db.getSelectedDataMajor(itemName).contains(itemName) ){
-//                queryResults = db.getSelectedDataMajor(itemName);
-//                String[] results = queryResults.split("_");
-//                String name = results[0];
-//                int status = Integer.parseInt(results[1]);
-//                String defUpright = "";
-//                String defReversed = "";
-//
-//                String[] defUprightSplit = results[2].split("~");
-//                for(int i = 0; i<defUprightSplit.length; i++){
-//                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
-//                }
-//                String[] defReversedSplit = results[3].split("~");
-//                for(int i = 0; i<defReversedSplit.length; i++){
-//                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
-//                }
-//
-//                switch(position){
-//                    case 0:
-//                        //select upright
-//                        Toast.makeText(this, "to go upright", Toast.LENGTH_LONG).show();
-//                        db.updateMajorCard(name, 1);
-//
-//                        break;
-//                    case 1:
-//                        //select reversed
-//                        Toast.makeText(this, "to go reversed", Toast.LENGTH_LONG).show();
-//                        db.updateMajorCard(name,0);
-//                        break;
-//                }
-//                //status 0=upright, 1=reversed
-//                if(status == 0){
-//                    cardDefinition.setText(defUpright);
-//                }else if (status == 1){
-//                    cardDefinition.setText(defReversed);
-//                }
-//            }
-//        }
+        if (extra_data!= null) {
+            String itemName = extra_data.getString("ITEM_NAME");
+            //minor
+            if(loader.getSelectedDataMinor(itemName).contains(itemName) ) {
+                queryResults = loader.getSelectedDataMinor(itemName);
+                String[] results = queryResults.split("_");
+                String name = results[0];
+                int status = Integer.parseInt(results[1]);
+                String defUpright = "";
+                String defReversed = "";
+
+                String[] defUprightSplit = results[2].split("~");
+                for(int i = 0; i<defUprightSplit.length; i++){
+                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
+                }
+                String[] defReversedSplit = results[3].split("~");
+                for(int i = 0; i<defReversedSplit.length; i++){
+                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
+                }
+
+                switch(position){
+                    case 0:
+                        //select upright
+                        Toast.makeText(this, "to go upright", Toast.LENGTH_LONG).show();
+                        loader.updateMinorCard(name, 1);
+
+                        break;
+                    case 1:
+                        //select reversed
+                        Toast.makeText(this, "to go reversed", Toast.LENGTH_LONG).show();
+                        loader.updateMinorCard(name,0);
+                        break;
+                }
+                //status 0=upright, 1=reversed
+                if(status == 0){
+                    cardDefinition.setText(defUpright);
+                }else if (status == 1){
+                    cardDefinition.setText(defReversed);
+                }
+            }
+            //major
+            if(loader.getSelectedDataMajor(itemName).contains(itemName) ){
+                queryResults = loader.getSelectedDataMajor(itemName);
+                String[] results = queryResults.split("_");
+                String name = results[0];
+                int status = Integer.parseInt(results[1]);
+                String defUpright = "";
+                String defReversed = "";
+
+                String[] defUprightSplit = results[2].split("~");
+                for(int i = 0; i<defUprightSplit.length; i++){
+                    defUpright = defUpright + defUprightSplit[i] + "\n" + "\n";
+                }
+                String[] defReversedSplit = results[3].split("~");
+                for(int i = 0; i<defReversedSplit.length; i++){
+                    defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
+                }
+
+                switch(position){
+                    case 0:
+                        //select upright
+                        Toast.makeText(this, "to go upright", Toast.LENGTH_LONG).show();
+                        loader.updateMajorCard(name, 1);
+
+                        break;
+                    case 1:
+                        //select reversed
+                        Toast.makeText(this, "to go reversed", Toast.LENGTH_LONG).show();
+                        loader.updateMajorCard(name,0);
+                        break;
+                }
+                //status 0=upright, 1=reversed
+                if(status == 0){
+                    cardDefinition.setText(defUpright);
+                }else if (status == 1){
+                    cardDefinition.setText(defReversed);
+                }
+            }
+        }
     }
 
     @Override

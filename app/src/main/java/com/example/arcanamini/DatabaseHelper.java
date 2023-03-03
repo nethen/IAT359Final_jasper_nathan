@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private Context mContext;
     private SQLiteDatabase mDatabase;
     public DatabaseHelper(Context context, String DBname, String table){
-        super(context, DBNAME, null, 1);
+        super(context, DBNAME, null, 2);
         DBNAME = DBname+".db";
         TABLE = table;
         DBLOCATION = "/data/data/" + context.getPackageName()+"/databases";
@@ -59,6 +59,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public String getTable(){
+        return TABLE;
+    }
     public ArrayList<String> getItems() {
         String s = null;
         ArrayList<String> arraylistString = new ArrayList<String>();
@@ -75,4 +78,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         closeDatabase();
         return arraylistString;
     }
+
+
 }
