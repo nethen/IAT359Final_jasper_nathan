@@ -45,6 +45,8 @@
                 android:id="@+id/detailsImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxHeight="20dip"
                 app:srcCompat="@drawable/button_shape" />
 
             <TextView

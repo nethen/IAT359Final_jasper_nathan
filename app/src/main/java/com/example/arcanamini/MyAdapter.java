@@ -67,7 +67,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public MyViewHolder(View itemView, int table) {
             super(itemView);
 
-            myLayout = itemView;
+            //myLayout = itemView;
 
             mcardview = (MaterialCardView) itemView;
 
