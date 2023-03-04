@@ -15,12 +15,6 @@
         android:paddingRight="16dip"
         android:paddingBottom="32dip">
 
-        <Button
-            android:id="@+id/addButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-
         <TextView
             android:id="@+id/categoryTitleTextView"
             android:layout_width="match_parent"

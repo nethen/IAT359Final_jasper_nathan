@@ -19,27 +19,20 @@
             android:paddingRight="16dip"
             android:paddingBottom="32dip">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/cardTitleDetailsTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="0"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_lg" />
 
-                <TextView
-                    android:id="@+id/cardTitleDetailsTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="TextView"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_lg" />
-
-                <Spinner
-                    android:id="@+id/card_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0" />
-
-            </LinearLayout>
+            <Spinner
+                android:id="@+id/card_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
 
             <ImageView
                 android:id="@+id/detailsImageView"
