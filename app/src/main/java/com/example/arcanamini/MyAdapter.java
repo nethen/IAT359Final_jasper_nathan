@@ -66,7 +66,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public MyViewHolder(View itemView, int table) {
             super(itemView);
-            myLayout = (LinearLayout) itemView;
+//            myLayout = itemView;
             this.table = table;
 
 
@@ -78,7 +78,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 public void onClick(View view) {
                     int position = getAdapterPosition(); //what item has been clicked
                     Toast.makeText(context,
-                            "You have clicked " + ((TextView) view.findViewById(R.id.card_row)).getText().toString(),
+                            "You have clicked " + ((TextView) view.findViewById(R.id.card_title)).getText().toString(),
                             Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
@@ -86,7 +86,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                     intent.putExtra ("ITEM_TABLE", table);
 
-                    intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.card_row)).getText().toString());
+                    intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.card_title)).getText().toString());
 
                     view.getContext().startActivity(intent);
                 }
