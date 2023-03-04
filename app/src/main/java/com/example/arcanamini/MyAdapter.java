@@ -53,7 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public LinearLayout myLayout;
+        //public LinearLayout myLayout;
 
         int table;
 
@@ -66,11 +66,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public MyViewHolder(View itemView, int table) {
             super(itemView);
-            myLayout = (LinearLayout) itemView;
+            mcardview = (MaterialCardView) itemView;
             this.table = table;
 
 
-            mcardview = itemView.findViewById(R.id.card_row);
+            //mcardview = itemView.findViewById(R.id.card_row);
             title = itemView.findViewById(R.id.card_title);
             subtitle = itemView.findViewById(R.id.card_subtitle);
             mcardview.setOnClickListener(new View.OnClickListener() {

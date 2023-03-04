@@ -2,7 +2,9 @@ package com.example.arcanamini;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,12 +56,9 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
             int table = extra_data.getInt("ITEM_TABLE");
             loader = new DetailsLoader(this, table);
 
-
-
             if(loader.getSelectedDataMinor(itemName).contains(itemName) ){
                 queryResults = loader.getSelectedDataMinor(itemName);
-                Toast.makeText(this, queryResults,
-                        Toast.LENGTH_SHORT).show();
+
                 String[] results = queryResults.split("_");
                 String name = results[0];
                 int status = Integer.parseInt(results[1]);
@@ -75,19 +74,24 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                     defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
                 }
                 cardTitle.setText(name);
+                String imageName = new String (name.toLowerCase().replace(" ",""));
+                Resources res = getResources();
+                int resID = res.getIdentifier(imageName , "drawable", getPackageName());
+                Drawable drawable = res.getDrawable(resID );
 
-                //status 0=upright, 1=reversed
+                image.setImageDrawable(drawable);
+                //status 1=upright, 0=reversed
                 if(status == 0){
                     cardDefinition.setText(defUpright);
+                    image.setRotation(0);
                 }else if (status == 1){
                     cardDefinition.setText(defReversed);
+                    image.setRotation(180);
                 }
             }
 
             if (loader.getSelectedDataMajor(itemName).contains(itemName) ){
                 queryResults = loader.getSelectedDataMajor(itemName);
-                Toast.makeText(this, queryResults,
-                        Toast.LENGTH_SHORT).show();
                 String[] results = queryResults.split("_");
                 String name = results[0];
                 int status = Integer.parseInt(results[1]);
@@ -103,19 +107,25 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                     defReversed = defReversed + defReversedSplit[i] + "\n" + "\n";
                 }
                 cardTitle.setText(name);
+                String imageName = new String (name.toLowerCase().replace(" ",""));
+                Resources res = getResources();
+                int resID = res.getIdentifier(imageName, "drawable", getPackageName());
 
-                //status 0=upright, 1=reversed
+                Drawable drawable = res.getDrawable(resID );
+
+                image.setImageDrawable(drawable);
+                //status 1=upright, 0=reversed
                 if(status == 0){
                     cardDefinition.setText(defUpright);
+                    image.setRotation(0);
                 }else if (status == 1){
                     cardDefinition.setText(defReversed);
+                    image.setRotation(180);
                 }
             }
 
             if (loader.getSelectedDataTechniques(itemName).contains(itemName) ){
                 queryResults = loader.getSelectedDataTechniques(itemName);
-                Toast.makeText(this, queryResults,
-                        Toast.LENGTH_SHORT).show();
                 String[] results = queryResults.split("_");
                 String name = results[0];
                 String text = results[1];
@@ -161,21 +171,22 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                 switch(position){
                     case 0:
                         //select upright
-                        Toast.makeText(this, "to go upright", Toast.LENGTH_LONG).show();
                         loader.updateMinorCard(name, 1);
 
                         break;
                     case 1:
                         //select reversed
-                        Toast.makeText(this, "to go reversed", Toast.LENGTH_LONG).show();
                         loader.updateMinorCard(name,0);
                         break;
                 }
-                //status 0=upright, 1=reversed
+
+                //status 1=upright, 0=reversed
                 if(status == 0){
                     cardDefinition.setText(defUpright);
+                    image.setRotation(0);
                 }else if (status == 1){
                     cardDefinition.setText(defReversed);
+                    image.setRotation(180);
                 }
             }
             //major
@@ -199,21 +210,23 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                 switch(position){
                     case 0:
                         //select upright
-                        Toast.makeText(this, "to go upright", Toast.LENGTH_LONG).show();
+
                         loader.updateMajorCard(name, 1);
 
                         break;
                     case 1:
                         //select reversed
-                        Toast.makeText(this, "to go reversed", Toast.LENGTH_LONG).show();
+
                         loader.updateMajorCard(name,0);
                         break;
                 }
-                //status 0=upright, 1=reversed
+                //status 1=upright, 0=reversed
                 if(status == 0){
                     cardDefinition.setText(defUpright);
+                    image.setRotation(0);
                 }else if (status == 1){
                     cardDefinition.setText(defReversed);
+                    image.setRotation(180);
                 }
             }
         }

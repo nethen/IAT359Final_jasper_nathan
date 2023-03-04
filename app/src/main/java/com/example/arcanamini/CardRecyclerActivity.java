@@ -47,6 +47,7 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
 
         //retrieve extra
         Bundle extra_data = getIntent().getExtras();
+        title = findViewById(R.id.categoryTitleTextView);
 
         inpTable = new String();
 //        // check if the bundle was received (bundle not null)
@@ -55,12 +56,15 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
             switch (table){
                 case 0:
                     inpTable = Constants.MAJOR_TABLE;
+                    title.setText("Major arcana");
                     break;
                 case 1:
                     inpTable = Constants.MINOR_TABLE;
+                    title.setText("Minor arcana");
                     break;
                 case 2:
                     inpTable = Constants.TECHNIQUES_TABLE;
+                    title.setText("Techniques");
                     break;
             }
         }
