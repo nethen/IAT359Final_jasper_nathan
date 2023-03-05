@@ -1,5 +1,6 @@
 package com.example.arcanamini;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -113,6 +114,13 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         return arraylistString;
     }
 
-
+    public void updateContent(String name, String newContent){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Constants.REFLECTION_CONTENT, newContent);
+        String selection = Constants.UID + " LIKE ?";
+        String[] selection_arg = {name};
+        db.update(Constants.REFLECTION_TABLE, values,selection , selection_arg);
+    }
 
 }
