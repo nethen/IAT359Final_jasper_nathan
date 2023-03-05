@@ -25,23 +25,13 @@ public class MainRecyclerActivity extends AppCompatActivity {
         ArrayList<String> mArrayList = new ArrayList<String>();
 
         ReadDatabaseHelper databaseHelper = new ReadDatabaseHelper(this);
-
-        Cursor cursor = databaseHelper.getData();
-
-        int index1 = cursor.getColumnIndex(Constants.READING_OCCURED);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            String time = cursor.getString(index1);
-            String s = time;
-            mArrayList.add(s);
-            cursor.moveToNext();
-        }
-
-        readAdapter = new ReadAdapter(mArrayList);
-        //readAdapter.notifyDataSetChanged();
+        databaseHelper.getReadableDatabase();
+        list = databaseHelper.getItems();
+        readAdapter = new ReadAdapter(list);
+        readAdapter.notifyDataSetChanged();
         myRecycler.setAdapter(readAdapter);
         mLayoutManager = new LinearLayoutManager(this);
         myRecycler.setLayoutManager(mLayoutManager);
+
     }
 }

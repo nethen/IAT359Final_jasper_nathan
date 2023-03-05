@@ -16,12 +16,12 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
-    private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + Constants.READING_TABLE + " (" +
-                    "_id" + " INTEGER PRIMARY KEY," +
-//                    Constants.READING_OCCURED + " TEXT," +
-//                    Constants.READING_TYPE+ " TEXT," +
-                    Constants.READING_OCCURED + "TEXT)";
+//    private static final String SQL_CREATE_ENTRIES =
+//            "CREATE TABLE " + Constants.READING_TABLE + " (" +
+//                    "_id" + " INTEGER PRIMARY KEY," +
+////                    Constants.READING_OCCURED + " TEXT," +
+////                    Constants.READING_TYPE+ " TEXT," +
+//                    Constants.READING_OCCURED + "TEXT)";
 
     private static final String CREATE_TABLE =
             "CREATE TABLE "+
@@ -32,12 +32,8 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + Constants.READING_TABLE;
 
-    public static String DBNAME = "readings.db";
-    public static final int DBVERSION = 2;
-
-
     public ReadDatabaseHelper(Context context){
-        super(context, DBNAME, null, DBVERSION);
+        super(context, Constants.DBREADNAME, null, Constants.DATABASE_VERSION);
         this.mContext = context;
     }
 
@@ -64,12 +60,36 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public Cursor getData()
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {Constants.UID, Constants.READING_OCCURED};
-        Cursor cursor = db.query(Constants.READING_TABLE, columns, null, null, null, null, null);
-        return cursor;
+    public void openDatabase() {
+        String DBPath = mContext.getDatabasePath(Constants.DBREADNAME).getPath();
+        Log.i("Open", DBPath);
+        if(mDatabase != null && mDatabase.isOpen()){
+            return;
+        }
+        mDatabase = SQLiteDatabase.openDatabase(DBPath, null, SQLiteDatabase.OPEN_READWRITE);
+
+    }
+
+    public void closeDatabase(){
+        if (mDatabase != null){
+            mDatabase.close();
+        }
+    }
+    public ArrayList<String> getItems() {
+        String s = null;
+        ArrayList<String> arraylistString = new ArrayList<String>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("select * from "+Constants.READING_TABLE, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            //Index 1 for card name
+            s = new String(cursor.getString(1));
+            arraylistString.add(s);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return arraylistString;
     }
 
 

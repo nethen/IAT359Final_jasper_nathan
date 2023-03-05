@@ -13,6 +13,7 @@ public class Constants {
     public static final String TECHNIQUE_TEXT = "TechniqueText";
     public static final int DATABASE_VERSION = 2;
 
+    public static final String DBREADNAME = "readings.db";
     public static final String READING_TABLE = "READINGS";
     public static final String READING_OCCURED = "READOCCURED";
     public static final String READING_TYPE = "READTYPE";
