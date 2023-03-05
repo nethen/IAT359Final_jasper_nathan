@@ -81,7 +81,7 @@ public class ReadAdapter extends RecyclerView.Adapter<ReadAdapter.MyViewHolder> 
 //                            "You have clicked " + ((TextView) view.findViewById(R.id.card_title)).getText().toString(),
 //                            Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
+                    Intent intent = new Intent (view.getContext(), ReadingDetailsActivity.class);
                     intent.putExtra ("ITEM_KEY", position);
 
                     //intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.card_title)).getText().toString());

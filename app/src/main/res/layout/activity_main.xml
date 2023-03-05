@@ -43,11 +43,6 @@
             android:layout_height="wrap_content"
             android:text="go to Librarium" />
 
-        <Button
-            android:id="@+id/goToMainButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="go to Main" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

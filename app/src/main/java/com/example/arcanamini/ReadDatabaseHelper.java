@@ -25,15 +25,16 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE =
             "CREATE TABLE "+
-                    Constants.READING_TABLE + " (" +
+                    Constants.REFLECTION_TABLE + " (" +
                     Constants.UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    Constants.READING_OCCURED + " TEXT);" ;
+                    Constants.REFLECTION_OCCURED + " TEXT," +
+                    Constants.REFLECTION_CONTENT + " TEXT);" ;
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + Constants.READING_TABLE;
+            "DROP TABLE IF EXISTS " + Constants.REFLECTION_TABLE;
 
     public ReadDatabaseHelper(Context context){
-        super(context, Constants.DBREADNAME, null, Constants.DATABASE_VERSION);
+        super(context, Constants.DBREFFLECTION_NAME, null, Constants.DATABASE_VERSION);
         this.mContext = context;
     }
 
@@ -61,7 +62,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void openDatabase() {
-        String DBPath = mContext.getDatabasePath(Constants.DBREADNAME).getPath();
+        String DBPath = mContext.getDatabasePath(Constants.DBREFFLECTION_NAME).getPath();
         Log.i("Open", DBPath);
         if(mDatabase != null && mDatabase.isOpen()){
             return;
@@ -79,10 +80,10 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         String s = null;
         ArrayList<String> arraylistString = new ArrayList<String>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("select * from "+Constants.READING_TABLE, null);
+        Cursor cursor = mDatabase.rawQuery("select * from "+Constants.REFLECTION_TABLE, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
-            //Index 1 for card name
+            //Index 1 for reflection time
             s = new String(cursor.getString(1));
             arraylistString.add(s);
             cursor.moveToNext();
@@ -91,6 +92,27 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         closeDatabase();
         return arraylistString;
     }
+
+    public ArrayList<String> getItemsWithContent() {
+        String time = null;
+        String content = null;
+        ArrayList<String> arraylistString = new ArrayList<String>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("select * from "+Constants.REFLECTION_TABLE, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            //Index 1 for reflection time
+            time = new String(cursor.getString(1));
+            content = new String(cursor.getString(2));
+            //index 2 for reflection content
+            arraylistString.add(time + "," + content);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return arraylistString;
+    }
+
 
 
 }

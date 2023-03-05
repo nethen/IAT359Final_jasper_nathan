@@ -21,8 +21,10 @@
     <string-array name="card_status_array">
         <item>upright</item>
         <item>reversed</item>
-
     </string-array>
+
+    <string name="notesDetailsText">Notes</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_librarium2">LibrariumActivity2</string>
