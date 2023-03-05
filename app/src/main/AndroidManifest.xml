@@ -12,16 +12,13 @@
         android:theme="@style/Theme.ArcanaMini"
         tools:targetApi="31">
         <activity
-            android:name=".ReadingDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainRecyclerActivity"
+            android:name=".ReflectionDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".LibrariumActivity2"
             android:exported="false" />
         <activity
-            android:name=".CustomAdapter"
+            android:name=".ReadAdapter"
             android:exported="false" />
         <activity
             android:name=".LibrariumActivity"

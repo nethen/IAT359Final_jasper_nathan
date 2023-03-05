@@ -8,7 +8,7 @@
     android:paddingTop="32dip"
     android:paddingRight="16dip"
     android:paddingBottom="32dip"
-    tools:context=".ReadingDetailsActivity">
+    tools:context=".ReflectionDetailsActivity">
 
     <ScrollView
         android:layout_width="match_parent"

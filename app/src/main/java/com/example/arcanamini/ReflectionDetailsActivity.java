@@ -8,14 +8,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ReadingDetailsActivity extends AppCompatActivity {
+public class ReflectionDetailsActivity extends AppCompatActivity {
     TextView timeTextView, contentTextView;
     public static ArrayList<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reading_details);
+        setContentView(R.layout.activity_reflection_details);
 
         timeTextView = findViewById(R.id.reflectionDetailsTimeTextView);
         contentTextView = findViewById(R.id.reflectionDetailsContentTextView);

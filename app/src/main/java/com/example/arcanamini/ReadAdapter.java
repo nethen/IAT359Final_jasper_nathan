@@ -5,17 +5,11 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -81,7 +75,7 @@ public class ReadAdapter extends RecyclerView.Adapter<ReadAdapter.MyViewHolder> 
 //                            "You have clicked " + ((TextView) view.findViewById(R.id.card_title)).getText().toString(),
 //                            Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent (view.getContext(), ReadingDetailsActivity.class);
+                    Intent intent = new Intent (view.getContext(), ReflectionDetailsActivity.class);
                     intent.putExtra ("ITEM_KEY", position);
 
                     //intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.card_title)).getText().toString());
