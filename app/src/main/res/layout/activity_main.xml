@@ -31,14 +31,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-    <Button
-        android:id="@+id/goToLibrariumButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="go to Librarium"
-        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/goToLibrariumButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="go to Librarium" />
+
+        <Button
+            android:id="@+id/goToMainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="go to Main" />
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"

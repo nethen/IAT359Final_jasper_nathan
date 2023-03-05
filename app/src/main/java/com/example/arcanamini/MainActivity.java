@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     BottomNavigationView bottomNavigationView;
     FragmentManager supportFragmentManager = getSupportFragmentManager();
     Button librariumButton;
-
+    Button mainButton;
 //    final View androidRobotView = findViewById(R.id.bottom_nav);
 
     @Override
@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         librariumButton = findViewById(R.id.goToLibrariumButton);
         librariumButton.setOnClickListener(this);
 
+        mainButton = findViewById(R.id.goToMainButton);
+        mainButton.setOnClickListener(this);
+
     }
 
 //    HomeFragment homeFragment = new HomeFragment();
@@ -54,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == findViewById(R.id.goToLibrariumButton)){
             Intent intent = new Intent (this, LibrariumActivity.class);
+            this.startActivity(intent);
+        }
+        if(v== findViewById(R.id.goToMainButton)){
+            Intent intent = new Intent(this, MainRecyclerActivity.class);
             this.startActivity(intent);
         }
     }

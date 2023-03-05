@@ -3,6 +3,7 @@ package com.example.arcanamini;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -34,6 +36,7 @@ public class HomeFragment extends Fragment {
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -74,6 +77,9 @@ public class HomeFragment extends Fragment {
 
         dateTimeDisplay = view.findViewById(R.id.text_date);
         dateTimeDisplay.setText(date);
+
+
+
         return view;
     }
 }

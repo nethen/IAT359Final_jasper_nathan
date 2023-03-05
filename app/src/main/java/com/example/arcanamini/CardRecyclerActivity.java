@@ -31,7 +31,6 @@ public class CardRecyclerActivity extends AppCompatActivity {
 
     private SQLiteDatabase mDb;
 
-
     public static ArrayList<String> list;
     int table;
     String inpTable;
