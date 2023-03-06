@@ -9,6 +9,10 @@
     <string name="spread_intent">Unknown</string>
     <string name="spread_time">(hh:mmxx)</string>
 
+    <string name="empty_header">The future is a little blurry</string>
+    <string name="empty_content"><u>Start your first reading of the day</u></string>
+    <string name="empty_desc">Illustration of a confused crystal ball character</string>
+
     <string name="librarium_title">The Librarium</string>
     <string name="minor_button_text">Minor arcana/suits</string>
     <string name="major_button_text">Major arcana</string>
