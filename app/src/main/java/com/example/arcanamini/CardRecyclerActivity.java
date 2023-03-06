@@ -23,7 +23,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardRecyclerActivity extends AppCompatActivity implements View.OnClickListener {
+public class CardRecyclerActivity extends AppCompatActivity {
     private RecyclerView myRecycler;
     private LinearLayoutManager mLayoutManager;
 
@@ -31,13 +31,11 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
 
     private SQLiteDatabase mDb;
 
-
     public static ArrayList<String> list;
     int table;
     String inpTable;
     TextView title;
 
-    Button myButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,8 +116,6 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
         mLayoutManager = new LinearLayoutManager(this);
         myRecycler.setLayoutManager(mLayoutManager);
 
-        myButton=findViewById(R.id.addButton);
-        myButton.setOnClickListener(this);
     }
 
     public boolean copyDatabase(Context context){
@@ -145,21 +141,4 @@ public class CardRecyclerActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    @Override
-    public void onClick(View v) {
-//        if(v==findViewById(R.id.addButton)){
-//            if(table ==2){
-//                long id = db.insertDataTechniques("name1", "technique text");
-//                if (id < 0)
-//                {
-//                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
-//                }
-//                else
-//                {
-//                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//        }
-    }
 }

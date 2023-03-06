@@ -135,6 +135,14 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
 
                 //no dropdown menu for this table
                 spinner.setVisibility(spinner.GONE);
+
+                String imageName = new String (name.toLowerCase().replace(" ",""));
+                Resources res = getResources();
+                int resID = res.getIdentifier(imageName, "drawable", getPackageName());
+
+                Drawable drawable = res.getDrawable(resID );
+
+                image.setImageDrawable(drawable);
             }
 
 
