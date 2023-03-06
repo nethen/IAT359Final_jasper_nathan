@@ -1,5 +1,6 @@
 package com.example.arcanamini;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,7 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,7 +25,7 @@ import java.util.Calendar;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,6 +49,8 @@ public class HomeFragment extends Fragment {
     public static ArrayList<String> list;
     private LinearLayoutManager mLayoutManager;
 
+    //new reflection
+    FloatingActionButton newRefButton;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -73,8 +80,6 @@ public class HomeFragment extends Fragment {
         dateFormat = new SimpleDateFormat("MMM dd, yyyy");
 
 
-
-
     }
 
     @Override
@@ -97,6 +102,17 @@ public class HomeFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(this.getContext());
         myRecycler.setLayoutManager(mLayoutManager);
 
+        newRefButton = view.findViewById(R.id.newReflectionFloatingActionButton);
+        newRefButton.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == v.findViewById(R.id.newReflectionFloatingActionButton)){
+            Intent intent = new Intent (this.getContext(), CameraActivity.class);
+            intent.putExtra ("DATE", date );
+            this.startActivity(intent);
+        }
     }
 }
