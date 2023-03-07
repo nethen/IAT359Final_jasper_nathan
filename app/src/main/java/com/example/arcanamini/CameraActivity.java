@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.io.File;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -40,7 +42,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     PreviewView previewView;
     private CameraProvider cameraProvider;
 
-    private Button buttonCaptureShow, saveButton;
     private ImageCapture imageCapture;
     private ImageView imageViewCaptured;
 
@@ -51,29 +52,33 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     private int REQUEST_CODE_PERMISSIONS = 1001;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA"};
 
-    //after image taken
-    TextView notes, time;
-    EditText noteContent;
-    String date;
-    ReadDatabaseHelper databaseHelper;
+    private Button buttonCaptureShow, saveButton, reflectModeButton;
+    private TextView notes, time, welcome;
+    private EditText noteContent;
+    private String date;
+    private ReadDatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        buttonCaptureShow = findViewById(R.id.buttonCaptureShow);
-//        previewView = findViewById(R.id.previewView);
-//        previewView.setVisibility(View.GONE);
+        previewView = findViewById(R.id.previewView);
+        previewView.setVisibility(View.GONE);
         imageViewCaptured = findViewById(R.id.imageViewCapturedImg);
         imageViewCaptured.setVisibility(View.GONE);
 
+        //buttons
+        buttonCaptureShow = findViewById(R.id.buttonCaptureShow);
         buttonCaptureShow.setOnClickListener(this);
-
-        //after image taken items
         saveButton = findViewById(R.id.newReflectionSaveButton);
         saveButton.setOnClickListener(this);
         saveButton.setVisibility(View.GONE);
+        reflectModeButton = findViewById(R.id.startReflectModeButton);
+        reflectModeButton.setOnClickListener(this);
+
+        //text
+        welcome = findViewById(R.id.newReflectionWelcomeTextView);
         notes = findViewById(R.id.newReflectionNotesTextView);
         notes.setVisibility(View.GONE);
         time = findViewById(R.id.newReflectionTimeTextView);
@@ -81,6 +86,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         noteContent = findViewById(R.id.newReflectionContentEditText);
         noteContent.setVisibility(View.GONE);
 
+        //database
         databaseHelper = new ReadDatabaseHelper(this);
         databaseHelper.getWritableDatabase();
 
@@ -99,7 +105,9 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         } else{
             Toast.makeText(this,"No data recieved", Toast.LENGTH_SHORT);
         }
-
+        //start camera on startup
+        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camera_intent, img_id);
     }
 
     private Executor getExecutor() {
@@ -115,7 +123,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             public void run() {
                 try {
                     ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-//                    bindPreview(cameraProvider);
+                    bindPreview(cameraProvider);
 
                 } catch (ExecutionException | InterruptedException e) {
                     // This should never be reached.
@@ -124,36 +132,38 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         }, ContextCompat.getMainExecutor(this));
     }
 
-//    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
-//
-//        cameraProvider.unbindAll();
-//
-//        Preview preview = new Preview.Builder()
-//                .build();
-//
-//        CameraSelector cameraSelector = new CameraSelector.Builder()
-//                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-//                .build();
-//
-//
-//        imageCapture = new ImageCapture.Builder()
-//                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-//                .build();
-////        preview.setSurfaceProvider(previewView.getSurfaceProvider());
-//        cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
-//    }
+    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
+
+        cameraProvider.unbindAll();
+
+        Preview preview = new Preview.Builder()
+                .build();
+
+        CameraSelector cameraSelector = new CameraSelector.Builder()
+                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+                .build();
+
+
+        imageCapture = new ImageCapture.Builder()
+                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                .build();
+        preview.setSurfaceProvider(previewView.getSurfaceProvider());
+        cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonCaptureShow: {
-                //capturePhoto();   //for saving an image!!!
+//                previewView.setVisibility(View.VISIBLE);
+//                capturePhoto();
                 Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(camera_intent, img_id);
                 break;
             }
             case R.id.newReflectionSaveButton: {
                 //save reflection
+
                 String content = noteContent.getText().toString();
                 databaseHelper.insertDataReflection(date, content);
                 int position = databaseHelper.getLength() - 1;
@@ -163,6 +173,11 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(this,"saved", Toast.LENGTH_LONG).show();
                 break;
             }
+            case R.id.startReflectModeButton: {
+                //reflection mode!
+                Intent intent = new Intent(this, ReflectionModeActivity.class);
+                this.startActivity(intent);
+            }
         }
     }
 
@@ -171,40 +186,43 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         Bitmap photo = (Bitmap) data.getExtras().get("data");
         //after taking an image:
         imageViewCaptured.setImageBitmap(photo);
-        imageViewCaptured.setVisibility(View.VISIBLE);
-        buttonCaptureShow.setText(R.string.retakePhotoButtonText);
+        imageViewCaptured.setVisibility(View.VISIBLE);//show image
+        buttonCaptureShow.setText(R.string.retakePhotoButtonText); //change text for photo button
+        //show the following items:
         notes.setVisibility(View.VISIBLE);
         time.setVisibility(View.VISIBLE);
         noteContent.setVisibility(View.VISIBLE);
         saveButton.setVisibility(View.VISIBLE);
+
+        welcome.setVisibility(View.GONE);//hide welcome text
     }
 
-//    private void capturePhoto() {
-//        long timeStamp = System.currentTimeMillis();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timeStamp);
-//        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
-//
-//
-//        imageCapture.takePicture(
-//                new ImageCapture.OutputFileOptions.Builder(
-//                        getContentResolver(),
-//                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                        contentValues
-//                ).build(),
-//                getExecutor(),
-//                new ImageCapture.OnImageSavedCallback() {
-//                    @Override
-//                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-//                        Toast.makeText(CameraActivity.this, "Saving...", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onError(@NonNull ImageCaptureException exception) {
-//                        Toast.makeText(CameraActivity.this, "Error: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
+    private void capturePhoto() {
+        long timeStamp = System.currentTimeMillis();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timeStamp);
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
+
+
+        imageCapture.takePicture(
+                new ImageCapture.OutputFileOptions.Builder(
+                        getContentResolver(),
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        contentValues
+                ).build(),
+                getExecutor(),
+                new ImageCapture.OnImageSavedCallback() {
+                    @Override
+                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                        Toast.makeText(CameraActivity.this, "Saving...", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(@NonNull ImageCaptureException exception) {
+                        Toast.makeText(CameraActivity.this, "Error: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     private boolean allPermissionsGranted() {
 
@@ -215,5 +233,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         }
         return true;
     }
+
 }
 

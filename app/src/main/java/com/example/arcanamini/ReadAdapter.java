@@ -33,7 +33,6 @@ public class ReadAdapter extends RecyclerView.Adapter<ReadAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(ReadAdapter.MyViewHolder holder, int position) {
         String[] results = (list.get(position).toString()).split("~");
-        //holder.title.setText(results[0]);
         holder.time.setText(results[0]);
     }
 
