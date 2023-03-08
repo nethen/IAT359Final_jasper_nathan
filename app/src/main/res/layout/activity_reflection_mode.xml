@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingLeft="16dip"
         android:paddingTop="32dip"
@@ -20,6 +21,8 @@
             android:id="@+id/reflectionModeTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="80dip"
             android:text="@string/reflectionModeTitle"
             android:textColor="@color/white"
             android:textSize="@dimen/text_lg" />
@@ -40,10 +43,20 @@
             android:textSize="@dimen/text_sm" />
 
         <Button
-            android:id="@+id/reflectionModeReturnButton"
+            android:id="@+id/reflectionModeStartButton"
+            style="@style/GreyButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/reflectionModeReturnButton" />
+            android:text="@string/reflectionModeStartButton"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/reflectionModeStartButton2"
+            style="@style/ReflectionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reflectionModeStartButton"
+            app:backgroundTint="@null" />
 
     </LinearLayout>
 

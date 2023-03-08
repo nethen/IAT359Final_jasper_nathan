@@ -42,10 +42,9 @@
     <string name="saveNewReflectionButtonText">Save reflection</string>
     <string name="startReflectionButtonText">Start reflection</string>
     <string name="newReflectionNotePromptText">Start writing here...</string>
-    <string name="newReflectionPageWelcomeText">To log a new reflection, take a picture or slow down for a few minutes to think about your reading with our built in reflection timer.</string>
     <string name="reflectionModeInstruction1">Sit your phone to the side on a flat surface to begin.</string>
     <string name="reflectionModeInstruction2">After a minute has passed, your phone will vibrate to let you know that your reflection time is over.</string>
     <string name="reflectionModeTitle">Let the mind wander...</string>
-    <string name="reflectionModeReturnButton">Return to new reflection</string>
+    <string name="reflectionModeStartButton">Start</string>
 
 </resources>

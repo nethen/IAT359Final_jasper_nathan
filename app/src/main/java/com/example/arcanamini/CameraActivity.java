@@ -53,7 +53,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA"};
 
     private Button buttonCaptureShow, saveButton, reflectModeButton;
-    private TextView notes, time, welcome;
+    private TextView notes, time;
     private EditText noteContent;
     private String date;
     private ReadDatabaseHelper databaseHelper;
@@ -78,7 +78,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         reflectModeButton.setOnClickListener(this);
 
         //text
-        welcome = findViewById(R.id.newReflectionWelcomeTextView);
         notes = findViewById(R.id.newReflectionNotesTextView);
         notes.setVisibility(View.GONE);
         time = findViewById(R.id.newReflectionTimeTextView);
@@ -187,14 +186,11 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         //after taking an image:
         imageViewCaptured.setImageBitmap(photo);
         imageViewCaptured.setVisibility(View.VISIBLE);//show image
-        buttonCaptureShow.setText(R.string.retakePhotoButtonText); //change text for photo button
         //show the following items:
         notes.setVisibility(View.VISIBLE);
         time.setVisibility(View.VISIBLE);
         noteContent.setVisibility(View.VISIBLE);
         saveButton.setVisibility(View.VISIBLE);
-
-        welcome.setVisibility(View.GONE);//hide welcome text
     }
 
     private void capturePhoto() {

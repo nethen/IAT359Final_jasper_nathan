@@ -22,7 +22,7 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
     Boolean isFlat;
     Boolean vTrigger;
     Vibrator v;
-    Button returnButton;
+    Button startButton, startButton2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +36,11 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
         vTrigger = true;
         instruction1 = findViewById(R.id.reflectionModeInstructionTextView);
         instruction2 = findViewById(R.id.reflectionModeInstruction2TextView);
-        returnButton = findViewById(R.id.reflectionModeReturnButton);
-        returnButton.setOnClickListener(this);
-
+        startButton = findViewById(R.id.reflectionModeStartButton);
+        startButton.setOnClickListener(this);
+        startButton2 = findViewById(R.id.reflectionModeStartButton2);
+        startButton2.setOnClickListener(this);
+        startButton2.setVisibility(View.GONE);
         //try vibrating
         try{
             v = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
@@ -83,11 +85,9 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
                 if(vTrigger){
                     //trigger is false, code will run once
                     vTrigger=false;
-                    //one minute = 60000
-                    SystemClock.sleep(60000);
-                    //vibrate for 1 sec
-                    v.vibrate(1000);
-                    Toast.makeText(this, "vibrating", Toast.LENGTH_SHORT).show();
+                    startButton2.setVisibility(View.VISIBLE);
+                    startButton.setVisibility(View.GONE);
+
                 }
             }else{
                 //if not flat, return trigger to true
@@ -104,10 +104,19 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
     }
 
     @Override
-    public void onClick(View v) {
-        if(v == findViewById(R.id.reflectionModeReturnButton)){
+    public void onClick(View view) {
+        if(view == findViewById(R.id.reflectionModeStartButton2)){
             //go back to new reflection
-            this.finish();
+            //this.finish();
+            if(isFlat){
+                if(vTrigger){
+                    //one minute = 60000
+                    SystemClock.sleep(60000);
+                    //vibrate for 1 sec
+                    v.vibrate(1000);
+                    Toast.makeText(this, "vibrating", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 }

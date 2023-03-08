@@ -34,35 +34,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dip"
                 android:layout_gravity="top"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 app:srcCompat="@android:drawable/ic_menu_camera" />
 
-            <TextView
-                android:id="@+id/newReflectionWelcomeTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/newReflectionPageWelcomeText"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_sm" />
-
             <Button
                 android:id="@+id/buttonCaptureShow"
+                style="@style/StandardButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/captureImageButtonText" />
+                android:layout_marginBottom="10dp"
+                android:text="@string/retakePhotoButtonText"
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/startReflectModeButton"
-                android:layout_width="match_parent"
+                style="@style/StandardButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/startReflectionButtonText" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:text="@string/startReflectionButtonText"
+                app:backgroundTint="@null" />
 
             <TextView
                 android:id="@+id/newReflectionTimeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:text="TextView"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_lg" />
@@ -71,6 +71,7 @@
                 android:id="@+id/newReflectionNotesTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:text="@string/notesDetailsText"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_base" />
@@ -80,6 +81,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="225dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/rounded_black_shape"
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/newReflectionNotePromptText"
@@ -89,9 +92,11 @@
 
             <Button
                 android:id="@+id/newReflectionSaveButton"
+                style="@style/StandardButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/saveNewReflectionButtonText" />
+                android:text="@string/saveNewReflectionButtonText"
+                app:backgroundTint="@null"/>
         </LinearLayout>
     </ScrollView>
 
