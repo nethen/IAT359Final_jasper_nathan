@@ -84,14 +84,16 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
                 //if flat and trigger is true
                 if(vTrigger){
                     //trigger is false, code will run once
-                    vTrigger=false;
+
                     startButton2.setVisibility(View.VISIBLE);
                     startButton.setVisibility(View.GONE);
 
                 }
             }else{
-                //if not flat, return trigger to true
-                vTrigger = true;
+
+
+                startButton2.setVisibility(View.GONE);
+                startButton.setVisibility(View.VISIBLE);
             }
         }
 
@@ -110,12 +112,19 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
             //this.finish();
             if(isFlat){
                 if(vTrigger){
+                    vTrigger=false;
                     //one minute = 60000
-                    SystemClock.sleep(60000);
+                    SystemClock.sleep(6000);
                     //vibrate for 1 sec
                     v.vibrate(1000);
                     Toast.makeText(this, "vibrating", Toast.LENGTH_SHORT).show();
+                    //return trigger to true after vibrating so that reflection timer
+                    //can be activated again after 1 minute has passed if needed
+                    vTrigger = true;
                 }
+            }else{
+                //if not flat, return trigger to true
+                vTrigger = true;
             }
         }
     }
