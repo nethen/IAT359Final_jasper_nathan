@@ -44,7 +44,7 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
             databaseHelper.getReadableDatabase();
             list = databaseHelper.getItemsWithContent();
 
-            String[] reflection = list.get(position).split(",");
+            String[] reflection = list.get(position).split("~");
             String time = reflection[0] ;
             String content = reflection[1];
             timeTextView.setText(time);

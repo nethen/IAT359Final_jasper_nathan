@@ -106,7 +106,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
             time = new String(cursor.getString(1));
             content = new String(cursor.getString(2));
             //index 2 for reflection content
-            arraylistString.add(time + "," + content);
+            arraylistString.add(time + "~" + content);
             cursor.moveToNext();
         }
         cursor.close();
@@ -114,6 +114,23 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         return arraylistString;
     }
 
+    public int getLength(){
+        String s = null;
+        ArrayList<String> arraylistString = new ArrayList<String>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("select * from "+Constants.REFLECTION_TABLE, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            //Index 1 for reflection time
+            s = new String(cursor.getString(1));
+            arraylistString.add(s);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        int len = arraylistString.size();
+        return len;
+    }
     public void updateContent(String name, String newContent){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -122,5 +139,16 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         String[] selection_arg = {name};
         db.update(Constants.REFLECTION_TABLE, values,selection , selection_arg);
     }
+
+    public long insertDataReflection (String date, String content)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constants.REFLECTION_OCCURED, date);
+        contentValues.put(Constants.REFLECTION_CONTENT, content);
+        long id = db.insert(Constants.REFLECTION_TABLE, null, contentValues);
+        return id;
+    }
+
 
 }

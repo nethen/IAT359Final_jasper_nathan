@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ReflectionModeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="16dip"
+        android:paddingTop="32dip"
+        android:paddingRight="16dip"
+        android:paddingBottom="32dip">
+
+        <TextView
+            android:id="@+id/reflectionModeTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="80dip"
+            android:text="@string/reflectionModeTitle"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_lg" />
+
+        <TextView
+            android:id="@+id/reflectionModeInstructionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reflectionModeInstruction1"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/reflectionModeInstruction2TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reflectionModeInstruction2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_sm" />
+
+        <Button
+            android:id="@+id/reflectionModeStartButton"
+            style="@style/GreyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reflectionModeStartButton"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/reflectionModeStartButton2"
+            style="@style/ReflectionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reflectionModeStartButton"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

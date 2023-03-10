@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class CardRecyclerActivity extends AppCompatActivity {
     int table;
     String inpTable;
     TextView title;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +44,10 @@ public class CardRecyclerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_card_recycler);
 
         myRecycler = (RecyclerView) findViewById(R.id.recyclerView);
+        title = findViewById(R.id.categoryTitleTextView);
 
         //retrieve extra
         Bundle extra_data = getIntent().getExtras();
-        title = findViewById(R.id.categoryTitleTextView);
 
         inpTable = new String();
 //        // check if the bundle was received (bundle not null)
@@ -116,6 +118,21 @@ public class CardRecyclerActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         myRecycler.setLayoutManager(mLayoutManager);
 
+        //search bar
+        searchView = findViewById(R.id.recyclerSearchView);
+        searchView.setQueryHint("Enter your search here...");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                myAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
     public boolean copyDatabase(Context context){

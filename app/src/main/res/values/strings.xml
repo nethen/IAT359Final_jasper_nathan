@@ -40,4 +40,15 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="captureImageButtonText">Take Photo</string>
+    <string name="retakePhotoButtonText">Retake Photo</string>
+    <string name="saveNewReflectionButtonText">Save reflection</string>
+    <string name="startReflectionButtonText">Start reflection</string>
+    <string name="newReflectionNotePromptText">Start writing here...</string>
+    <string name="reflectionModeInstruction1">Sit your phone to the side on a flat surface to begin.</string>
+    <string name="reflectionModeInstruction2">After a minute has passed, your phone will vibrate to let you know that your reflection time is over.</string>
+    <string name="reflectionModeTitle">Let the mind wander...</string>
+    <string name="reflectionModeStartButton">Start</string>
+
 </resources>

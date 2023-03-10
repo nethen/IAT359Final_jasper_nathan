@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SortedList;
 
 import com.google.android.material.card.MaterialCardView;
 
@@ -19,14 +23,15 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> implements Filterable{
     public ArrayList<String> list;
+    public ArrayList<String> originalList;
     int table;
     Context context;
 
 
     public MyAdapter(ArrayList<String> list, int table) {
-
+        this.originalList = list;
         this.list = list;
         this.table = table;
     }
@@ -100,4 +105,44 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                list = (ArrayList<String>) results.values;
+                notifyDataSetChanged();
+            }
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                ArrayList<String> filteredResults = null;
+                if (constraint.length() == 0) {
+                    filteredResults = originalList;
+                } else {
+                    filteredResults = getFilteredResults(constraint.toString().toLowerCase());
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = filteredResults;
+
+                return results;
+            }
+        };
+    }
+
+    protected ArrayList<String> getFilteredResults(String constraint) {
+        ArrayList<String> results = new ArrayList<>();
+
+        for (String item : originalList) {
+            if (item.toLowerCase().contains(constraint)) {
+                results.add(item);
+            }
+        }
+        return results;
+    }
+
+
 }
