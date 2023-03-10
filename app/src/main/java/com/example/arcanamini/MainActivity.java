@@ -21,11 +21,10 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
     AppBarConfiguration appBarConfiguration;
     BottomNavigationView bottomNavigationView;
     FragmentManager supportFragmentManager = getSupportFragmentManager();
-    Button librariumButton;
 
 //    final View androidRobotView = findViewById(R.id.bottom_nav);
 
@@ -41,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.activity_main, R.id.activity_librarium2, R.id.fragment_archive).build();
         Log.i("navHost", String.valueOf(navHostFragment));
 
-        librariumButton = findViewById(R.id.goToLibrariumButton);
-        librariumButton.setOnClickListener(this);
 
     }
 
@@ -50,13 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    LibrariumFragment librariumFragment = new LibrariumFragment();
 //    ArchiveFragment archiveFragment = new ArchiveFragment();
 
-    @Override
-    public void onClick(View v) {
-        if(v == findViewById(R.id.goToLibrariumButton)){
-            Intent intent = new Intent (this, LibrariumActivity.class);
-            this.startActivity(intent);
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

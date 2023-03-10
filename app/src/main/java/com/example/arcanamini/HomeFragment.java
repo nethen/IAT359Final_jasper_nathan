@@ -10,7 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.Button;
+
+import android.widget.LinearLayout;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +50,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     //for recycler
     private RecyclerView myRecycler;
     private ReadAdapter readAdapter;
+
+    private LinearLayout emptyState;
     public static ArrayList<String> list;
     private LinearLayoutManager mLayoutManager;
 
@@ -92,10 +98,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         dateTimeDisplay = view.findViewById(R.id.text_date);
         dateTimeDisplay.setText(date);
         myRecycler = (RecyclerView) view.findViewById(R.id.homeRecyclerView);
+        emptyState = (LinearLayout) view.findViewById(R.id.home_empty);
 
         ReadDatabaseHelper databaseHelper = new ReadDatabaseHelper(this.getContext());
         databaseHelper.getReadableDatabase();
         list = databaseHelper.getItems();
+        if (list.size() > 0){
+            emptyState.setVisibility(View.GONE);
+            myRecycler.setVisibility(View.VISIBLE);
+        } else {
+            myRecycler.setVisibility(View.GONE);
+        }
         readAdapter = new ReadAdapter(list);
         readAdapter.notifyDataSetChanged();
         myRecycler.setAdapter(readAdapter);

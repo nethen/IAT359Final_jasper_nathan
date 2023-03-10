@@ -35,9 +35,6 @@
             android:name=".ReadAdapter"
             android:exported="false" />
         <activity
-            android:name=".LibrariumActivity"
-            android:exported="false" />
-        <activity
             android:name=".CardDetailsActivity"
             android:exported="false" />
         <activity

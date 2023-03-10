@@ -1,12 +1,24 @@
 package com.example.arcanamini;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,33 +27,25 @@ import android.view.ViewGroup;
  */
 public class fragment_cardrecycler extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView myRecycler;
+    private LinearLayoutManager mLayoutManager;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private MyAdapter myAdapter;
+
+    private SQLiteDatabase mDb;
+
+    public static ArrayList<String> list;
+    int table;
+    String inpTable;
+    TextView title;
 
     public fragment_cardrecycler() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_cardrecycler.
-     */
-    // TODO: Rename and change types and number of parameters
     public static fragment_cardrecycler newInstance(String param1, String param2) {
         fragment_cardrecycler fragment = new fragment_cardrecycler();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,16 +53,82 @@ public class fragment_cardrecycler extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cardrecycler, container, false);
+        View v =  inflater.inflate(R.layout.fragment_cardrecycler, container, false);
+        myRecycler = (RecyclerView) v.findViewById(R.id.recyclerView);
+
+        //retrieve extra
+        Bundle extra_data = getActivity().getIntent().getExtras();
+        title = v.findViewById(R.id.categoryTitleTextView);
+
+        inpTable = new String();
+//        // check if the bundle was received (bundle not null)
+        if (extra_data!= null) {
+            table = extra_data.getInt("TABLE");
+            switch (table){
+                case 0:
+                    inpTable = Constants.MAJOR_TABLE;
+                    title.setText("Major arcana");
+                    break;
+                case 1:
+                    inpTable = Constants.MINOR_TABLE;
+                    title.setText("Minor arcana");
+                    break;
+                case 2:
+                    inpTable = Constants.TECHNIQUES_TABLE;
+                    title.setText("Techniques");
+                    break;
+            }
+        }
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity(), "librariumdatabase", inpTable);
+        File database = getActivity().getApplicationContext().getDatabasePath(DatabaseHelper.DBNAME);
+
+        if (database.exists() == false){
+            databaseHelper.getReadableDatabase();
+            if(!copyDatabase(getActivity())){
+                return v;
+            }
+
+        }
+        list = databaseHelper.getItems();
+        myAdapter = new MyAdapter(list, table);
+        myAdapter.notifyDataSetChanged();
+        myRecycler.setAdapter(myAdapter);
+
+        title = v.findViewById(R.id.categoryTitleTextView);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        myRecycler.setLayoutManager(mLayoutManager);
+        return v;
+    }
+
+    public boolean copyDatabase(Context context){
+        try {
+            InputStream inputStream = context.getAssets().open(DatabaseHelper.DBNAME);
+            String outFileName = DatabaseHelper.DBLOCATION+"/"+DatabaseHelper.DBNAME;
+            File f = new File(outFileName);
+            f.getParentFile().mkdirs();
+            OutputStream outputStream = new FileOutputStream(outFileName);
+
+            byte[] buffer = new byte[1024];
+            int i = 0;
+            while ( (i = inputStream.read(buffer)) > 0){
+                outputStream.write(buffer,0, i);
+            }
+            outputStream.flush();
+            outputStream.close();
+            return true;
+
+        } catch(IOException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

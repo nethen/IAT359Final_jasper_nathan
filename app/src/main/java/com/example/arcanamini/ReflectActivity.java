@@ -19,7 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class ReflectActivity extends AppCompatActivity implements View.OnClickListener {
+public class ReflectActivity extends AppCompatActivity {
     AppBarConfiguration appBarConfiguration;
     BottomNavigationView bottomNavigationView;
 
@@ -40,8 +40,8 @@ public class ReflectActivity extends AppCompatActivity implements View.OnClickLi
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.activity_main, R.id.activity_librarium2, R.id.fragment_archive).build();
         Log.i("navHost", String.valueOf(navHostFragment));
 
-        librariumButton = findViewById(R.id.goToLibrariumButton);
-        librariumButton.setOnClickListener(this);
+//        librariumButton = findViewById(R.id.goToLibrariumButton);
+//        librariumButton.setOnClickListener(this);
 
     }
 
@@ -49,14 +49,6 @@ public class ReflectActivity extends AppCompatActivity implements View.OnClickLi
     LibrariumFragment librariumFragment = new LibrariumFragment();
     ArchiveFragment archiveFragment = new ArchiveFragment();
 
-    @Override
-    public void onClick(View v) {
-        if(v == findViewById(R.id.goToLibrariumButton)){
-            Intent intent = new Intent (this, LibrariumActivity.class);
-            this.startActivity(intent);
-        }
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
