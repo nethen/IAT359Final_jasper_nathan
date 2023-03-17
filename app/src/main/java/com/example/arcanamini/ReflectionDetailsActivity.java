@@ -3,6 +3,7 @@ package com.example.arcanamini;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,7 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
         Bundle extra_data = getIntent().getExtras();
         if (extra_data!= null) {
             int position = extra_data.getInt("ITEM_KEY");
-
+            Log.i("pos", String.valueOf(position));
             //Toast.makeText(this, , Toast.LENGTH_SHORT).show();
 
             ReadDatabaseHelper databaseHelper = new ReadDatabaseHelper(this);
@@ -46,9 +47,12 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
 
             String[] reflection = list.get(position).split("~");
             String time = reflection[0] ;
-            String content = reflection[1];
             timeTextView.setText(time);
-            contentTextView.setText(content);
+            //account for empty content
+            if (reflection.length > 1) {
+                String content = reflection[1];
+                contentTextView.setText(content);
+            }
         }else{
             Toast.makeText(this, "Didn't receive any data", Toast.LENGTH_SHORT).show();
         }

@@ -51,4 +51,6 @@
     <string name="reflectionModeTitle">Let the mind wander...</string>
     <string name="reflectionModeStartButton">Start</string>
 
+    <string name="preference_file_key">preferences</string>
+
 </resources>

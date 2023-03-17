@@ -1,12 +1,16 @@
 package com.example.arcanamini;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +59,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public static ArrayList<String> list;
     private LinearLayoutManager mLayoutManager;
 
+    SharedPreferences sharedPref;
+
     //new reflection
     FloatingActionButton newRefButton;
     public HomeFragment() {
@@ -85,6 +91,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("MMM dd, yyyy");
 
+        Context context = getActivity();
+        sharedPref = context.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
 
     }
 
@@ -97,6 +107,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         dateTimeDisplay = view.findViewById(R.id.text_date);
         dateTimeDisplay.setText(date);
+
+        String s = sharedPref.getString("COLOR", "none");
+        Log.i("color",s);
+//        SharedPreferences.Editor e = sharedPref.edit();
+        if (s.equals("red")){
+//            e.putString("COLOR", "none");
+            dateTimeDisplay.setTextColor(Color.parseColor("#FF0000"));
+        }
+        else{
+//            e.putString("COLOR", "red");
+            dateTimeDisplay.setTextColor(Color.parseColor("#000000"));
+        }
+
         myRecycler = (RecyclerView) view.findViewById(R.id.homeRecyclerView);
         emptyState = (LinearLayout) view.findViewById(R.id.home_empty);
 
@@ -109,6 +132,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         } else {
             myRecycler.setVisibility(View.GONE);
         }
+
+        dateTimeDisplay.setOnClickListener(this);
+
         readAdapter = new ReadAdapter(list);
         readAdapter.notifyDataSetChanged();
         myRecycler.setAdapter(readAdapter);
@@ -117,6 +143,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         newRefButton = view.findViewById(R.id.newReflectionFloatingActionButton);
         newRefButton.setOnClickListener(this);
+
+
         return view;
     }
 
@@ -126,6 +154,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             Intent intent = new Intent (this.getContext(), CameraActivity.class);
             intent.putExtra ("DATE", date );
             this.startActivity(intent);
+        }
+        if (v == v.findViewById(R.id.text_date)){
+            String s = sharedPref.getString("COLOR", "none");
+            SharedPreferences.Editor e = sharedPref.edit();
+            if (s.equals("red")){
+                e.putString("COLOR", "none");
+                dateTimeDisplay.setTextColor(Color.parseColor("#000000"));
+            }
+            else{
+                e.putString("COLOR", "red");
+                dateTimeDisplay.setTextColor(Color.parseColor("#FF0000"));
+            }
+            e.apply();
         }
     }
 }

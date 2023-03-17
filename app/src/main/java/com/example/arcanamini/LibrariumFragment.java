@@ -58,12 +58,7 @@ public class LibrariumFragment extends Fragment {
                 }
                 if (table >= 0) {
                     intent.putExtra ("TABLE", table );
-                    fragment_cardrecycler nextFrag= new fragment_cardrecycler();
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.nav_host_fragment_lib, nextFrag, "findThisFragment")
-                            .addToBackStack(null)
-                            .commit();
-//                    getActivity().startActivity(intent);
+                    getActivity().startActivity(intent);
                 }
             }
         };
