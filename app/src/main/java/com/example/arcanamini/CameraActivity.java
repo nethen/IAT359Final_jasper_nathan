@@ -56,7 +56,7 @@ import androidx.lifecycle.LifecycleOwner;
 public class CameraActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-    PreviewView previewView;
+//    PreviewView previewView;
     private CameraProvider cameraProvider;
 
     private ImageCapture imageCapture;
@@ -74,14 +74,14 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     private EditText noteContent;
     private String date;
     private ReadDatabaseHelper databaseHelper;
-
+    private Integer counter = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        previewView = findViewById(R.id.previewView);
-        previewView.setVisibility(View.GONE);
+//        previewView = findViewById(R.id.previewView);
+//        previewView.setVisibility(View.GONE);
         imageViewCaptured = findViewById(R.id.imageViewCapturedImg);
         imageViewCaptured.setVisibility(View.GONE);
 
@@ -145,7 +145,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             public void run() {
                 try {
                     ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                    bindPreview(cameraProvider);
+//                    bindPreview(cameraProvider);
 
 
                 } catch (ExecutionException | InterruptedException e) {
@@ -155,24 +155,24 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         }, ContextCompat.getMainExecutor(this));
     }
 
-    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
-
-        cameraProvider.unbindAll();
-
-        Preview preview = new Preview.Builder()
-                .build();
-
-        CameraSelector cameraSelector = new CameraSelector.Builder()
-                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                .build();
-
-
-        imageCapture = new ImageCapture.Builder()
-                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                .build();
-        preview.setSurfaceProvider(previewView.getSurfaceProvider());
-        cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
-    }
+//    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
+//
+//        cameraProvider.unbindAll();
+//
+//        Preview preview = new Preview.Builder()
+//                .build();
+//
+//        CameraSelector cameraSelector = new CameraSelector.Builder()
+//                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+//                .build();
+//
+//
+//        imageCapture = new ImageCapture.Builder()
+//                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+//                .build();
+//        preview.setSurfaceProvider(previewView.getSurfaceProvider());
+//        cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
+//    }
 
     @Override
     public void onClick(View view) {
@@ -294,6 +294,8 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         imageViewCaptured.setImageBitmap(selectedImage);
+                        //save image
+                        saveBitmap(selectedImage);
                     }
                     break;
                 case 1:
@@ -316,5 +318,26 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    private void saveBitmap(Bitmap bitmap){
+        String filename = "arcanaminiphoto"+counter+".png";
+        File sd = Environment.getExternalStorageDirectory();
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File dest = new File(directory, filename);
+
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            counter = counter + 1;
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
+
 
