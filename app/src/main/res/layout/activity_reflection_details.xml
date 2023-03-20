@@ -59,6 +59,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/editReflectionButtonText" />
 
+            <Button
+                android:id="@+id/deleteReflectionButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/deleteReflectionButtonText" />
+
         </LinearLayout>
     </ScrollView>
 

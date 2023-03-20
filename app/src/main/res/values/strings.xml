@@ -53,6 +53,7 @@
 
     <string name="editReflectionButtonText">Edit</string>
     <string name="saveReflectionButtonText">Save</string>
+    <string name="deleteReflectionButtonText">Delete</string>
     <string name="preference_file_key">preferences</string>
 
 </resources>

@@ -1,7 +1,9 @@
 package com.example.arcanamini;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 public class ReflectionDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     TextView timeTextView, contentTextView;
     public static ArrayList<String> list;
-    Button editButton;
+    Button editButton, deleteButton;
     EditText contentEditText;
     Boolean edit;
     int position;
@@ -35,6 +37,8 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
         //button
         editButton = findViewById(R.id.editReflectionContentButton);
         editButton.setOnClickListener(this);
+        deleteButton = findViewById(R.id.deleteReflectionButton);
+        deleteButton.setOnClickListener(this);
 
         position = 0;
 
@@ -87,6 +91,30 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
                 Toast.makeText(this, "edit mode off", Toast.LENGTH_SHORT).show();
                 edit = false;
             }
+        }else if (v == findViewById(R.id.deleteReflectionButton)){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Are you sure you want to delete this reflection?");
+            builder1.setCancelable(true);
+
+            builder1.setPositiveButton(
+                    "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                           //delete entry
+                            databaseHelper.deleteContent(Integer.toString(position));
+                        }
+                    });
+
+            builder1.setNegativeButton(
+                    "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
         }
 
 

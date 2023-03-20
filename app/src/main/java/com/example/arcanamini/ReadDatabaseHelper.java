@@ -137,6 +137,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         values.put(Constants.REFLECTION_CONTENT, "test!");
         String whereClause = "_id = ? ";
         db.update(Constants.REFLECTION_TABLE, values, whereClause , new String[]{ position });
+        db.close();
     }
 
     public long insertDataReflection (String date, String content)
@@ -149,5 +150,10 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
+    public void deleteContent(String position){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Constants.REFLECTION_TABLE, "_id=?", new String[]{position});
+        db.close();
+    }
 
 }
