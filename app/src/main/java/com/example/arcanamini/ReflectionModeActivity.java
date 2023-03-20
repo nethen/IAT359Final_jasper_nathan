@@ -121,6 +121,9 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
                     //return trigger to true after vibrating so that reflection timer
                     //can be activated again after 1 minute has passed if needed
                     vTrigger = true;
+
+                }else{
+
                 }
             }else{
                 //if not flat, return trigger to true
@@ -128,4 +131,5 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
             }
         }
     }
+
 }

@@ -18,6 +18,8 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
     Button editButton;
     EditText contentEditText;
     Boolean edit;
+    int position;
+    ReadDatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,16 +36,20 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
         editButton = findViewById(R.id.editReflectionContentButton);
         editButton.setOnClickListener(this);
 
+        position = 0;
+
+        databaseHelper = new ReadDatabaseHelper(this);
+        databaseHelper.getReadableDatabase();
+        list = databaseHelper.getItemsWithContent();
+
         // retrieve the bundle from the intent that started this activity
         Bundle extra_data = getIntent().getExtras();
         if (extra_data!= null) {
-            int position = extra_data.getInt("ITEM_KEY");
+            position = extra_data.getInt("ITEM_KEY");
             Log.i("pos", String.valueOf(position));
             //Toast.makeText(this, , Toast.LENGTH_SHORT).show();
 
-            ReadDatabaseHelper databaseHelper = new ReadDatabaseHelper(this);
-            databaseHelper.getReadableDatabase();
-            list = databaseHelper.getItemsWithContent();
+
 
             String[] reflection = list.get(position).split("~");
             String time = reflection[0] ;
@@ -56,7 +62,7 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
         }else{
             Toast.makeText(this, "Didn't receive any data", Toast.LENGTH_SHORT).show();
         }
-
+        Toast.makeText(this, Integer.toString(position), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -68,14 +74,17 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
                 contentEditText.setText(contentTextView.getText());
                 contentEditText.setVisibility(View.VISIBLE);
                 contentTextView.setVisibility(View.GONE);
-                Toast.makeText(this, "edit mode off", Toast.LENGTH_SHORT).show();
+                editButton.setText(R.string.saveReflectionButtonText);
+                Toast.makeText(this, "edit mode on", Toast.LENGTH_SHORT).show();
                 edit = true;
             }else if (edit == true){
                 //edit mode off
                 contentTextView.setText(contentEditText.getText());
                 contentEditText.setVisibility(View.GONE);
                 contentTextView.setVisibility(View.VISIBLE);
-                Toast.makeText(this, "edit mode on", Toast.LENGTH_SHORT).show();
+                databaseHelper.updateContent( Integer.toString(position), contentEditText.getText().toString());
+                editButton.setText(R.string.editReflectionButtonText);
+                Toast.makeText(this, "edit mode off", Toast.LENGTH_SHORT).show();
                 edit = false;
             }
         }

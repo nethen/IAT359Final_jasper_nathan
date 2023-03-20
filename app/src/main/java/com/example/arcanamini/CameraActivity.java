@@ -63,8 +63,8 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        previewView = findViewById(R.id.previewView);
-        previewView.setVisibility(View.GONE);
+//        previewView = findViewById(R.id.previewView);
+//        previewView.setVisibility(View.GONE);
         imageViewCaptured = findViewById(R.id.imageViewCapturedImg);
         imageViewCaptured.setVisibility(View.GONE);
 
@@ -105,10 +105,19 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this,"No data recieved", Toast.LENGTH_SHORT);
         }
         //start camera on startup
-        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(camera_intent, img_id);
-    }
+        Thread myThread = new Thread(new CameraThread());
+        myThread.start();
 
+
+    }
+    private class CameraThread implements Runnable
+    {
+        @Override
+        public void run() {
+            Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(camera_intent, img_id);
+        }
+    }
     private Executor getExecutor() {
         return ContextCompat.getMainExecutor(this);
     }
@@ -122,7 +131,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             public void run() {
                 try {
                     ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                    bindPreview(cameraProvider);
+//                    bindPreview(cameraProvider);
 
                 } catch (ExecutionException | InterruptedException e) {
                     // This should never be reached.
@@ -131,24 +140,24 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         }, ContextCompat.getMainExecutor(this));
     }
 
-    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
-
-        cameraProvider.unbindAll();
-
-        Preview preview = new Preview.Builder()
-                .build();
-
-        CameraSelector cameraSelector = new CameraSelector.Builder()
-                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                .build();
-
-
-        imageCapture = new ImageCapture.Builder()
-                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                .build();
-        preview.setSurfaceProvider(previewView.getSurfaceProvider());
-        cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
-    }
+//    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
+//
+//        cameraProvider.unbindAll();
+//
+//        Preview preview = new Preview.Builder()
+//                .build();
+//
+//        CameraSelector cameraSelector = new CameraSelector.Builder()
+//                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+//                .build();
+//
+//
+//        imageCapture = new ImageCapture.Builder()
+//                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+//                .build();
+//        preview.setSurfaceProvider(previewView.getSurfaceProvider());
+//        cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
+//    }
 
     @Override
     public void onClick(View view) {

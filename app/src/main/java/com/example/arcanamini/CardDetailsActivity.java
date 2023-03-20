@@ -77,9 +77,13 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                 String imageName = new String (name.toLowerCase().replace(" ",""));
                 Resources res = getResources();
                 int resID = res.getIdentifier(imageName , "drawable", getPackageName());
-                Drawable drawable = res.getDrawable(resID );
+                if (resID > 0){
+                    Drawable drawable = res.getDrawable(resID );
+                    image.setImageDrawable(drawable);
+                }
 
-                image.setImageDrawable(drawable);
+
+
                 //status 1=upright, 0=reversed
                 if(status == 0){
                     cardDefinition.setText(defUpright);
@@ -140,9 +144,10 @@ public class CardDetailsActivity extends AppCompatActivity implements AdapterVie
                 Resources res = getResources();
                 int resID = res.getIdentifier(imageName, "drawable", getPackageName());
 
-                Drawable drawable = res.getDrawable(resID );
-
-                image.setImageDrawable(drawable);
+                if (resID > 0){
+                    Drawable drawable = res.getDrawable(resID );
+                    image.setImageDrawable(drawable);
+                }
             }
 
 

@@ -131,13 +131,12 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         int len = arraylistString.size();
         return len;
     }
-    public void updateContent(String name, String newContent){
+    public void updateContent(String position, String newContent){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Constants.REFLECTION_CONTENT, newContent);
-        String selection = Constants.UID + " LIKE ?";
-        String[] selection_arg = {name};
-        db.update(Constants.REFLECTION_TABLE, values,selection , selection_arg);
+        values.put(Constants.REFLECTION_CONTENT, "test!");
+        String whereClause = "_id = ? ";
+        db.update(Constants.REFLECTION_TABLE, values, whereClause , new String[]{ position });
     }
 
     public long insertDataReflection (String date, String content)
