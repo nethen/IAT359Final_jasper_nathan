@@ -10,17 +10,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingTop="32dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="32dp">
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="bottom|center_vertical"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="arcana mini logo"
+            android:scaleType="fitXY"
+            android:src="@drawable/arcanaminilogo" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:text="@string/onboarding1_text"
             android:textColor="@color/black"
             android:textSize="@dimen/text_base" />
@@ -32,6 +43,7 @@
             android:layout_height="wrap_content"
             android:text="@string/onboarding1_button"
             app:backgroundTint="@null" />
+
     </LinearLayout>
 
 </FrameLayout>

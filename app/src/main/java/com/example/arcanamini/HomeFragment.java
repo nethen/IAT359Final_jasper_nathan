@@ -96,7 +96,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         sharedPref = context.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-
+        //default boolean is set to true
+        Boolean isFirstRun = sharedPref.getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            //runs this code only once on the first start up by changing boolean to false
+            SharedPreferences.Editor e = sharedPref.edit();
+            e.putBoolean("isFirstRun", false);
+            e.apply();
+            //start onboarding activity
+            Intent intent = new Intent (getContext(), OnBoardingActivity.class);
+            this.startActivity(intent);
+        }
     }
 
     @Override

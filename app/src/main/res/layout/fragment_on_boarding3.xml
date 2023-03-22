@@ -20,6 +20,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:text="@string/onboarding3_text"
             android:textColor="@color/black"
             android:textSize="@dimen/text_sm" />
@@ -36,6 +37,7 @@
                 android:id="@+id/onboardLightRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:layout_weight="1"
                 android:text="@string/lightModeTextOption"
                 android:textColor="@color/black" />
