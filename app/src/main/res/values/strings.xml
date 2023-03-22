@@ -56,4 +56,16 @@
     <string name="deleteReflectionButtonText">Delete</string>
     <string name="preference_file_key">preferences</string>
 
+
+    <!--    onboarding strings -->
+    <string name="onboarding1_text">the casual-est tarot journal</string>
+    <string name="onboarding1_button">Get started</string>
+    <string name="onboarding2_button">Enter</string>
+    <string name="onboarding2_text">What\'s your name?</string>
+    <string name="onboarding2_editText">Your name</string>
+    <string name="onboarding3_text">What\'s your style?</string>
+    <string name="lightModeTextOption">Light</string>
+    <string name="darkModeTextOption">Dark</string>
+    <string name="onboarding4_text">You\'re all set.</string>
+    <string name="onboarding4_button">Lets go!</string>
 </resources>

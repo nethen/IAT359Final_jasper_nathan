@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -25,13 +26,15 @@ public class MainActivity extends AppCompatActivity {
     AppBarConfiguration appBarConfiguration;
     BottomNavigationView bottomNavigationView;
     FragmentManager supportFragmentManager = getSupportFragmentManager();
-
+    Button goOnboardButton;
+    Context context;
 //    final View androidRobotView = findViewById(R.id.bottom_nav);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = this;
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment);
@@ -40,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.activity_main, R.id.activity_librarium2, R.id.fragment_archive).build();
         Log.i("navHost", String.valueOf(navHostFragment));
 
+        goOnboardButton = findViewById(R.id.gotoOnboardButton);
+        goOnboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (context, OnBoardingActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
