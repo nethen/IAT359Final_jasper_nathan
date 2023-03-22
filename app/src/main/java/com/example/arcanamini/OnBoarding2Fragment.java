@@ -1,5 +1,8 @@
 package com.example.arcanamini;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -31,7 +34,7 @@ public class OnBoarding2Fragment extends Fragment implements View.OnClickListene
 
     Button enterGrey, enterBlack;
     EditText nameEditText;
-
+    SharedPreferences sharedPref;
     public OnBoarding2Fragment() {
         // Required empty public constructor
     }
@@ -61,6 +64,11 @@ public class OnBoarding2Fragment extends Fragment implements View.OnClickListene
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        Context context = getActivity();
+        sharedPref = context.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
     }
 
     @Override
@@ -80,6 +88,11 @@ public class OnBoarding2Fragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if(v == v.findViewById(R.id.onboarding2Button1)){
+            //save user name
+            SharedPreferences.Editor e = sharedPref.edit();
+            e.putString("NAME", nameEditText.getText().toString());
+            e.apply();
+            //start next fragment
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.onboard_fragment_container, OnBoarding3Fragment.class, null)

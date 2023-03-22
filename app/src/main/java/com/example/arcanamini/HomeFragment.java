@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
+    private TextView welcome;
 
     //for recycler
     private RecyclerView myRecycler;
@@ -107,18 +108,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         dateTimeDisplay = view.findViewById(R.id.text_date);
         dateTimeDisplay.setText(date);
+        welcome = view.findViewById(R.id.text_welcome);
 
-        String s = sharedPref.getString("COLOR", "none");
-        Log.i("color",s);
-//        SharedPreferences.Editor e = sharedPref.edit();
-        if (s.equals("red")){
-//            e.putString("COLOR", "none");
-            dateTimeDisplay.setTextColor(Color.parseColor("#FF0000"));
-        }
-        else{
-//            e.putString("COLOR", "red");
-            dateTimeDisplay.setTextColor(Color.parseColor("#000000"));
-        }
+        //get username and set welcome text
+        String s = sharedPref.getString("NAME", "none");
+        Log.i("username",s);
+        welcome.setText(welcome.getText() + " " + s);
 
         myRecycler = (RecyclerView) view.findViewById(R.id.homeRecyclerView);
         emptyState = (LinearLayout) view.findViewById(R.id.home_empty);
@@ -133,8 +128,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             myRecycler.setVisibility(View.GONE);
         }
 
-        dateTimeDisplay.setOnClickListener(this);
-
         readAdapter = new ReadAdapter(list);
         readAdapter.notifyDataSetChanged();
         myRecycler.setAdapter(readAdapter);
@@ -144,29 +137,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         newRefButton = view.findViewById(R.id.newReflectionFloatingActionButton);
         newRefButton.setOnClickListener(this);
 
-
         return view;
     }
 
     @Override
     public void onClick(View v) {
         if(v == v.findViewById(R.id.newReflectionFloatingActionButton)){
+            //start new reflection
             Intent intent = new Intent (this.getContext(), CameraActivity.class);
             intent.putExtra ("DATE", date );
             this.startActivity(intent);
-        }
-        if (v == v.findViewById(R.id.text_date)){
-            String s = sharedPref.getString("COLOR", "none");
-            SharedPreferences.Editor e = sharedPref.edit();
-            if (s.equals("red")){
-                e.putString("COLOR", "none");
-                dateTimeDisplay.setTextColor(Color.parseColor("#000000"));
-            }
-            else{
-                e.putString("COLOR", "red");
-                dateTimeDisplay.setTextColor(Color.parseColor("#FF0000"));
-            }
-            e.apply();
         }
     }
 }
