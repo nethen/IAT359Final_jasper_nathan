@@ -1,12 +1,23 @@
 package com.example.arcanamini;
 
+import static com.kizitonwose.calendar.core.ExtensionsKt.firstDayOfWeekFromLocale;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.kizitonwose.calendar.core.CalendarDay;
+import com.kizitonwose.calendar.view.CalendarView;
+import com.kizitonwose.calendar.view.MonthDayBinder;
+import com.kizitonwose.calendar.view.ViewContainer;
+
+import java.time.DayOfWeek;
+import java.time.YearMonth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,13 +30,13 @@ public class ArchiveFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    CalendarView calendarView;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public ArchiveFragment() {
+
         // Required empty public constructor
+
     }
 
     /**
@@ -49,16 +60,32 @@ public class ArchiveFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_archive, container, false);
+        View v = inflater.inflate(R.layout.fragment_archive, container, false);
+        calendarView = v.findViewById(R.id.calendarView);
+        calendarView.setDayBinder(new MonthDayBinder<DayViewContainer>() {
+            @Override
+            public void bind(@NonNull DayViewContainer container, CalendarDay calendarDay) {
+                container.calendarDayText.setText(calendarDay.getDate().getDayOfMonth());
+            }
+
+            @Override
+            public DayViewContainer create(View view) {
+                return new DayViewContainer(view);
+            }
+        });
+        YearMonth currentMonth = YearMonth.now();
+        YearMonth startMonth = currentMonth.minusMonths(100);  // Adjust as needed
+        YearMonth endMonth = currentMonth.plusMonths(100);  // Adjust as needed
+        DayOfWeek firstDayOfWeek = firstDayOfWeekFromLocale(); // Available from the library
+        calendarView.setup(startMonth, endMonth, firstDayOfWeek);
+        calendarView.scrollToMonth(currentMonth);
+        return v;
     }
 }

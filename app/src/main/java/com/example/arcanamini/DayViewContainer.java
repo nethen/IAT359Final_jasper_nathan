@@ -1,27 +1,22 @@
 package com.example.arcanamini;
 
-import static com.kizitonwose.calendar.core.ExtensionsKt.firstDayOfWeekFromLocale;
-
 import android.content.Context;
 import android.view.View;
-import android.widget.CalendarView;
 import android.widget.TextView;
 
-import java.time.DayOfWeek;
-import java.time.YearMonth;
+import androidx.annotation.NonNull;
 
-public class DayViewContainer {
-    CalendarView dayBinder;
+import com.kizitonwose.calendar.core.CalendarDay;
+import com.kizitonwose.calendar.view.CalendarView;
+import com.kizitonwose.calendar.view.MonthDayBinder;
+import com.kizitonwose.calendar.view.ViewContainer;
+
+public class DayViewContainer extends ViewContainer {
+    public TextView calendarDayText;
     public DayViewContainer(View v){
-        v.findViewById(R.id.calendarDayText);
-        YearMonth currentMonth = YearMonth.now();
-        YearMonth startMonth = currentMonth.minusMonths(100);  // Adjust as needed
-        YearMonth endMonth = currentMonth.plusMonths(100);  // Adjust as needed
-        DayOfWeek firstDayOfWeek = firstDayOfWeekFromLocale(); // Available from the library
-        calendarView.setup(startMonth, endMonth, firstDayOfWeek);
-        calendarView.scrollToMonth(currentMonth);
+        super(v);
+        calendarDayText = v.findViewById(R.id.calendarDayText);
+
 
     }
-
-
 }
