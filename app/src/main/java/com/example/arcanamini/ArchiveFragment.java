@@ -3,10 +3,19 @@ package com.example.arcanamini;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +32,10 @@ public class ArchiveFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextView monthYearText;
+    private RecyclerView calRecycler;
+    private LocalDate selectedDate;
 
     public ArchiveFragment() {
         // Required empty public constructor
@@ -59,6 +72,38 @@ public class ArchiveFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_archive, container, false);
+        View v =  inflater.inflate(R.layout.fragment_archive, container, false);
+        monthYearText = v.findViewById(R.id.archive_month);
+        calRecycler = v.findViewById(R.id.archive_calendar);
+        setMonthView();
+        return v;
+
+    }
+
+    private void setMonthView(){
+        selectedDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+        String s = selectedDate.format(formatter);
+        monthYearText.setText(s);
+        ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
+        CalAdapter calendarAdapter = new CalAdapter(daysInMonth);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
+        calRecycler.setLayoutManager(layoutManager);
+        calRecycler.setAdapter(calendarAdapter);
+    }
+    private ArrayList<String> daysInMonthArray(LocalDate date){
+        ArrayList<String> daysInMonthArray = new ArrayList<String>();
+        YearMonth yearMonth = YearMonth.from(date);
+        int daysInMonth = yearMonth.lengthOfMonth();
+        LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
+        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
+        for (int i = 0; i < 42; i++){
+            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek){
+                daysInMonthArray.add("");
+            } else {
+                daysInMonthArray.add(String.valueOf(i - dayOfWeek));
+            }
+        }
+        return daysInMonthArray;
     }
 }
