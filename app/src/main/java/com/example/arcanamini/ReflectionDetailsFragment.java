@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,7 +24,9 @@ public class ReflectionDetailsFragment extends Fragment {
     TextView dayTextView, timeTextView;
     public static ArrayList<String> list;
     String date;
-    Button editButton, deleteButton;
+    LinearLayout buttonSet;
+    ImageButton editButton, deleteButton, imageButton, confirmButton;
+    Space a, b, c;
     EditText contentEditText;
     Boolean edit;
     int position;
@@ -59,6 +64,30 @@ public class ReflectionDetailsFragment extends Fragment {
             }
         });
         contentEditText.setEnabled(false);
+        buttonSet = v.findViewById(R.id.buttonSet);
+        imageButton = v.findViewById(R.id.reflectDetails_photo);
+        editButton = v.findViewById(R.id.reflectDetails_edit);
+        deleteButton = v.findViewById(R.id.reflectDetails_delete);
+        confirmButton = v.findViewById(R.id.reflectDetails_confirm);
+        confirmButton.setVisibility(View.GONE);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentEditText.setEnabled(true);
+                confirmButton.setVisibility(View.VISIBLE);
+                buttonSet.setVisibility(View.GONE);
+            }
+        });
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentEditText.setEnabled(false);
+                confirmButton.setVisibility(View.GONE);
+                buttonSet.setVisibility(View.VISIBLE);
+            }
+        });
         //button
 
 
