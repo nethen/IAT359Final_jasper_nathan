@@ -128,7 +128,7 @@ public class ArchiveRecyclerFragment extends Fragment{
             myRecycler.setVisibility(View.GONE);
         }
 
-        readAdapter = new ReadAdapter(list);
+        readAdapter = new ReadAdapter(list, date);
         readAdapter.notifyDataSetChanged();
         myRecycler.setAdapter(readAdapter);
         mLayoutManager = new LinearLayoutManager(this.getContext());

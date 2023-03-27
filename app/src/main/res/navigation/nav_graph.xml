@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_activity_main_to_archiveRecyclerFragment"
             app:destination="@id/archiveRecyclerFragment" />
+        <action
+            android:id="@+id/action_activity_main_to_reflectionDetailsFragment2"
+            app:destination="@id/reflectionDetailsFragment2" />
     </fragment>
     <activity
         android:id="@+id/activity_librarium2"
@@ -29,5 +32,14 @@
         android:id="@+id/archiveRecyclerFragment"
         android:name="com.example.arcanamini.ArchiveRecyclerFragment"
         android:label="fragment_archive_recycler"
-        tools:layout="@layout/fragment_archive_recycler" />
+        tools:layout="@layout/fragment_archive_recycler" >
+        <action
+            android:id="@+id/action_archiveRecyclerFragment_to_reflectionDetailsFragment2"
+            app:destination="@id/reflectionDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/reflectionDetailsFragment2"
+        android:name="com.example.arcanamini.ReflectionDetailsFragment"
+        android:label="fragment_reflection_details"
+        tools:layout="@layout/fragment_reflection_details" />
 </navigation>

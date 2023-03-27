@@ -5,55 +5,124 @@
     android:id="@+id/reflection_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="16dip"
+    android:paddingTop="32dip"
+    android:paddingRight="16dip"
+    android:paddingBottom="32dip"
     tools:context=".ReflectionDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="16sp"
-        android:layout_marginTop="32sp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/reflectionDetailsDayTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_lg" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20sp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/reflectionDetailsTimeTextView"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/reflectionDetailsDayTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_lg" />
+
+                <TextView
+                    android:id="@+id/reflectionDetailsTimeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/grey_dark"
+                    android:textSize="@dimen/text_sm" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/reflectionDetailsContentEditText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textAlignment="textEnd"
-                android:textColor="@color/grey_dark"
+                android:editable="false"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="No content found"
+                android:inputType="textMultiLine"
                 android:textSize="@dimen/text_sm" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/buttonSet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/reflectDetails_photo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:padding="4sp"
+                        android:src="@drawable/mdi_image" />
+
+                    <Space
+                        android:id="@+id/spaceA"
+                        android:layout_width="16sp"
+                        android:layout_height="wrap_content" />
+
+                    <ImageButton
+                        android:id="@+id/reflectDetails_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:background="@null"
+                        android:padding="4sp"
+                        android:src="@drawable/mdi_pencil" />
+
+                    <Space
+                        android:id="@+id/spaceB"
+                        android:layout_width="16sp"
+                        android:layout_height="wrap_content" />
+
+                    <ImageButton
+                        android:id="@+id/reflectDetails_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:background="@null"
+                        android:padding="4sp"
+                        android:src="@drawable/mdi_delete" />
+
+                    <Space
+                        android:id="@+id/spaceC"
+                        android:layout_width="16sp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/reflectDetails_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:background="@null"
+                    android:padding="4sp"
+                    android:src="@drawable/mdi_check_circle" />
+            </LinearLayout>
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/notesDetailsTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/notesDetailsText"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_sm" />
-
-        <MultiAutoCompleteTextView
-            android:id="@+id/multiAutoCompleteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="MultiAutoCompleteTextView" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

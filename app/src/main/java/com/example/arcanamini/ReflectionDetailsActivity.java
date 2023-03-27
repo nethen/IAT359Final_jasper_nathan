@@ -33,7 +33,7 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
         //text views
         dayTextView = findViewById(R.id.reflectionDetailsDayTextView);
         timeTextView = findViewById(R.id.reflectionDetailsTimeTextView);
-        contentTextView = findViewById(R.id.reflectionDetailsContentTextView);
+        contentTextView = findViewById(R.id.reflectionDetailsContentEditText);
         //edit text
         contentEditText = findViewById(R.id.reflectionDetailsEditText);
         contentEditText.setOnClickListener(this);

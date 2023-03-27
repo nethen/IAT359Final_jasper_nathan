@@ -119,7 +119,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         String content = null;
         ArrayList<String> arraylistString = new ArrayList<String>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("select * from "+Constants.REFLECTION_TABLE, null);
+        Cursor cursor = mDatabase.rawQuery("select * from "+Constants.REFLECTION_TABLE+" where "+Constants.REFLECTION_OCCURED+" = ? ", new String[] {date});
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             //Index 1 for reflection time

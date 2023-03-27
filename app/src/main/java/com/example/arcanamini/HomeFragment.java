@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             myRecycler.setVisibility(View.GONE);
         }
 
-        readAdapter = new ReadAdapter(list);
+        readAdapter = new ReadAdapter(list, String.valueOf(date));
         readAdapter.notifyDataSetChanged();
         myRecycler.setAdapter(readAdapter);
         mLayoutManager = new LinearLayoutManager(this.getContext());

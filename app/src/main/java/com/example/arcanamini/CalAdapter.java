@@ -98,6 +98,7 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
             Log.i("day",String.valueOf(d));
             Log.i("day",String.valueOf(now));
             if (d.equals(now)){
+                if (daysofmonthLD.size() <= 7) holder.mcardview.setEnabled(false);
                 int x = Color.rgb(233, 165, 13);
                 holder.mcardview.setCardBackgroundColor(x);
                 holder.mcardview.setStrokeColor(x);
