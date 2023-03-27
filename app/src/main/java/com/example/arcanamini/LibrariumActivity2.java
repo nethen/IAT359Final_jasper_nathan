@@ -27,8 +27,9 @@ public class LibrariumActivity2 extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_nav);
         NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment_lib);
         NavController navController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
         bottomNavigationView.setSelectedItemId(R.id.activity_librarium2);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+//        bottomNavigationView.setSelectedItemId(R.id.activity_librarium2);
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.activity_main, R.id.activity_librarium2, R.id.activity_archive).build();
         Log.i("navHost", String.valueOf(navHostFragment));
 
