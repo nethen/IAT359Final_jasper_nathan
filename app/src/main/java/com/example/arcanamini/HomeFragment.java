@@ -155,7 +155,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if(v == v.findViewById(R.id.newReflectionFloatingActionButton)){
             //start new reflection
             Intent intent = new Intent (this.getContext(), CameraActivity.class);
-            intent.putExtra ("DATE", date );
+//            intent.putExtra ("DATE", calendar.getTime() );
+//            Log.i("date", String.valueOf(calendar.getTime()));
             this.startActivity(intent);
         }
     }

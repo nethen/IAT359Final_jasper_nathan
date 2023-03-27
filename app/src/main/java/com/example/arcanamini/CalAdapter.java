@@ -29,9 +29,10 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
 
     @Override
     public CalAdapter.CalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_cal, parent, false);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View v = inflater.inflate(R.layout.card_cal, parent, false);
         ViewGroup.LayoutParams layoutParams = v.getLayoutParams();
-//        layoutParams.height = (int) (parent.getHeight());
+        layoutParams.height = (int) (parent.getHeight() * 0.16666666);
         CalViewHolder viewHolder = new CalViewHolder(v);
         return viewHolder;
     }

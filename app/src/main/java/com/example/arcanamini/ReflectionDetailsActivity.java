@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class ReflectionDetailsActivity extends AppCompatActivity implements View.OnClickListener {
-    TextView timeTextView, contentTextView;
+    TextView dayTextView, timeTextView, contentTextView;
     public static ArrayList<String> list;
     Button editButton, deleteButton;
     EditText contentEditText;
@@ -28,6 +28,7 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_reflection_details);
         edit = false;
         //text views
+        dayTextView = findViewById(R.id.reflectionDetailsDayTextView);
         timeTextView = findViewById(R.id.reflectionDetailsTimeTextView);
         contentTextView = findViewById(R.id.reflectionDetailsContentTextView);
         //edit text
@@ -56,11 +57,13 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
 
 
             String[] reflection = list.get(position).split("~");
-            String time = reflection[0] ;
+            String day = reflection[0];
+            String time = reflection[1];
+            dayTextView.setText(day);
             timeTextView.setText(time);
             //account for empty content
-            if (reflection.length > 1) {
-                String content = reflection[1];
+            if (reflection.length > 2) {
+                String content = reflection[2];
                 contentTextView.setText(content);
             }
         }else{

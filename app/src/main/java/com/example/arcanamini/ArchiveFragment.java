@@ -36,6 +36,8 @@ public class ArchiveFragment extends Fragment {
     private TextView monthYearText;
     private RecyclerView calRecycler;
     private LocalDate selectedDate;
+    private CalAdapter calendarAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public ArchiveFragment() {
         // Required empty public constructor
@@ -75,21 +77,22 @@ public class ArchiveFragment extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_archive, container, false);
         monthYearText = v.findViewById(R.id.archive_month);
         calRecycler = v.findViewById(R.id.archive_calendar);
+        selectedDate = LocalDate.now();
         setMonthView();
         return v;
 
     }
 
     private void setMonthView(){
-        selectedDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
         String s = selectedDate.format(formatter);
         monthYearText.setText(s);
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
-        CalAdapter calendarAdapter = new CalAdapter(daysInMonth);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
+        calendarAdapter = new CalAdapter(daysInMonth);
+        layoutManager = new GridLayoutManager(getContext(), 7);
         calRecycler.setLayoutManager(layoutManager);
         calRecycler.setAdapter(calendarAdapter);
+        Log.i("date", String.valueOf(selectedDate));
     }
     private ArrayList<String> daysInMonthArray(LocalDate date){
         ArrayList<String> daysInMonthArray = new ArrayList<String>();
@@ -105,5 +108,17 @@ public class ArchiveFragment extends Fragment {
             }
         }
         return daysInMonthArray;
+    }
+
+    public void previousMonthAction(View view)
+    {
+        selectedDate = selectedDate.minusMonths(1);
+        setMonthView();
+    }
+
+    public void nextMonthAction(View view)
+    {
+        selectedDate = selectedDate.plusMonths(1);
+        setMonthView();
     }
 }

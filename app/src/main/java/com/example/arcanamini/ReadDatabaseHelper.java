@@ -29,6 +29,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
                     Constants.REFLECTION_TABLE + " (" +
                     Constants.UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     Constants.REFLECTION_OCCURED + " TEXT," +
+                    Constants.REFLECTION_TIME + " TEXT," +
                     Constants.REFLECTION_CONTENT + " TEXT);" ;
 
     private static final String SQL_DELETE_ENTRIES =
@@ -85,7 +86,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             //Index 1 for reflection time
-            s = new String(cursor.getString(1));
+            s = new String(cursor.getString(2));
             arraylistString.add(s);
             cursor.moveToNext();
         }
@@ -140,11 +141,12 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public long insertDataReflection (String date, String content)
+    public long insertDataReflection (String date, String time, String content)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.REFLECTION_OCCURED, date);
+        contentValues.put(Constants.REFLECTION_TIME, time);
         contentValues.put(Constants.REFLECTION_CONTENT, content);
         long id = db.insert(Constants.REFLECTION_TABLE, null, contentValues);
         return id;

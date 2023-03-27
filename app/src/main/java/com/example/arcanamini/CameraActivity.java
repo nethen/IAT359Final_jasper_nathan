@@ -32,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
@@ -72,14 +73,16 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     private Button buttonCaptureShow, saveButton, reflectModeButton;
     private TextView notes, time;
     private EditText noteContent;
-    private String date;
+    Calendar calendar;
+    private Date dateVal;
+    private String date, hourMin;
     private ReadDatabaseHelper databaseHelper;
     private Integer counter = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
+        calendar = Calendar.getInstance();
 //        previewView = findViewById(R.id.previewView);
 //        previewView.setVisibility(View.GONE);
         imageViewCaptured = findViewById(R.id.imageViewCapturedImg);
@@ -109,14 +112,10 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
 
-        //retrieve data
-        Bundle extra_data = getIntent().getExtras();
-        if (extra_data!= null) {
-            date = extra_data.getString("DATE");
-            time.setText(date);
-        } else{
-            Toast.makeText(this,"No data recieved", Toast.LENGTH_SHORT);
-        }
+        dateVal = calendar.getTime();
+        date = new SimpleDateFormat("MMM d, yyyy").format(dateVal);
+        hourMin = new SimpleDateFormat("hh:mm aaa").format(dateVal);
+        time.setText(hourMin);
 
     }
     private class CameraThread implements Runnable
@@ -191,7 +190,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 //save reflection
 
                 String content = noteContent.getText().toString();
-                databaseHelper.insertDataReflection(date, content);
+                databaseHelper.insertDataReflection(date,hourMin, content);
                 int position = databaseHelper.getLength() - 1;
                 Intent intent = new Intent (this, ReflectionDetailsActivity.class);
                 intent.putExtra ("ITEM_KEY", position);
