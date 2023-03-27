@@ -11,11 +11,11 @@
         android:name="com.example.arcanamini.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/fragment_archive"
-        android:name="com.example.arcanamini.ArchiveFragment"
-        android:label="fragment_archive"
-        tools:layout="@layout/fragment_archive" />
+    <activity
+        android:id="@+id/activity_archive"
+        android:name="com.example.arcanamini.ArchiveActivity"
+        android:label="activity_archive"
+        tools:layout="@layout/activity_archive" />
     <activity
         android:id="@+id/activity_librarium2"
         android:name="com.example.arcanamini.LibrariumActivity2"

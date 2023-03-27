@@ -48,6 +48,11 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
     public void onBindViewHolder(CalAdapter.CalViewHolder holder, int position) {
 //         Log.i("calI", String.valueOf(position));
         String s = daysofmonth.get(position);
+        if (!s.isEmpty()) {
+            holder.year = LocalDate.now().getYear();
+            holder.month = LocalDate.now().getMonthValue();
+            holder.day = s;
+        }
         holder.celldate.setText(s);
         if (s.isEmpty()) {
             holder.mcardview.setBackgroundColor(0);
@@ -79,6 +84,8 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
 
         public MaterialCardView mcardview;
         public TextView celldate;
+        public int year, month;
+        public String day;
 
 
         Context context;
@@ -92,12 +99,13 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
             celldate = itemView.findViewById(R.id.card_cal_day);
 
 
+
             mcardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition(); //what item has been clicked
-
-//                    Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
+                    Toast.makeText(view.getContext(), String.valueOf(year+"-"+month+"-"+day), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
 //                    intent.putExtra ("ITEM_KEY", position);
 //
 //                    intent.putExtra ("ITEM_TABLE", table);

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/archive_recycler"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ArchiveRecyclerFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="16sp"
+        android:layout_marginTop="32sp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_archive_recycler_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="Archived notes" />
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder_date"
+            android:textSize="@dimen/text_xl" />
+
+        <LinearLayout
+            android:id="@+id/archive_empty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/empty_desc"
+                android:src="@drawable/crystal_ball" />
+
+            <TextView
+                android:id="@+id/empty_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Space and time are in flux"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/empty_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No records found for this day"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_sm" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/archiveRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</FrameLayout>

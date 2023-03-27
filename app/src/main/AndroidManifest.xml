@@ -37,6 +37,9 @@
             android:name=".LibrariumActivity2"
             android:exported="false" />
         <activity
+            android:name=".ArchiveActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReadAdapter"
             android:exported="false" />
         <activity

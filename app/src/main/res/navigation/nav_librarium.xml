@@ -35,4 +35,9 @@
         android:name="com.example.arcanamini.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/activity_archive"
+        android:name="com.example.arcanamini.ArchiveActivity"
+        android:label="activity_archive"
+        tools:layout="@layout/activity_archive" />
 </navigation>
