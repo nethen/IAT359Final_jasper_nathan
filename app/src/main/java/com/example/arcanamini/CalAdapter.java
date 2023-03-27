@@ -2,6 +2,7 @@ package com.example.arcanamini;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,27 +16,33 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
     public ArrayList<String> daysofmonth;
 
     Context context;
+    LocalDate now;
 
-     public CalAdapter(ArrayList<String> daysofmonth){
+     public CalAdapter(ArrayList<String> daysofmonth, LocalDate now){
          super();
          this.daysofmonth = daysofmonth;
+         this.now = now;
      }
 
     @Override
     public CalAdapter.CalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.card_cal, parent, false);
-        ViewGroup.LayoutParams layoutParams = v.getLayoutParams();
-        layoutParams.height = (int) (parent.getHeight() * 0.16666666);
+//        ViewGroup.LayoutParams layoutParams = v.getLayoutParams();
+//        layoutParams.height = (int) (parent.getHeight() * 0.16666666);
         CalViewHolder viewHolder = new CalViewHolder(v);
         return viewHolder;
     }
+
+
 
     @Override
     public void onBindViewHolder(CalAdapter.CalViewHolder holder, int position) {
@@ -47,7 +54,14 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
             holder.mcardview.setEnabled(false);
         } else {
             holder.mcardview.setEnabled(true);
+            if (s.equals(String.valueOf(now.getDayOfMonth())) && now.getMonth() == LocalDate.now().getMonth()){
+                int x = Color.rgb(233, 165, 13);
+                holder.mcardview.setCardBackgroundColor(x);
+                holder.mcardview.setStrokeColor(x);
+                holder.celldate.setTextColor(Color.WHITE);
+            }
         }
+
     }
 
 

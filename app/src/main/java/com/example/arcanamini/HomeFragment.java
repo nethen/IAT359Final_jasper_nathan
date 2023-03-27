@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    ReadDatabaseHelper dbHelper = new ReadDatabaseHelper(getContext());
+    ReadDatabaseHelper dbHelper;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         calendar = Calendar.getInstance();
-        dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+        dateFormat = new SimpleDateFormat("MMM d, yyyy");
 
         Context context = getActivity();
         sharedPref = context.getSharedPreferences(
@@ -115,6 +115,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         date = dateFormat.format(calendar.getTime());
+        Log.i("dateF", date);
+        dbHelper = new ReadDatabaseHelper(getContext(), date);
 
         dateTimeDisplay = view.findViewById(R.id.text_date);
         dateTimeDisplay.setText(date);
@@ -128,7 +130,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         myRecycler = (RecyclerView) view.findViewById(R.id.homeRecyclerView);
         emptyState = (LinearLayout) view.findViewById(R.id.home_empty);
 
-        ReadDatabaseHelper databaseHelper = new ReadDatabaseHelper(this.getContext());
+        ReadDatabaseHelper databaseHelper = new ReadDatabaseHelper(this.getContext(), date);
         databaseHelper.getReadableDatabase();
         list = databaseHelper.getItems();
         if (list.size() > 0){

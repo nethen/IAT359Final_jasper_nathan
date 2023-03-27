@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class ReadDatabaseHelper extends SQLiteOpenHelper {
 
     private Context mContext;
+    String date;
     private SQLiteDatabase mDatabase;
 
 //    private static final String SQL_CREATE_ENTRIES =
@@ -35,9 +36,10 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + Constants.REFLECTION_TABLE;
 
-    public ReadDatabaseHelper(Context context){
+    public ReadDatabaseHelper(Context context, String date){
         super(context, Constants.DBREFFLECTION_NAME, null, Constants.DATABASE_VERSION);
         this.mContext = context;
+        this.date = date;
     }
 
     public void onCreate(SQLiteDatabase db) {
@@ -82,7 +84,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         String s = null;
         ArrayList<String> arraylistString = new ArrayList<String>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("select * from "+Constants.REFLECTION_TABLE, null);
+        Cursor cursor = mDatabase.rawQuery("select * from "+Constants.REFLECTION_TABLE+" where "+Constants.REFLECTION_OCCURED+" = ? ", new String[] {date});
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             //Index 1 for reflection time

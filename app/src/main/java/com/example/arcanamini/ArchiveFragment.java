@@ -35,7 +35,7 @@ public class ArchiveFragment extends Fragment {
 
     private TextView monthYearText;
     private RecyclerView calRecycler;
-    private LocalDate selectedDate;
+    private LocalDate selectedDate, currDate;
     private CalAdapter calendarAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -77,6 +77,7 @@ public class ArchiveFragment extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_archive, container, false);
         monthYearText = v.findViewById(R.id.archive_month);
         calRecycler = v.findViewById(R.id.archive_calendar);
+        currDate = LocalDate.now();
         selectedDate = LocalDate.now();
         setMonthView();
         return v;
@@ -88,7 +89,7 @@ public class ArchiveFragment extends Fragment {
         String s = selectedDate.format(formatter);
         monthYearText.setText(s);
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
-        calendarAdapter = new CalAdapter(daysInMonth);
+        calendarAdapter = new CalAdapter(daysInMonth, LocalDate.now());
         layoutManager = new GridLayoutManager(getContext(), 7);
         calRecycler.setLayoutManager(layoutManager);
         calRecycler.setAdapter(calendarAdapter);

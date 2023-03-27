@@ -102,7 +102,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         noteContent = findViewById(R.id.newReflectionContentEditText);
 
         //database
-        databaseHelper = new ReadDatabaseHelper(this);
+        databaseHelper = new ReadDatabaseHelper(this, date);
         databaseHelper.getWritableDatabase();
 
 

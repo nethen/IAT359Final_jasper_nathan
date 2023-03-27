@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,10 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ReflectionDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     TextView dayTextView, timeTextView, contentTextView;
     public static ArrayList<String> list;
+    String date;
     Button editButton, deleteButton;
     EditText contentEditText;
     Boolean edit;
@@ -42,8 +45,8 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
         deleteButton.setOnClickListener(this);
 
         position = 0;
-
-        databaseHelper = new ReadDatabaseHelper(this);
+        date = String.valueOf(DateFormat.format("MMM dd, yyyy", Calendar.getInstance().getTime()));
+        databaseHelper = new ReadDatabaseHelper(this, date);
         databaseHelper.getReadableDatabase();
         list = databaseHelper.getItemsWithContent();
 
