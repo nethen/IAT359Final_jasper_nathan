@@ -88,6 +88,17 @@ public class ReflectionDetailsFragment extends Fragment {
                 buttonSet.setVisibility(View.VISIBLE);
             }
         });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                databaseHelper.get
+                Log.i("pos", String.valueOf(databaseHelper.date));
+                Log.i("pos", String.valueOf(position));
+                String i = databaseHelper.getId(position);
+                databaseHelper.deleteContent(i);
+            }
+        });
         //button
 
 
@@ -96,6 +107,7 @@ public class ReflectionDetailsFragment extends Fragment {
         Bundle extra_data = getArguments();
         if (extra_data!= null) {
         date = extra_data.getString("ITEM_DATE");
+            Log.i("pos", String.valueOf(date));
         databaseHelper = new ReadDatabaseHelper(getActivity(), date);
         databaseHelper.getReadableDatabase();
         list = databaseHelper.getItemsWithContent();

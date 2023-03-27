@@ -13,6 +13,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,6 +86,9 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
         }
         holder.celldate.setText(String.valueOf(day));
         holder.mcardview.setEnabled(false);
+//        holder.mcardview.setBackgroundColor(ContextCompat.getColor(holder.context,R.color.grey_light));
+        holder.mcardview.setStrokeColor(ContextCompat.getColor(holder.context,R.color.grey_light));
+        holder.celldate.setTextColor(ContextCompat.getColor(holder.context,R.color.grey_dark));
         if (month != now.getMonthValue()) {
             holder.mcardview.setBackgroundColor(0);
         } else {

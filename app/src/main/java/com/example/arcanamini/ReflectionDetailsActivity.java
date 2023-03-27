@@ -107,7 +107,7 @@ public class ReflectionDetailsActivity extends AppCompatActivity implements View
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                            //delete entry
-                            databaseHelper.deleteContent(Integer.toString(position));
+//                            databaseHelper.deleteContent(Integer.toString(position));
                         }
                     });
 

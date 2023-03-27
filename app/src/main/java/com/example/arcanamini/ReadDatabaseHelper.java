@@ -133,6 +133,22 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         closeDatabase();
         return arraylistString;
     }
+    public String getId(int position) {
+        String id = null;
+        ArrayList<String> arraylistString = new ArrayList<String>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("select * from "+Constants.REFLECTION_TABLE+" where "+Constants.REFLECTION_OCCURED+" = ? ", new String[] {date});
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            //Index 1 for reflection time
+            id = new String(cursor.getString(0));
+            arraylistString.add(id);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return arraylistString.get(position);
+    }
 
     public int getLength(){
         String s = null;
@@ -173,7 +189,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteContent(String position){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(Constants.REFLECTION_TABLE, "_id=?", new String[]{position});
+        db.delete(Constants.REFLECTION_TABLE, "_id=? AND "+Constants.REFLECTION_OCCURED+" = ?", new String[]{position, date});
         db.close();
     }
 
