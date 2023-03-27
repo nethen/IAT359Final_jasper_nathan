@@ -22,6 +22,12 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_lg" />
 
+        <SearchView
+            android:id="@+id/recyclerSearchView"
+            style="@style/StandardButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"

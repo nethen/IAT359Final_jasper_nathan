@@ -43,12 +43,6 @@
             android:name=".ReadAdapter"
             android:exported="false" />
         <activity
-            android:name=".CardDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CardRecyclerActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

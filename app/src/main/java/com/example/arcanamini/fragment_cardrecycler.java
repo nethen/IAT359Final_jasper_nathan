@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.io.File;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
  */
 public class fragment_cardrecycler extends Fragment {
 
+
     private RecyclerView myRecycler;
     private LinearLayoutManager mLayoutManager;
 
@@ -38,12 +40,12 @@ public class fragment_cardrecycler extends Fragment {
     int table;
     String inpTable;
     TextView title;
-
+    SearchView searchView;
     public fragment_cardrecycler() {
         // Required empty public constructor
     }
 
-    public static fragment_cardrecycler newInstance(String param1, String param2) {
+    public static fragment_cardrecycler newInstance() {
         fragment_cardrecycler fragment = new fragment_cardrecycler();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -61,11 +63,12 @@ public class fragment_cardrecycler extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_cardrecycler, container, false);
+
         myRecycler = (RecyclerView) v.findViewById(R.id.recyclerView);
+        title = v.findViewById(R.id.categoryTitleTextView);
 
         //retrieve extra
-        Bundle extra_data = getActivity().getIntent().getExtras();
-        title = v.findViewById(R.id.categoryTitleTextView);
+        Bundle extra_data = getArguments();
 
         inpTable = new String();
 //        // check if the bundle was received (bundle not null)
@@ -104,9 +107,28 @@ public class fragment_cardrecycler extends Fragment {
 
         title = v.findViewById(R.id.categoryTitleTextView);
 
+        // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
         myRecycler.setLayoutManager(mLayoutManager);
+
+        //search bar
+        searchView = v.findViewById(R.id.recyclerSearchView);
+        searchView.setQueryHint("Enter your search here...");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                myAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
         return v;
+
     }
 
     public boolean copyDatabase(Context context){

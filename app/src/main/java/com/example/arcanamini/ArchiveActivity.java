@@ -1,13 +1,8 @@
 package com.example.arcanamini;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -25,7 +20,6 @@ public class ArchiveActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     FragmentManager supportFragmentManager = getSupportFragmentManager();
     Context context;
-//    final View androidRobotView = findViewById(R.id.bottom_nav);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +32,12 @@ public class ArchiveActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.activity_main, R.id.activity_librarium2, R.id.activity_archive).build();
-        Log.i("navHost", String.valueOf(navHostFragment));
-
     }
-
-//    HomeFragment homeFragment = new HomeFragment();
-//    LibrariumFragment librariumFragment = new LibrariumFragment();
-//    ArchiveFragment archiveFragment = new ArchiveFragment();
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_archive);
-        Toast.makeText(this, String.valueOf(item), Toast.LENGTH_SHORT).show();
         return NavigationUI.onNavDestinationSelected(item, navController)
                 || super.onOptionsItemSelected(item);
     }

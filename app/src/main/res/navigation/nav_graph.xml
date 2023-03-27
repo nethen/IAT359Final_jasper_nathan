@@ -12,13 +12,13 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <activity
-        android:id="@+id/activity_archive"
-        android:name="com.example.arcanamini.ArchiveActivity"
-        android:label="activity_archive"
-        tools:layout="@layout/activity_archive" />
-    <activity
         android:id="@+id/activity_librarium2"
         android:name="com.example.arcanamini.LibrariumActivity2"
         android:label="activity_librarium2"
         tools:layout="@layout/activity_librarium2" />
+    <activity
+        android:id="@+id/activity_archive"
+        android:name="com.example.arcanamini.ArchiveActivity"
+        android:label="activity_archive"
+        tools:layout="@layout/activity_archive" />
 </navigation>

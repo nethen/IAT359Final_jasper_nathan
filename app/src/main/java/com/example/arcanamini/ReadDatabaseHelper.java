@@ -97,6 +97,23 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         return arraylistString;
     }
 
+    public ArrayList<String> getDates() {
+        String s = null;
+        ArrayList<String> arraylistString = new ArrayList<String>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("select distinct "+Constants.REFLECTION_OCCURED+" from "+Constants.REFLECTION_TABLE, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            //Index 1 for reflection time
+            s = new String(cursor.getString(0));
+            arraylistString.add(s);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return arraylistString;
+    }
+
     public ArrayList<String> getItemsWithContent() {
         String time = null;
         String content = null;

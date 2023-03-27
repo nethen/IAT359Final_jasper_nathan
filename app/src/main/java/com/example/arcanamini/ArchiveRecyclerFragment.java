@@ -55,20 +55,10 @@ public class ArchiveRecyclerFragment extends Fragment{
 
     SharedPreferences sharedPref;
 
-    //new reflection
-    FloatingActionButton newRefButton;
     public ArchiveRecyclerFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ArchiveRecyclerFragment newInstance(String param1, String param2) {
         ArchiveRecyclerFragment fragment = new ArchiveRecyclerFragment();
         Bundle args = new Bundle();
@@ -81,7 +71,16 @@ public class ArchiveRecyclerFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extra_data = getArguments();
+
+        Log.i("ArcRec", String.valueOf(extra_data.getString("DAY")));
+        Log.i("ArcRec", String.valueOf(extra_data.getInt("MONTH")));
+        Log.i("ArcRec", String.valueOf(extra_data.getInt("YEAR")));
+
         calendar = Calendar.getInstance();
+        if (extra_data.containsKey("DAY") && extra_data.containsKey("MONTH") && extra_data.containsKey("YEAR")){
+            calendar.set(extra_data.getInt("YEAR"), extra_data.getInt("MONTH")-1, Integer.parseInt(extra_data.getString("DAY")));
+        }
         dateFormat = new SimpleDateFormat("MMM d, yyyy");
 
         Context context = getActivity();

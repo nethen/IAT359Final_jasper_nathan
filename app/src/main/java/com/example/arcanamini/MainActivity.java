@@ -54,11 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    HomeFragment homeFragment = new HomeFragment();
-//    LibrariumFragment librariumFragment = new LibrariumFragment();
-//    ArchiveFragment archiveFragment = new ArchiveFragment();
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

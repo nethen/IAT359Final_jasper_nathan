@@ -2,6 +2,7 @@ package com.example.arcanamini;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
 
@@ -90,14 +92,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
                             "You have clicked " + ((TextView) view.findViewById(R.id.card_title)).getText().toString(),
                             Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent (view.getContext(), CardDetailsActivity.class);
-                    intent.putExtra ("ITEM_KEY", position);
+                    Bundle b = new Bundle();
+                    b.putInt ("ITEM_KEY", position );
+                    b.putInt ("ITEM_TABLE", table );
+                    b.putString ("ITEM_NAME", ((TextView) view.findViewById(R.id.card_title)).getText().toString());
+//                    getActivity().startActivity(intent);
+                    Navigation.findNavController(view).navigate(R.id.action_fragment_cardrecycler_to_card_details, b);
 
-                    intent.putExtra ("ITEM_TABLE", table);
-
-                    intent.putExtra ("ITEM_NAME", ((TextView) view.findViewById(R.id.card_title)).getText().toString());
-
-                    view.getContext().startActivity(intent);
                 }
             });
 

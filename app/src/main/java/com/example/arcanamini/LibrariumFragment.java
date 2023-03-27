@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,6 @@ public class LibrariumFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int table = -1;
-                Intent intent = new Intent (getActivity(), CardRecyclerActivity.class);
                 switch (v.getId()){
                     case R.id.card_arcanaMajor:
                         table = 0;
@@ -57,8 +57,10 @@ public class LibrariumFragment extends Fragment {
                         break;
                 }
                 if (table >= 0) {
-                    intent.putExtra ("TABLE", table );
-                    getActivity().startActivity(intent);
+                    Bundle b = new Bundle();
+                    b.putInt ("TABLE", table );
+//                    getActivity().startActivity(intent);
+                    Navigation.findNavController(v).navigate(R.id.action_librariumFragment_to_fragment_cardrecycler, b);
                 }
             }
         };
