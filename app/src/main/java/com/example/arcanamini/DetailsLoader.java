@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class DetailsLoader {
     private SQLiteDatabase db;
     private Context context;
-    private final DatabaseHelper helper;
+    private final GeneralDatabaseHelper helper;
     String inpTable;
 
     public DetailsLoader (Context c, int table){
@@ -26,7 +26,7 @@ public class DetailsLoader {
                 inpTable = Constants.TECHNIQUES_TABLE;
                 break;
         }
-        helper = new DatabaseHelper(context, "librariumdatabase", inpTable);
+        helper = new GeneralDatabaseHelper(context, "librariumdatabase", inpTable);
     }
 
     public long insertDataMinor (String name, int status, String defUpright, String defReversed)

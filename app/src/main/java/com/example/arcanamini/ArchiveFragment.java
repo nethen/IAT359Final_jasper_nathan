@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -24,15 +25,6 @@ import java.util.ArrayList;
  */
 public class ArchiveFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private TextView monthYearText;
     private RecyclerView calRecycler;
     private LocalDate selectedDate, currDate;
@@ -43,31 +35,14 @@ public class ArchiveFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ArchiveFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ArchiveFragment newInstance(String param1, String param2) {
+    public static ArchiveFragment newInstance() {
         ArchiveFragment fragment = new ArchiveFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -88,27 +63,49 @@ public class ArchiveFragment extends Fragment {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
         String s = selectedDate.format(formatter);
         monthYearText.setText(s);
-        ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
+        ArrayList<LocalDate> daysInMonth = daysInMonthArray(selectedDate);
         calendarAdapter = new CalAdapter(daysInMonth, LocalDate.now());
         layoutManager = new GridLayoutManager(getContext(), 7);
         calRecycler.setLayoutManager(layoutManager);
         calRecycler.setAdapter(calendarAdapter);
         Log.i("date", String.valueOf(selectedDate));
     }
-    private ArrayList<String> daysInMonthArray(LocalDate date){
-        ArrayList<String> daysInMonthArray = new ArrayList<String>();
+    private ArrayList<LocalDate> daysInMonthArray(LocalDate date){
+        ArrayList<LocalDate> daysInMonthArray = new ArrayList<>();
         YearMonth yearMonth = YearMonth.from(date);
         int daysInMonth = yearMonth.lengthOfMonth();
-        LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
-        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
-        for (int i = 0; i < 42; i++){
-            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek){
-                daysInMonthArray.add("");
-            } else {
-                daysInMonthArray.add(String.valueOf(i - dayOfWeek));
-            }
+        LocalDate firstOfMonth = date.withDayOfMonth(1);
+        LocalDate current = sundayForDate(firstOfMonth);
+        LocalDate endDate = current.plusWeeks(6);
+
+        while (current.isBefore(endDate))
+        {
+            daysInMonthArray.add(current);
+            current = current.plusDays(1);
         }
+//        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
+//        for (int i = 0; i < 42; i++){
+//            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek){
+//                daysInMonthArray.add(LocalDate.);
+//            } else {
+//                daysInMonthArray.add(String.valueOf(i - dayOfWeek));
+//            }
+//        }
         return daysInMonthArray;
+    }
+    private static LocalDate sundayForDate(LocalDate current)
+    {
+        LocalDate oneWeekAgo = current.minusWeeks(1);
+
+        while (current.isAfter(oneWeekAgo))
+        {
+            if(current.getDayOfWeek() == DayOfWeek.SUNDAY)
+                return current;
+
+            current = current.minusDays(1);
+        }
+
+        return null;
     }
 
     public void previousMonthAction(View view)

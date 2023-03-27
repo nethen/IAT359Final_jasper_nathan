@@ -2,19 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/activity_main">
+    android:id="@+id/nav_cam"
+    app:startDestination="@id/camFragment">
 
-
-    <fragment
+    <activity
         android:id="@+id/activity_main"
-        android:name="com.example.arcanamini.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_activity_main_to_archiveRecyclerFragment"
-            app:destination="@id/archiveRecyclerFragment" />
-    </fragment>
+        android:name="com.example.arcanamini.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
     <activity
         android:id="@+id/activity_librarium2"
         android:name="com.example.arcanamini.LibrariumActivity2"
@@ -26,8 +21,12 @@
         android:label="activity_archive"
         tools:layout="@layout/activity_archive" />
     <fragment
-        android:id="@+id/archiveRecyclerFragment"
-        android:name="com.example.arcanamini.ArchiveRecyclerFragment"
-        android:label="fragment_archive_recycler"
-        tools:layout="@layout/fragment_archive_recycler" />
+        android:id="@+id/camFragment"
+        android:name="com.example.arcanamini.CamFragment"
+        android:label="fragment_precamera"
+        tools:layout="@layout/fragment_precamera" >
+        <action
+            android:id="@+id/action_camFragment_to_activity_main"
+            app:destination="@id/activity_main" />
+    </fragment>
 </navigation>

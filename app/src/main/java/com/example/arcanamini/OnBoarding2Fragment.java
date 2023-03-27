@@ -47,6 +47,8 @@ public class OnBoarding2Fragment extends Fragment implements View.OnClickListene
         View v =  inflater.inflate(R.layout.fragment_on_boarding2, container, false);
         enterBlack = v.findViewById(R.id.onboarding2Button1);
         enterBlack.setOnClickListener(this);
+        enterBlack.setClickable(false);
+        enterBlack.setAlpha((float) 0.1);
         nameEditText = v.findViewById(R.id.onboardingNameEditText);
         nameEditText.addTextChangedListener(this);
         return v;

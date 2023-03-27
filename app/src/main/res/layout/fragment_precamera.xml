@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".CamFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="16sp"
+        android:layout_marginVertical="32sp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/precam_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24sp"
+            android:text="\u2190 My readings"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_lg" />
+
+        <LinearLayout
+            android:id="@+id/group_reflect"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/reflect_desc"
+                android:src="@drawable/crystal_ball_2" />
+
+            <TextView
+                android:id="@+id/reflect_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="It sounds like it's tarot time!"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/reflect_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:text="Take some time to gather your thoughts or immediately start jotting down your thoughts."
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_sm" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_reflect_skip"
+                style="@style/ButtonDarkSecondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:text="Start writing"
+                app:backgroundTint="@null" />
+
+            <Space
+                android:layout_width="12sp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/button_reflect_sensor"
+                style="@style/ButtonDarkPrimary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:text="Start reflecting"
+                app:backgroundTint="@null" />
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

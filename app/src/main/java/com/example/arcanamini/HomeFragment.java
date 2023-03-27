@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,20 +26,15 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     ReadDatabaseHelper dbHelper;
 
@@ -53,7 +49,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView welcome;
 
     //for recycler
-    private RecyclerView myRecycler;
+    private RecyclerView myRecycler, calRecycler;
     private ReadAdapter readAdapter;
 
     private LinearLayout emptyState;
@@ -68,21 +64,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
+    public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -128,6 +111,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         welcome.setText(welcome.getText() + " " + s);
 
         myRecycler = (RecyclerView) view.findViewById(R.id.homeRecyclerView);
+        calRecycler = (RecyclerView) view.findViewById(R.id.home_calendar);
         emptyState = (LinearLayout) view.findViewById(R.id.home_empty);
 
         ReadDatabaseHelper databaseHelper = new ReadDatabaseHelper(this.getContext(), date);
@@ -148,7 +132,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         newRefButton = view.findViewById(R.id.newReflectionFloatingActionButton);
         newRefButton.setOnClickListener(this);
-
+        setWeekView();
         return view;
     }
 
@@ -156,10 +140,48 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if(v == v.findViewById(R.id.newReflectionFloatingActionButton)){
             //start new reflection
-            Intent intent = new Intent (this.getContext(), CameraActivity.class);
+            Intent intent = new Intent (this.getContext(), CamActivity.class);
 //            intent.putExtra ("DATE", calendar.getTime() );
 //            Log.i("date", String.valueOf(calendar.getTime()));
             this.startActivity(intent);
         }
     }
+
+    private void setWeekView(){
+        ArrayList<LocalDate> daysInWeek = daysInWeekArray(LocalDate.now());
+        CalAdapter calendarAdapter = new CalAdapter(daysInWeek, LocalDate.now());
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
+        calRecycler.setLayoutManager(layoutManager);
+        calRecycler.setAdapter(calendarAdapter);
+
+    }
+    public static ArrayList<LocalDate> daysInWeekArray(LocalDate selectedDate)
+    {
+        ArrayList<LocalDate> days = new ArrayList<>();
+        LocalDate current = sundayForDate(selectedDate);
+        LocalDate endDate = current.plusWeeks(1);
+
+        while (current.isBefore(endDate))
+        {
+            days.add(current);
+            current = current.plusDays(1);
+        }
+        return days;
+    }
+
+    private static LocalDate sundayForDate(LocalDate current)
+    {
+        LocalDate oneWeekAgo = current.minusWeeks(1);
+
+        while (current.isAfter(oneWeekAgo))
+        {
+            if(current.getDayOfWeek() == DayOfWeek.SUNDAY)
+                return current;
+
+            current = current.minusDays(1);
+        }
+
+        return null;
+    }
+
 }

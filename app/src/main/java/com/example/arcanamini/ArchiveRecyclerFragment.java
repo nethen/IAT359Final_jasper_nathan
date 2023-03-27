@@ -79,7 +79,7 @@ public class ArchiveRecyclerFragment extends Fragment{
 
         calendar = Calendar.getInstance();
         if (extra_data.containsKey("DAY") && extra_data.containsKey("MONTH") && extra_data.containsKey("YEAR")){
-            calendar.set(extra_data.getInt("YEAR"), extra_data.getInt("MONTH")-1, Integer.parseInt(extra_data.getString("DAY")));
+            calendar.set(extra_data.getInt("YEAR"), extra_data.getInt("MONTH")-1, extra_data.getInt("DAY"));
         }
         dateFormat = new SimpleDateFormat("MMM d, yyyy");
 

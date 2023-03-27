@@ -21,11 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link fragment_cardrecycler#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class fragment_cardrecycler extends Fragment {
 
 
@@ -90,17 +86,17 @@ public class fragment_cardrecycler extends Fragment {
             }
         }
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity(), "librariumdatabase", inpTable);
-        File database = getActivity().getApplicationContext().getDatabasePath(DatabaseHelper.DBNAME);
+        GeneralDatabaseHelper generalDatabaseHelper = new GeneralDatabaseHelper(getActivity(), "librariumdatabase", inpTable);
+        File database = getActivity().getApplicationContext().getDatabasePath(GeneralDatabaseHelper.DBNAME);
 
         if (database.exists() == false){
-            databaseHelper.getReadableDatabase();
+            generalDatabaseHelper.getReadableDatabase();
             if(!copyDatabase(getActivity())){
                 return v;
             }
 
         }
-        list = databaseHelper.getItems();
+        list = generalDatabaseHelper.getItems();
         myAdapter = new MyAdapter(list, table);
         myAdapter.notifyDataSetChanged();
         myRecycler.setAdapter(myAdapter);
@@ -133,8 +129,8 @@ public class fragment_cardrecycler extends Fragment {
 
     public boolean copyDatabase(Context context){
         try {
-            InputStream inputStream = context.getAssets().open(DatabaseHelper.DBNAME);
-            String outFileName = DatabaseHelper.DBLOCATION+"/"+DatabaseHelper.DBNAME;
+            InputStream inputStream = context.getAssets().open(GeneralDatabaseHelper.DBNAME);
+            String outFileName = GeneralDatabaseHelper.DBLOCATION+"/"+ GeneralDatabaseHelper.DBNAME;
             File f = new File(outFileName);
             f.getParentFile().mkdirs();
             OutputStream outputStream = new FileOutputStream(outFileName);

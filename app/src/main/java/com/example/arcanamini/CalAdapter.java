@@ -13,6 +13,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,15 +28,21 @@ import java.util.Locale;
 
 public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
     public ArrayList<String> daysofmonth;
+    public ArrayList<LocalDate> daysofmonthLD;
 
     Context context;
     LocalDate now;
 
-     public CalAdapter(ArrayList<String> daysofmonth, LocalDate now){
-         super();
-         this.daysofmonth = daysofmonth;
-         this.now = now;
-     }
+//     public CalAdapter(ArrayList<String> daysofmonth, LocalDate now){
+//         super();
+//         this.daysofmonth = daysofmonth;
+//         this.now = now;
+//     }
+    public CalAdapter(ArrayList<LocalDate> daysofmonth, LocalDate now){
+        super();
+        this.daysofmonthLD = daysofmonth;
+        this.now = now;
+    }
 
     @Override
     public CalAdapter.CalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,19 +59,20 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
     @Override
     public void onBindViewHolder(CalAdapter.CalViewHolder holder, int position) {
 //         Log.i("calI", String.valueOf(position));
-        String s = daysofmonth.get(position);
-        int year = LocalDate.now().getYear();
-        int month = LocalDate.now().getMonthValue();
+//        String s = daysofmonth.get(position);
+        LocalDate d = daysofmonthLD.get(position);
+        int year = d.getYear();
+        int month = d.getMonthValue();
         ArrayList<String> dates;
-        String day = s;
+        int day = d.getDayOfMonth();
         boolean available = false;
-        if (!s.isEmpty()) {
+        if (!d.equals(null)) {
             holder.year = year;
             holder.month = month;
-            holder.day = s;
+            holder.day = day;
 
             Calendar calendar = Calendar.getInstance();
-            calendar.set(year, month-1, Integer.parseInt(s));
+            calendar.set(year, month-1, day);
             SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
             String date = dateFormat.format(calendar.getTime());
 
@@ -75,17 +83,21 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
                 if (st.equals(date)) available = true;
             }
         }
-        holder.celldate.setText(s);
+        holder.celldate.setText(String.valueOf(day));
         holder.mcardview.setEnabled(false);
-        if (s.isEmpty()) {
+        if (month != now.getMonthValue()) {
             holder.mcardview.setBackgroundColor(0);
         } else {
             if (available){
                 holder.mcardview.setCardBackgroundColor(Color.BLACK);
                 holder.celldate.setTextColor(Color.WHITE);
                 holder.mcardview.setEnabled(true);
+            } else if (daysofmonthLD.size() <= 7) {
+                holder.mcardview.setBackgroundColor(0);
             }
-            if (s.equals(String.valueOf(now.getDayOfMonth())) && now.getMonth() == LocalDate.now().getMonth()){
+            Log.i("day",String.valueOf(d));
+            Log.i("day",String.valueOf(now));
+            if (d.equals(now)){
                 int x = Color.rgb(233, 165, 13);
                 holder.mcardview.setCardBackgroundColor(x);
                 holder.mcardview.setStrokeColor(x);
@@ -99,7 +111,7 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
     @Override
     public int getItemCount() {
 
-         return daysofmonth.size();
+         return daysofmonthLD.size();
     }
 
     public static class CalViewHolder extends RecyclerView.ViewHolder {
@@ -110,8 +122,8 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
 
         public MaterialCardView mcardview;
         public TextView celldate;
-        public int year, month;
-        public String day;
+        public int year, month, day;
+
 
 
         Context context;
@@ -130,15 +142,19 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition(); //what item has been clicked
-                    Toast.makeText(view.getContext(), String.valueOf(year+"-"+month+"-"+day), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(view.getContext(), String.valueOf(Navigation.findNavController(view).getGraph()), Toast.LENGTH_SHORT).show();
                     Bundle b = new Bundle();
                     b.putInt("YEAR", year);
                     b.putInt("MONTH", month);
-                    b.putString("DAY", day);
-                    if (year == LocalDate.now().getYear() && month == LocalDate.now().getMonthValue() && Integer.parseInt(day) == LocalDate.now().getDayOfMonth()){
-                        Navigation.findNavController(view).navigate(R.id.action_archiveFragment_to_activity_main);
+                    b.putInt("DAY", day);
+                    if (Navigation.findNavController(view).getGraph().getId() == (R.id.nav_archive) ) {
+                        if (year == LocalDate.now().getYear() && month == LocalDate.now().getMonthValue() && day == LocalDate.now().getDayOfMonth()) {
+                            Navigation.findNavController(view).navigate(R.id.action_archiveFragment_to_activity_main);
+                        } else
+                            Navigation.findNavController(view).navigate(R.id.action_archiveFragment_to_fragment_archive_recycler, b);
+                    } else {
+                        Navigation.findNavController(view).navigate(R.id.action_activity_main_to_archiveRecyclerFragment, b);
                     }
-                    else Navigation.findNavController(view).navigate(R.id.action_archiveFragment_to_fragment_archive_recycler, b);
                 }
             });
 

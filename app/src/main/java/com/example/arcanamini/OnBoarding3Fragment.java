@@ -13,46 +13,21 @@ import android.widget.RadioGroup;
 
 public class OnBoarding3Fragment extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener{
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    Button enterGrey, enterBlack;
+    Button enterBlack;
     private RadioGroup styleGroup;
 
     public OnBoarding3Fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OnBoarding3Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OnBoarding3Fragment newInstance(String param1, String param2) {
+    public static OnBoarding3Fragment newInstance() {
         OnBoarding3Fragment fragment = new OnBoarding3Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -62,8 +37,8 @@ public class OnBoarding3Fragment extends Fragment implements View.OnClickListene
         View v =  inflater.inflate(R.layout.fragment_on_boarding3, container, false);
         enterBlack = v.findViewById(R.id.onboarding3Button1);
         enterBlack.setOnClickListener(this);
-        enterBlack.setVisibility(View.GONE);
-        enterGrey = v.findViewById(R.id.onboarding3Button2);
+        enterBlack.setClickable(false);
+        enterBlack.setAlpha((float) 0.1);
         styleGroup = (RadioGroup) v.findViewById(R.id.onboardStyleRadioGroup);
         styleGroup.setOnCheckedChangeListener(this);
         return v;
@@ -84,8 +59,8 @@ public class OnBoarding3Fragment extends Fragment implements View.OnClickListene
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         //valid button hidden until a radio button is selected
-        enterBlack.setVisibility(View.VISIBLE);
-        enterGrey.setVisibility(View.GONE);
+        enterBlack.setClickable(true);
+        enterBlack.setAlpha((float) 1);
 
         switch (checkedId) {
             case R.id.onboardLightRadioButton:
@@ -96,4 +71,5 @@ public class OnBoarding3Fragment extends Fragment implements View.OnClickListene
                 break;
         }
     }
+
 }

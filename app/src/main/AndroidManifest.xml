@@ -40,6 +40,9 @@
             android:name=".ArchiveActivity"
             android:exported="false" />
         <activity
+            android:name=".CamActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReadAdapter"
             android:exported="false" />
         <activity

@@ -9,14 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 
-public class DatabaseHelper extends SQLiteOpenHelper {
-
-    private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + Constants.READING_TABLE + " (" +
-                    "_id" + " INTEGER PRIMARY KEY," +
-                    Constants.READING_OCCURED + " TEXT," +
-                    Constants.READING_TYPE+ " TEXT," +
-                    Constants.READING_CARDS + "TEXT)";
+public class GeneralDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + Constants.READING_TABLE;
@@ -25,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static String DBLOCATION;
     private Context mContext;
     private SQLiteDatabase mDatabase;
-    public DatabaseHelper(Context context, String DBname, String table){
+    public GeneralDatabaseHelper(Context context, String DBname, String table){
         super(context, DBNAME, null, 2);
         DBNAME = DBname+".db";
         TABLE = table;

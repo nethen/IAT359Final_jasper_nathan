@@ -63,13 +63,6 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_base" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Explore the pivotal"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_xs" />
-
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
@@ -97,13 +90,6 @@
                             android:text="@string/minor_button_text"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_base" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/spread_intent"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_xs" />
 
                     </LinearLayout>
 
@@ -140,13 +126,6 @@
                             android:text="@string/techniques_button_text"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_base" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/spread_intent"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_xs" />
 
                     </LinearLayout>
 

@@ -83,7 +83,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
 
             //mcardview = itemView.findViewById(R.id.card_row);
             title = itemView.findViewById(R.id.card_title);
-            subtitle = itemView.findViewById(R.id.card_subtitle);
             mcardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

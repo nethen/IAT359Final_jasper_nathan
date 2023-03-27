@@ -1,8 +1,13 @@
 package com.example.arcanamini;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -15,30 +20,34 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class ArchiveActivity extends AppCompatActivity {
+public class CamActivity extends AppCompatActivity {
     AppBarConfiguration appBarConfiguration;
     BottomNavigationView bottomNavigationView;
     FragmentManager supportFragmentManager = getSupportFragmentManager();
+    Button goOnboardButton;
     Context context;
+//    final View androidRobotView = findViewById(R.id.bottom_nav);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_archive);
+        setContentView(R.layout.activity_cam);
         context = this;
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
-        NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment_archive);
+        NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment_cam);
         NavController navController = navHostFragment.getNavController();
-        bottomNavigationView.setSelectedItemId(R.id.activity_archive);
+        bottomNavigationView.setSelectedItemId(R.id.activity_main);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.activity_main, R.id.activity_librarium2, R.id.activity_archive).build();
-    }
+        Log.i("navHost", String.valueOf(navHostFragment));
 
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_archive);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_cam);
+        Toast.makeText(this, String.valueOf(item), Toast.LENGTH_SHORT).show();
         return NavigationUI.onNavDestinationSelected(item, navController)
                 || super.onOptionsItemSelected(item);
     }
