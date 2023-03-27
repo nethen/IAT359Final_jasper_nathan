@@ -40,15 +40,9 @@
             style="@style/StandardButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:text="@string/onboarding2_button"
             app:backgroundTint="@null" />
 
-        <Button
-            android:id="@+id/onboarding2Button2"
-            style="@style/GreyButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/onboarding2_button"
-            app:backgroundTint="@null" />
     </LinearLayout>
 </FrameLayout>

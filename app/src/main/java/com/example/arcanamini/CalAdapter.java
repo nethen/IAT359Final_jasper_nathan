@@ -76,14 +76,14 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
             }
         }
         holder.celldate.setText(s);
+        holder.mcardview.setEnabled(false);
         if (s.isEmpty()) {
             holder.mcardview.setBackgroundColor(0);
-            holder.mcardview.setEnabled(false);
         } else {
-            holder.mcardview.setEnabled(true);
             if (available){
                 holder.mcardview.setCardBackgroundColor(Color.BLACK);
                 holder.celldate.setTextColor(Color.WHITE);
+                holder.mcardview.setEnabled(true);
             }
             if (s.equals(String.valueOf(now.getDayOfMonth())) && now.getMonth() == LocalDate.now().getMonth()){
                 int x = Color.rgb(233, 165, 13);
@@ -135,7 +135,10 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
                     b.putInt("YEAR", year);
                     b.putInt("MONTH", month);
                     b.putString("DAY", day);
-                    Navigation.findNavController(view).navigate(R.id.action_archiveFragment_to_fragment_archive_recycler, b);
+                    if (year == LocalDate.now().getYear() && month == LocalDate.now().getMonthValue() && Integer.parseInt(day) == LocalDate.now().getDayOfMonth()){
+                        Navigation.findNavController(view).navigate(R.id.action_archiveFragment_to_activity_main);
+                    }
+                    else Navigation.findNavController(view).navigate(R.id.action_archiveFragment_to_fragment_archive_recycler, b);
                 }
             });
 
