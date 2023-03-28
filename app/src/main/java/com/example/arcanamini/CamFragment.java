@@ -85,7 +85,8 @@ public class CamFragment extends Fragment {
         sensor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(getActivity(), ReflectionModeActivity.class);
+                startActivity(i);
             }
         });
         return v;

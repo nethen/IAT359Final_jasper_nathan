@@ -34,9 +34,6 @@
             android:name=".CameraActivity"
             android:exported="false" />
         <activity
-            android:name=".ReflectionDetailsActivity"
-            android:exported="false" />
-        <activity
             android:name=".LibrariumActivity2"
             android:exported="false" />
         <activity

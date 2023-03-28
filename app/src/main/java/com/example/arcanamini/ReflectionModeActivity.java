@@ -9,38 +9,45 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class ReflectionModeActivity extends AppCompatActivity implements SensorEventListener, View.OnClickListener {
     SensorManager mySensorManager;
     Sensor myAccelerometer;
-    TextView instruction1, instruction2;
     Boolean isFlat;
     Boolean vTrigger;
     Vibrator v;
-    Button startButton, startButton2;
+    Button startButton;
+    Date initTime;
+
+    TextView timer;
+    int timerVal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reflection_mode);
+        setContentView(R.layout.reflect_mode);
         //reference to sensor
         mySensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         myAccelerometer = mySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         isFlat = false;
-        vTrigger = true;
-        instruction1 = findViewById(R.id.reflectionModeInstructionTextView);
-        instruction2 = findViewById(R.id.reflectionModeInstruction2TextView);
-        startButton = findViewById(R.id.reflectionModeStartButton);
+        vTrigger = false;
+        startButton = findViewById(R.id.button_reflect_start);
+        timer = findViewById(R.id.reflect_timer);
+        timerVal = 60;
+        timer.setText(String.valueOf(timerVal));
+        timer.setAlpha((float) 0.3);
+        startButton.setAlpha((float) 0.3);
         startButton.setOnClickListener(this);
-        startButton2 = findViewById(R.id.reflectionModeStartButton2);
-        startButton2.setOnClickListener(this);
-        startButton2.setVisibility(View.GONE);
         //try vibrating
         try{
             v = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
@@ -48,6 +55,7 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
             //if device does not have vibration functionality, toast
             Toast.makeText(this, "Device flat", Toast.LENGTH_SHORT).show();
         }
+        initTime = Calendar.getInstance().getTime();
     }
 
     @Override
@@ -68,32 +76,40 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
         int type = event.sensor.getType();
         if(type == Sensor.TYPE_ACCELEROMETER)
         {
-            //get sensor values
-            float[] accel_vals = event.values;
-            Float accelYnum = accel_vals[1];
-            Float accelZnum = accel_vals[2];
 
-            //if lying flat
-            if(accelYnum > -0.8 && accelYnum< 0.8 && accelZnum >= 9.78 && accelZnum <= 9.86){
-                isFlat = true;
-            } else{
+            float accelVals[] = event.values;
+            if (Math.abs(9.5 - Math.abs(accelVals[2])) < 0.75){
+                if(Math.abs(0.25 - Math.abs(accelVals[0])) < 0.25 && Math.abs(0.25 - Math.abs(accelVals[1])) < 0.25){
+                    isFlat = true;
+                }
+            } else {
                 isFlat = false;
             }
 
             if(isFlat){
+                timer.setAlpha(1);
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Date currentTime = Calendar.getInstance().getTime();
+                        if ((currentTime.getTime() - initTime.getTime()) > 1000) {
+                            initTime = currentTime;
+                            if (timerVal > 0) timerVal --;
+                            timer.setText(String.valueOf(timerVal));
+                        }
+                    }
+                });
+                t.start();
                 //if flat and trigger is true
-                if(vTrigger){
+                if(timerVal == 0 && !vTrigger){
+                    v.vibrate(VibrationEffect.createOneShot (1000, VibrationEffect.DEFAULT_AMPLITUDE));
+                    vTrigger = true;
                     //trigger is false, code will run once
-
-                    startButton2.setVisibility(View.VISIBLE);
-                    startButton.setVisibility(View.GONE);
+                   startButton.setAlpha(1);
 
                 }
             }else{
 
-
-                startButton2.setVisibility(View.GONE);
-                startButton.setVisibility(View.VISIBLE);
             }
         }
 
@@ -107,28 +123,10 @@ public class ReflectionModeActivity extends AppCompatActivity implements SensorE
 
     @Override
     public void onClick(View view) {
-        if(view == findViewById(R.id.reflectionModeStartButton2)){
+        if(view == findViewById(R.id.button_reflect_start)){
             //go back to new reflection
-            //this.finish();
-            if(isFlat){
-                if(vTrigger){
-                    vTrigger=false;
-                    //one minute = 60000
-                    SystemClock.sleep(6000);
-                    //vibrate for 1 sec
-                    v.vibrate(1000);
-                    Toast.makeText(this, "vibrating", Toast.LENGTH_SHORT).show();
-                    //return trigger to true after vibrating so that reflection timer
-                    //can be activated again after 1 minute has passed if needed
-                    vTrigger = true;
+            this.finish();
 
-                }else{
-
-                }
-            }else{
-                //if not flat, return trigger to true
-                vTrigger = true;
-            }
         }
     }
 

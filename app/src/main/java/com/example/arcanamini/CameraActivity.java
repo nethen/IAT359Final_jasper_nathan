@@ -191,10 +191,10 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
                 String content = noteContent.getText().toString();
                 databaseHelper.insertDataReflection(date,hourMin, content);
-                int position = databaseHelper.getLength() - 1;
-                Intent intent = new Intent (this, ReflectionDetailsActivity.class);
-                intent.putExtra ("ITEM_KEY", position);
-                this.startActivity(intent);
+//                int position = databaseHelper.getLength() - 1;
+//                Intent intent = new Intent (this, ReflectionDetailsActivity.class);
+//                intent.putExtra ("ITEM_KEY", position);
+//                this.startActivity(intent);
                 Toast.makeText(this,"saved", Toast.LENGTH_LONG).show();
                 break;
             }
