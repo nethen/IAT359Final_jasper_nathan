@@ -25,4 +25,5 @@ public class Constants {
     public static final String REFLECTION_OCCURED="REFLECTOCCURED";
     public static final String REFLECTION_TIME="REFLECTTIME";
     public static final String REFLECTION_CONTENT="REFLECTCONTENT";
+    public static final String REFLECTION_IMAGE="REFLECTIMG";
 }

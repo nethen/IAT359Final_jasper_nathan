@@ -78,8 +78,14 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent().hasExtra("FORCE_REFLECT")){
             NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment);
             NavController navController = navHostFragment.getNavController();
-            Log.i("testForce", String.valueOf(getIntent().getBooleanExtra("FORCE_REFLECT", false)));
             if(getIntent().getBooleanExtra("FORCE_REFLECT", false)) navController.navigate(R.id.action_activity_main_to_reflectionDetailsFragment2, getIntent().getExtras());
+        }
+        if (getIntent().hasExtra("FORCE_CAM")){
+            NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment);
+            NavController navController = navHostFragment.getNavController();
+            if(getIntent().getBooleanExtra("FORCE_CAM", false)) {
+                if(navController.getCurrentDestination().equals(navController.findDestination(R.id.activity_main))) navController.navigate(R.id.action_activity_main_to_reflectionDetailsFragment2, getIntent().getExtras());
+            }
         }
     }
 

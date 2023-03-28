@@ -21,9 +21,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="20sp"
                 android:orientation="horizontal">
 
@@ -47,6 +48,24 @@
 
             </LinearLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/imageWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageViewCapture"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/placeholder"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <EditText
                 android:id="@+id/reflectionDetailsContentEditText"
                 android:layout_width="match_parent"
@@ -54,7 +73,7 @@
                 android:editable="false"
                 android:ems="10"
                 android:gravity="start|top"
-                android:hint="No content found"
+                android:hint="No notes found\u2014what's on your mind?"
                 android:inputType="textMultiLine"
                 android:textSize="@dimen/text_sm" />
 

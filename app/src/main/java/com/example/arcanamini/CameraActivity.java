@@ -190,7 +190,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 //save reflection
 
                 String content = noteContent.getText().toString();
-                databaseHelper.insertDataReflection(date,hourMin, content);
+                databaseHelper.insertDataReflection(date,hourMin);
 //                int position = databaseHelper.getLength() - 1;
 //                Intent intent = new Intent (this, ReflectionDetailsActivity.class);
 //                intent.putExtra ("ITEM_KEY", position);

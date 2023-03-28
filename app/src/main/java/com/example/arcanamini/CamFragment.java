@@ -65,7 +65,7 @@ public class CamFragment extends Fragment {
                 databaseHelper.getWritableDatabase();
 
 
-                databaseHelper.insertDataReflection(date,hourMin, "No content found");
+                databaseHelper.insertDataReflection(date,hourMin);
                 ArrayList<String> list = databaseHelper.getItemsWithContent();
 
 //                Bundle b = new Bundle();

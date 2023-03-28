@@ -33,7 +33,8 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
                     Constants.UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     Constants.REFLECTION_OCCURED + " TEXT," +
                     Constants.REFLECTION_TIME + " TEXT," +
-                    Constants.REFLECTION_CONTENT + " TEXT);" ;
+                    Constants.REFLECTION_CONTENT + " TEXT," +
+                    Constants.REFLECTION_IMAGE + " TEXT);" ;
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + Constants.REFLECTION_TABLE;
@@ -131,6 +132,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<String> getItemsWithContent() {
         String time = null;
         String content = null;
+        String img = null;
         ArrayList<String> arraylistString = new ArrayList<String>();
         openDatabase();
         Cursor cursor = mDatabase.rawQuery("select * from "+Constants.REFLECTION_TABLE+" where "+Constants.REFLECTION_OCCURED+" = ? ", new String[] {date});
@@ -139,8 +141,10 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
             //Index 1 for reflection time
             time = new String(cursor.getString(1));
             content = new String(cursor.getString(2));
+//            img = new String(cursor.getString(3));
             //index 2 for reflection content
-            arraylistString.add(time + "~" + content);
+//            arraylistString.add(time + "~" + content + "~" + img);
+            arraylistString.add(time + "~" + content + "~" );
             cursor.moveToNext();
         }
         cursor.close();
@@ -184,19 +188,29 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
     public void updateContent(String position, String newContent){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Constants.REFLECTION_CONTENT, "test!");
-        String whereClause = "_id = ? ";
-        db.update(Constants.REFLECTION_TABLE, values, whereClause , new String[]{ position });
+        values.put(Constants.REFLECTION_CONTENT, newContent);
+        String whereClause = "_id = ? AND "+Constants.REFLECTION_OCCURED+" = ?";
+        db.update(Constants.REFLECTION_TABLE, values, whereClause , new String[]{ position, date });
+        Log.i("update", );
         db.close();
     }
 
-    public long insertDataReflection (String date, String time, String content)
+    public void updateImg(String position, String newContent){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Constants.REFLECTION_IMAGE, newContent);
+        String whereClause = "_id = ? AND "+Constants.REFLECTION_OCCURED+" = ?";
+        db.update(Constants.REFLECTION_TABLE, values, whereClause , new String[]{ position, date });
+        db.close();
+    }
+
+    public long insertDataReflection (String date, String time)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.REFLECTION_OCCURED, date);
         contentValues.put(Constants.REFLECTION_TIME, time);
-        contentValues.put(Constants.REFLECTION_CONTENT, content);
+//        contentValues.put(Constants.REFLECTION_CONTENT, content);
         long id = db.insert(Constants.REFLECTION_TABLE, null, contentValues);
         return id;
     }
