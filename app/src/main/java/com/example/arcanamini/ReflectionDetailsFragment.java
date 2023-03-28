@@ -3,6 +3,7 @@ package com.example.arcanamini;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -97,6 +98,7 @@ public class ReflectionDetailsFragment extends Fragment {
                 Log.i("pos", String.valueOf(position));
                 String i = databaseHelper.getId(position);
                 databaseHelper.deleteContent(i);
+                Navigation.findNavController(v).navigateUp();
             }
         });
         //button

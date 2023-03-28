@@ -11,8 +11,8 @@
     app:cardCornerRadius="4sp"
     app:contentPaddingBottom="16sp"
     app:contentPaddingTop="16sp"
-    app:strokeColor="@color/grey_light"
-    app:strokeWidth="1sp">
+
+    app:strokeWidth="1px">
 
     <TextView
         android:id="@+id/card_cal_day"
