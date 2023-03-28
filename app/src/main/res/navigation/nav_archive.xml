@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_fragment_archive_recycler_to_reflectionDetailsFragment"
             app:destination="@id/reflectionDetailsFragment" />
+        <action
+            android:id="@+id/action_fragment_archive_recycler_to_archiveFragment"
+            app:destination="@id/archiveFragment" />
     </fragment>
     <activity
         android:id="@+id/activity_main"

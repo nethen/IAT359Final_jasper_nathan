@@ -16,6 +16,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 
 /**
@@ -25,11 +26,12 @@ import java.util.ArrayList;
  */
 public class ArchiveFragment extends Fragment {
 
-    private TextView monthYearText;
+    private TextView monthYearText, prev, next;
     private RecyclerView calRecycler;
     private LocalDate selectedDate, currDate;
     private CalAdapter calendarAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    ReadDatabaseHelper helper;
 
     public ArchiveFragment() {
         // Required empty public constructor
@@ -52,8 +54,26 @@ public class ArchiveFragment extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_archive, container, false);
         monthYearText = v.findViewById(R.id.archive_month);
         calRecycler = v.findViewById(R.id.archive_calendar);
+        prev = v.findViewById(R.id.prevMonth);
+        next = v.findViewById(R.id.nextMonth);
         currDate = LocalDate.now();
         selectedDate = LocalDate.now();
+        helper = new ReadDatabaseHelper(getActivity(), LocalDate.now().format(DateTimeFormatter.ofPattern("MMM d, yyyy")));
+
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previousMonthAction(v);
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextMonthAction(v);
+            }
+        });
+
+
         setMonthView();
         return v;
 
@@ -64,11 +84,15 @@ public class ArchiveFragment extends Fragment {
         String s = selectedDate.format(formatter);
         monthYearText.setText(s);
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(selectedDate);
-        calendarAdapter = new CalAdapter(daysInMonth, LocalDate.now());
+        calendarAdapter = new CalAdapter(daysInMonth, selectedDate);
         layoutManager = new GridLayoutManager(getContext(), 7);
         calRecycler.setLayoutManager(layoutManager);
         calRecycler.setAdapter(calendarAdapter);
         Log.i("date", String.valueOf(selectedDate));
+        LocalDate x = helper.getOldestDate();
+        prev.setEnabled((x.isBefore(selectedDate))); //&& (x.getYear() < selectedDate.getYear() && x.getMonthValue() < selectedDate.getMonthValue())));
+        next.setEnabled((LocalDate.now().isAfter(selectedDate))); //&& (LocalDate.now().getYear() > selectedDate.getYear() && LocalDate.now().getMonthValue() > selectedDate.getMonthValue())));
+
     }
     private ArrayList<LocalDate> daysInMonthArray(LocalDate date){
         ArrayList<LocalDate> daysInMonthArray = new ArrayList<>();
@@ -83,14 +107,7 @@ public class ArchiveFragment extends Fragment {
             daysInMonthArray.add(current);
             current = current.plusDays(1);
         }
-//        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
-//        for (int i = 0; i < 42; i++){
-//            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek){
-//                daysInMonthArray.add(LocalDate.);
-//            } else {
-//                daysInMonthArray.add(String.valueOf(i - dayOfWeek));
-//            }
-//        }
+
         return daysInMonthArray;
     }
     private static LocalDate sundayForDate(LocalDate current)

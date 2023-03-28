@@ -78,6 +78,7 @@ public class ReflectionDetailsFragment extends Fragment {
                 contentEditText.setEnabled(true);
                 confirmButton.setVisibility(View.VISIBLE);
                 buttonSet.setVisibility(View.GONE);
+                contentEditText.requestFocus();
             }
         });
 
@@ -108,14 +109,13 @@ public class ReflectionDetailsFragment extends Fragment {
         // retrieve the bundle from the intent that started this activity
         Bundle extra_data = getArguments();
         if (extra_data!= null) {
-        date = extra_data.getString("ITEM_DATE");
+            date = extra_data.getString("ITEM_DATE");
             Log.i("pos", String.valueOf(date));
-        databaseHelper = new ReadDatabaseHelper(getActivity(), date);
-        databaseHelper.getReadableDatabase();
-        list = databaseHelper.getItemsWithContent();
+            databaseHelper = new ReadDatabaseHelper(getActivity(), date);
+            databaseHelper.getReadableDatabase();
+            list = databaseHelper.getItemsWithContent();
 
             position = extra_data.getInt("ITEM_KEY");
-            Log.i("pos", String.valueOf(position));
             //Toast.makeText(this, , Toast.LENGTH_SHORT).show();
 
 
@@ -129,6 +129,13 @@ public class ReflectionDetailsFragment extends Fragment {
             if (reflection.length > 2) {
                 String content = reflection[2];
                 contentEditText.setText(content);
+            }
+
+            if (extra_data.containsKey("EDIT_AUTO") && extra_data.getBoolean("EDIT_AUTO")){
+                contentEditText.setEnabled(true);
+                confirmButton.setVisibility(View.VISIBLE);
+                buttonSet.setVisibility(View.GONE);
+                contentEditText.requestFocus();
             }
         }
 

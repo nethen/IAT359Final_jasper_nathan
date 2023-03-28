@@ -1,5 +1,6 @@
 package com.example.arcanamini;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,11 +14,13 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class CamFragment extends Fragment {
@@ -54,6 +57,28 @@ public class CamFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                Calendar calendar = Calendar.getInstance();
+                Object dateVal = calendar.getTime();
+                String date = new SimpleDateFormat("MMM d, yyyy").format(dateVal);
+                String hourMin = new SimpleDateFormat("hh:mm aaa").format(dateVal);
+                ReadDatabaseHelper databaseHelper = new ReadDatabaseHelper(getActivity(), date);
+                databaseHelper.getWritableDatabase();
+
+
+                databaseHelper.insertDataReflection(date,hourMin, "No content found");
+                ArrayList<String> list = databaseHelper.getItemsWithContent();
+
+//                Bundle b = new Bundle();
+//                b.putBoolean("FORCE_REFLECT", true);
+//                b.putInt("ITEM_KEY", list.size()-1);
+//                b.putString("ITEM_DATE", date);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("FORCE_REFLECT", true);
+                intent.putExtra("ITEM_KEY", list.size()-1);
+                intent.putExtra("ITEM_DATE", date);
+                intent.putExtra("EDIT_AUTO", true);
+                startActivity(intent);
+//                Navigation.findNavController(v).navigate(R.id.action_camFragment_to_reflectionDetailsFragment3, b);
             }
         });
         sensor = v.findViewById(R.id.button_reflect_sensor);

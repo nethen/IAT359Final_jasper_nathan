@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -112,6 +114,18 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         closeDatabase();
         return arraylistString;
+    }
+
+    public LocalDate getOldestDate(){
+        ArrayList<String> dates = getDates();
+        LocalDate dateNow = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+        for (String date : dates){
+            LocalDate localDate = LocalDate.parse(date, formatter);
+            if (localDate.isBefore(dateNow)) dateNow = localDate;
+
+        }
+        return dateNow;
     }
 
     public ArrayList<String> getItemsWithContent() {

@@ -28,5 +28,13 @@
         <action
             android:id="@+id/action_camFragment_to_activity_main"
             app:destination="@id/activity_main" />
+        <action
+            android:id="@+id/action_camFragment_to_reflectionDetailsFragment3"
+            app:destination="@id/reflectionDetailsFragment3" />
     </fragment>
+    <fragment
+        android:id="@+id/reflectionDetailsFragment3"
+        android:name="com.example.arcanamini.ReflectionDetailsFragment"
+        android:label="fragment_reflection_details"
+        tools:layout="@layout/fragment_reflection_details" />
 </navigation>

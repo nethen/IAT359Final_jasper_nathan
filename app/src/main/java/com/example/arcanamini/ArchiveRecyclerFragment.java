@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,16 +29,9 @@ import java.util.Calendar;
  */
 public class ArchiveRecyclerFragment extends Fragment{
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     ReadDatabaseHelper dbHelper;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private TextView dateTimeDisplay;
     private Calendar calendar;
@@ -59,12 +53,8 @@ public class ArchiveRecyclerFragment extends Fragment{
         // Required empty public constructor
     }
 
-    public static ArchiveRecyclerFragment newInstance(String param1, String param2) {
+    public static ArchiveRecyclerFragment newInstance() {
         ArchiveRecyclerFragment fragment = new ArchiveRecyclerFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -124,8 +114,16 @@ public class ArchiveRecyclerFragment extends Fragment{
         if (list.size() > 0){
             emptyState.setVisibility(View.GONE);
             myRecycler.setVisibility(View.VISIBLE);
+
+
         } else {
             myRecycler.setVisibility(View.GONE);
+            if (getActivity() instanceof MainActivity){
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_archiveRecyclerFragment_to_activity_main);
+            } else {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment_archive).navigate(R.id.action_fragment_archive_recycler_to_archiveFragment);
+            }
+
         }
 
         readAdapter = new ReadAdapter(list, date);

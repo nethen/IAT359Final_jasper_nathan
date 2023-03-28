@@ -68,6 +68,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("intent", String.valueOf(getIntent()));
+        if (getIntent().hasExtra("FORCE_REFLECT")){
+            NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment);
+            NavController navController = navHostFragment.getNavController();
+            Log.i("testForce", String.valueOf(getIntent().getBooleanExtra("FORCE_REFLECT", false)));
+            if(getIntent().getBooleanExtra("FORCE_REFLECT", false)) navController.navigate(R.id.action_activity_main_to_reflectionDetailsFragment2, getIntent().getExtras());
+        }
     }
 
     @Override

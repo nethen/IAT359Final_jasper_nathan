@@ -35,15 +35,9 @@ import java.util.Calendar;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
-
-
     ReadDatabaseHelper dbHelper;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private TextView dateTimeDisplay;
+    private TextView dateTimeDisplay, empty_content;
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
@@ -140,6 +134,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         newRefButton.setOnClickListener(this);
         accountButton = view.findViewById(R.id.accountButton);
         accountButton.setOnClickListener(this);
+        empty_content = view.findViewById(R.id.empty_content);
+        empty_content.setOnClickListener(this);
         
         setWeekView();
         return view;
@@ -147,7 +143,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v == v.findViewById(R.id.newReflectionFloatingActionButton)){
+        if(v == v.findViewById(R.id.newReflectionFloatingActionButton) || v == v.findViewById(R.id.empty_content)){
             //start new reflection
             Intent intent = new Intent (this.getContext(), CamActivity.class);
 //            intent.putExtra ("DATE", calendar.getTime() );

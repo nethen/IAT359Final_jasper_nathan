@@ -2,6 +2,7 @@ package com.example.arcanamini;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -100,13 +101,17 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
             } else if (daysofmonthLD.size() <= 7) {
                 holder.mcardview.setCardBackgroundColor(0);
             }
-            Log.i("day",String.valueOf(d));
-            Log.i("day",String.valueOf(now));
-            if (d.equals(now)){
-                if (daysofmonthLD.size() <= 7) holder.mcardview.setEnabled(false);
-                int x = Color.rgb(233, 165, 13);
-                holder.mcardview.setCardBackgroundColor(x);
-                holder.mcardview.setStrokeColor(x);
+
+            if (d.equals(LocalDate.now())){
+                holder.mcardview.setEnabled(true);
+                if (daysofmonthLD.size() <= 7 && holder.context instanceof MainActivity) {
+                    holder.mcardview.setEnabled(false);
+                    Log.i("context", String.valueOf(holder.context));
+                }
+                SharedPreferences sharedPref = holder.context.getSharedPreferences(holder.context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                Integer themeColor = sharedPref.getInt("COLOR", R.color.orange);
+                holder.mcardview.setCardBackgroundColor(ContextCompat.getColor(holder.context, themeColor));
+                holder.mcardview.setStrokeColor(ContextCompat.getColor(holder.context, themeColor));
                 holder.celldate.setTextColor(Color.WHITE);
             }
         }
@@ -153,7 +158,7 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
                     b.putInt("YEAR", year);
                     b.putInt("MONTH", month);
                     b.putInt("DAY", day);
-                    if (Navigation.findNavController(view).getGraph().getId() == (R.id.nav_archive) ) {
+                    if (context instanceof ArchiveActivity) {
                         if (year == LocalDate.now().getYear() && month == LocalDate.now().getMonthValue() && day == LocalDate.now().getDayOfMonth()) {
                             Navigation.findNavController(view).navigate(R.id.action_archiveFragment_to_activity_main);
                         } else
