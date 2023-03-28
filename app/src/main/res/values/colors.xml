@@ -13,4 +13,9 @@
     <color name="pink">#e6456a</color>
     <color name="grey_light">#E5E5E5</color>
     <color name="grey_dark">#A0A0A0</color>
+    <color name="theme_yellow">#E9A50D</color>
+    <color name="theme_orange">#CB5310</color>
+    <color name="theme_earth">#58683A</color>
+    <color name="theme_green">#0C8745</color>
+    <color name="theme_blue">#748BDD</color>
 </resources>

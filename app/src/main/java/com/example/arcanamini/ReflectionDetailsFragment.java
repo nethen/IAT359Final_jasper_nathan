@@ -146,6 +146,25 @@ public class ReflectionDetailsFragment extends Fragment {
                 Log.i("test", String.valueOf(reflection));
                 contentEditText.setText(content.equals("emptyContent") ? "" : content);
             }
+            if (reflection.length > 3) {
+                String img = reflection[3];
+                if (!img.equals("emptyImage")) {
+                    Log.i("test", String.valueOf(reflection[3]));
+                    File sd = Environment.getExternalStorageDirectory();
+                    ContextWrapper cw = new ContextWrapper(getActivity().getApplicationContext());
+                    File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+                    File dest = new File(directory, img);
+                    if(dest.exists()){
+                        Log.i("test", dest.getAbsolutePath());
+                        Bitmap myBitmap = BitmapFactory.decodeFile(dest.getAbsolutePath());
+                        //Drawable d = new BitmapDrawable(getResources(), myBitmap);
+                        ImageView myImage = (ImageView) v.findViewById(R.id.imageViewCapture);
+                        myImage.setImageBitmap(myBitmap);
+                        imageWrapper.setVisibility(View.VISIBLE);
+
+                    }
+                }
+            }
 
             if (extra_data.containsKey("EDIT_AUTO") && extra_data.getBoolean("EDIT_AUTO")){
                 contentEditText.setEnabled(true);
@@ -158,6 +177,14 @@ public class ReflectionDetailsFragment extends Fragment {
                 startActivityForResult(takePicture, 0);
             }
         }
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);
+            }
+        });
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,9 +205,6 @@ public class ReflectionDetailsFragment extends Fragment {
                 confirmButton.setVisibility(View.GONE);
                 buttonSet.setVisibility(View.VISIBLE);
                 String i = databaseHelper.getId(position);
-                Log.i("pos", String.valueOf(position));
-                Log.i("pos", String.valueOf(i));
-                Log.i("pos", String.valueOf(contentEditText.getText()));
                 databaseHelper.updateContent(i, String.valueOf(contentEditText.getText()).equals("") ? "emptyContent" : String.valueOf(contentEditText.getText()));
             }
         });
@@ -213,6 +237,9 @@ public class ReflectionDetailsFragment extends Fragment {
                         imageViewCaptured.setImageBitmap(selectedImage);
                         //save image
                         saveBitmap(selectedImage);
+                        String i = databaseHelper.getId(position);
+                        databaseHelper.updateImg(i,"arcanaminiphoto"+i+".png");
+
                     }
                     break;
                 case 1:
@@ -236,7 +263,7 @@ public class ReflectionDetailsFragment extends Fragment {
     }
 
     private void saveBitmap(Bitmap bitmap){
-        String filename = "arcanaminiphoto"+counter+".png";
+        String filename = "arcanaminiphoto"+databaseHelper.getId(position)+".png";
         File sd = Environment.getExternalStorageDirectory();
         ContextWrapper cw = new ContextWrapper(getActivity().getApplicationContext());
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
@@ -246,6 +273,7 @@ public class ReflectionDetailsFragment extends Fragment {
             FileOutputStream out = new FileOutputStream(dest);
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
             counter = counter + 1;
+
             out.flush();
             out.close();
         } catch (Exception e) {
