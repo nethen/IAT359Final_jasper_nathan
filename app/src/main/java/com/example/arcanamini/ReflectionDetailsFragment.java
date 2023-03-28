@@ -144,7 +144,7 @@ public class ReflectionDetailsFragment extends Fragment {
             if (reflection.length > 2) {
                 String content = reflection[2];
                 Log.i("test", String.valueOf(reflection));
-                contentEditText.setText(content);
+                contentEditText.setText(content.equals("emptyContent") ? "" : content);
             }
 
             if (extra_data.containsKey("EDIT_AUTO") && extra_data.getBoolean("EDIT_AUTO")){
@@ -178,17 +178,16 @@ public class ReflectionDetailsFragment extends Fragment {
                 confirmButton.setVisibility(View.GONE);
                 buttonSet.setVisibility(View.VISIBLE);
                 String i = databaseHelper.getId(position);
+                Log.i("pos", String.valueOf(position));
+                Log.i("pos", String.valueOf(i));
                 Log.i("pos", String.valueOf(contentEditText.getText()));
-                databaseHelper.updateContent(i, String.valueOf(contentEditText.getText()));
+                databaseHelper.updateContent(i, String.valueOf(contentEditText.getText()).equals("") ? "emptyContent" : String.valueOf(contentEditText.getText()));
             }
         });
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                databaseHelper.get
-//                Log.i("pos", String.valueOf(databaseHelper.date));
-//                Log.i("pos", String.valueOf(position));
                 String i = databaseHelper.getId(position);
                 databaseHelper.deleteContent(i);
                 Navigation.findNavController(v).navigateUp();

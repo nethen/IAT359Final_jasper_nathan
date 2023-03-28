@@ -130,6 +130,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<String> getItemsWithContent() {
+        String day = null;
         String time = null;
         String content = null;
         String img = null;
@@ -139,12 +140,13 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             //Index 1 for reflection time
-            time = new String(cursor.getString(1));
-            content = new String(cursor.getString(2));
-//            img = new String(cursor.getString(3));
+            day = new String(cursor.getString(1));
+            time = new String(cursor.getString(2));
+            content = new String(cursor.getString(3));
+            img = new String(cursor.getString(4));
             //index 2 for reflection content
 //            arraylistString.add(time + "~" + content + "~" + img);
-            arraylistString.add(time + "~" + content + "~" );
+            arraylistString.add(day + "~" + time + "~" + content+"~"+img);
             cursor.moveToNext();
         }
         cursor.close();
@@ -191,7 +193,6 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         values.put(Constants.REFLECTION_CONTENT, newContent);
         String whereClause = "_id = ? AND "+Constants.REFLECTION_OCCURED+" = ?";
         db.update(Constants.REFLECTION_TABLE, values, whereClause , new String[]{ position, date });
-        Log.i("update", );
         db.close();
     }
 
@@ -210,7 +211,8 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.REFLECTION_OCCURED, date);
         contentValues.put(Constants.REFLECTION_TIME, time);
-//        contentValues.put(Constants.REFLECTION_CONTENT, content);
+        contentValues.put(Constants.REFLECTION_CONTENT, "emptyContent");
+        contentValues.put(Constants.REFLECTION_IMAGE, "emptyImage");
         long id = db.insert(Constants.REFLECTION_TABLE, null, contentValues);
         return id;
     }
