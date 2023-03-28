@@ -1,6 +1,7 @@
 package com.example.arcanamini;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -20,12 +21,26 @@ public class ArchiveActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     FragmentManager supportFragmentManager = getSupportFragmentManager();
     Context context;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_archive);
+        //setting color theme
         context = this;
+        sharedPref = context.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        Integer themeColor = sharedPref.getInt("COLOR", R.color.orange);
+        if(themeColor == R.color.orange){
+            this.setTheme(R.style.Theme_ArcanaMiniOrange);
+        }else if(themeColor == R.color.green){
+            this.setTheme(R.style.Theme_ArcanaMiniGreen);
+        }else if(themeColor == R.color.pink){
+            this.setTheme(R.style.Theme_ArcanaMiniPink);
+        }
+        setContentView(R.layout.activity_archive);
+
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment_archive);

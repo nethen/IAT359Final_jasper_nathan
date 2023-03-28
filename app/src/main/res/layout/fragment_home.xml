@@ -16,12 +16,25 @@
         android:layout_marginTop="32sp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_welcome"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="@string/welcome" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/welcome" />
+
+            <ImageButton
+                android:id="@+id/accountButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/black_button_shape" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/text_date"
@@ -149,7 +162,7 @@
 
         android:clickable="true"
         android:src="@drawable/ppr_plus"
-        app:backgroundTint="@color/orange"
+        app:backgroundTint="?colorPrimary"
         app:borderWidth="1sp"
         app:elevation="0dp"
         app:strokeColor="@color/black"

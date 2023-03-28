@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".OnBoarding3Fragment">
+    tools:context=".EditAccountActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingTop="32dp"
@@ -17,16 +16,41 @@
         android:paddingBottom="32dp">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="@string/accountTitleText"
+            android:textSize="@dimen/text_lg" />
+
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:text="@string/onboarding3_text"
-            android:textColor="@color/black"
+            android:text="@string/accountNameText"
+            android:textSize="@dimen/text_sm" />
+
+        <EditText
+            android:id="@+id/accountNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:ems="10"
+            android:hint="@string/onboarding2_editText"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/accountColourText"
             android:textSize="@dimen/text_sm" />
 
         <RadioGroup
-            android:id="@+id/onboardStyleRadioGroup"
+            android:id="@+id/accountStyleRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -34,7 +58,7 @@
             android:paddingRight="30dp">
 
             <RadioButton
-                android:id="@+id/onboardOrangeRadioButton"
+                android:id="@+id/accountOrangeRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
@@ -43,7 +67,7 @@
                 android:textColor="@color/orange" />
 
             <RadioButton
-                android:id="@+id/onboardGreenRadioButton"
+                android:id="@+id/accountGreenRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -51,7 +75,7 @@
                 android:textColor="@color/green" />
 
             <RadioButton
-                android:id="@+id/onboardPinkRadioButton"
+                android:id="@+id/accountPinkRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -60,13 +84,12 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/onboarding3Button1"
+            android:id="@+id/accountSaveButton"
             style="@style/StandardButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/onboarding2_button"
+            android:layout_marginTop="12dp"
+            android:text="@string/saveReflectionButtonText"
             app:backgroundTint="@null" />
-
     </LinearLayout>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

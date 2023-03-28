@@ -1,20 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ArcanaMini" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.ArcanaMiniInitial" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryVariant">@color/orange</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/orange</item>
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/pangram_round</item>
         <item name="android:textFontWeight">620</item>
         <item name="android:textSize">@dimen/text_base</item>
+
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="Theme.ArcanaMini.NoActionBar">
@@ -22,7 +24,52 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.ArcanaMiniOrange" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryVariant">@color/orange</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/orange</item>
+
+        <item name="android:fontFamily">@font/pangram_round</item>
+        <item name="android:textFontWeight">620</item>
+        <item name="android:textSize">@dimen/text_base</item>
+    </style>
+
+    <style name="Theme.ArcanaMiniGreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/green</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/green</item>
+
+        <item name="android:fontFamily">@font/pangram_round</item>
+        <item name="android:textFontWeight">620</item>
+        <item name="android:textSize">@dimen/text_base</item>
+    </style>
+
+    <style name="Theme.ArcanaMiniPink" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimaryVariant">@color/pink</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/pink</item>
+
+        <item name="android:fontFamily">@font/pangram_round</item>
+        <item name="android:textFontWeight">620</item>
+        <item name="android:textSize">@dimen/text_base</item>
+    </style>
+
     <style name="Theme.ArcanaMini.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.ArcanaMini.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.ArcanaMiniInitial.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ArcanaMiniInitial.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.ArcanaMiniInitial.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

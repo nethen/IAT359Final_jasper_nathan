@@ -2,6 +2,7 @@ package com.example.arcanamini;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,11 +27,25 @@ public class CamActivity extends AppCompatActivity {
     FragmentManager supportFragmentManager = getSupportFragmentManager();
     Button goOnboardButton;
     Context context;
+    SharedPreferences sharedPref;
 //    final View androidRobotView = findViewById(R.id.bottom_nav);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setting color theme
+        context = this;
+        sharedPref = context.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        Integer themeColor = sharedPref.getInt("COLOR", R.color.orange);
+        if(themeColor == R.color.orange){
+            this.setTheme(R.style.Theme_ArcanaMiniOrange);
+        }else if(themeColor == R.color.green){
+            this.setTheme(R.style.Theme_ArcanaMiniGreen);
+        }else if(themeColor == R.color.pink){
+            this.setTheme(R.style.Theme_ArcanaMiniPink);
+        }
         setContentView(R.layout.activity_cam);
         context = this;
 

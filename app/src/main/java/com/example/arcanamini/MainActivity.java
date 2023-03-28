@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -29,13 +30,27 @@ public class MainActivity extends AppCompatActivity {
     Button goOnboardButton;
     Context context;
 //    final View androidRobotView = findViewById(R.id.bottom_nav);
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        context = this;
 
+        //setting color theme
+        context = this;
+        sharedPref = context.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        Integer themeColor = sharedPref.getInt("COLOR", R.color.orange);
+        if(themeColor == R.color.orange){
+            this.setTheme(R.style.Theme_ArcanaMiniOrange);
+        }else if(themeColor == R.color.green){
+            this.setTheme(R.style.Theme_ArcanaMiniGreen);
+        }else if(themeColor == R.color.pink){
+            this.setTheme(R.style.Theme_ArcanaMiniPink);
+        }
+
+        setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();

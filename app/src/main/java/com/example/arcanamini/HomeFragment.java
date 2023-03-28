@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import android.widget.TextView;
@@ -60,6 +61,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     //new reflection
     FloatingActionButton newRefButton;
+    ImageButton accountButton;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -90,7 +93,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             Intent intent = new Intent (getContext(), OnBoardingActivity.class);
             this.startActivity(intent);
         }
+
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,6 +138,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         newRefButton = view.findViewById(R.id.newReflectionFloatingActionButton);
         newRefButton.setOnClickListener(this);
+        accountButton = view.findViewById(R.id.accountButton);
+        accountButton.setOnClickListener(this);
+        
         setWeekView();
         return view;
     }
@@ -143,6 +152,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             Intent intent = new Intent (this.getContext(), CamActivity.class);
 //            intent.putExtra ("DATE", calendar.getTime() );
 //            Log.i("date", String.valueOf(calendar.getTime()));
+            this.startActivity(intent);
+        } else if (v== v.findViewById(R.id.accountButton)){
+            //start account edit page
+            Intent intent = new Intent (this.getContext(), EditAccountActivity.class);
             this.startActivity(intent);
         }
     }

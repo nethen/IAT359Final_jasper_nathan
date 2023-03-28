@@ -65,8 +65,13 @@
     <string name="onboarding2_text">What\'s your name?</string>
     <string name="onboarding2_editText">Your name</string>
     <string name="onboarding3_text">What\'s your style?</string>
-    <string name="lightModeTextOption">Light</string>
-    <string name="darkModeTextOption">Dark</string>
+    <string name="orangeModeTextOption">Orange</string>
+    <string name="greenModeTextOption">Green</string>
+    <string name="pinkModeTextOption">Pink</string>
     <string name="onboarding4_text">You\'re all set.</string>
     <string name="onboarding4_button">Lets go!</string>
+    <string name="accountColourText">Choose a color:</string>
+    <string name="accountNameText">What\'s your name?</string>
+    <string name="accountTitleText">Account settings</string>
+
 </resources>

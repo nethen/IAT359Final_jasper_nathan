@@ -1,20 +1,25 @@
 package com.example.arcanamini;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
-public class OnBoarding3Fragment extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener{
+public class OnBoarding3Fragment extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     Button enterBlack;
     private RadioGroup styleGroup;
+    SharedPreferences sharedPref;
 
     public OnBoarding3Fragment() {
         // Required empty public constructor
@@ -28,6 +33,9 @@ public class OnBoarding3Fragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Context context = getActivity();
+        sharedPref = context.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
     }
 
     @Override
@@ -62,12 +70,22 @@ public class OnBoarding3Fragment extends Fragment implements View.OnClickListene
         enterBlack.setClickable(true);
         enterBlack.setAlpha((float) 1);
 
+        SharedPreferences.Editor e = sharedPref.edit();
         switch (checkedId) {
-            case R.id.onboardLightRadioButton:
-                //set app theme to light mode
+            case R.id.onboardOrangeRadioButton:
+                //set primary color to orange
+                e.putInt("COLOR", R.color.orange);
+                e.apply();
                 break;
-            case R.id.onboardDarkRadioButton:
-                //set app theme to dark mode
+            case R.id.onboardGreenRadioButton:
+                //set primary color to green
+                e.putInt("COLOR", R.color.green);
+                e.apply();
+                break;
+            case R.id.onboardPinkRadioButton:
+                //set primary color to pink
+                e.putInt("COLOR", R.color.pink);
+                e.apply();
                 break;
         }
     }
