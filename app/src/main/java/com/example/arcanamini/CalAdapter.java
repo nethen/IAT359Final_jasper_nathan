@@ -88,16 +88,17 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder>{
         holder.mcardview.setEnabled(false);
 //        holder.mcardview.setBackgroundColor(ContextCompat.getColor(holder.context,R.color.grey_light));
         holder.mcardview.setStrokeColor(ContextCompat.getColor(holder.context,R.color.grey_light));
+//        holder.mcardview.setStrokeWidth(0);
         holder.celldate.setTextColor(ContextCompat.getColor(holder.context,R.color.grey_dark));
         if (month != now.getMonthValue()) {
-            holder.mcardview.setBackgroundColor(0);
+            holder.mcardview.setCardBackgroundColor(0);
         } else {
             if (available){
                 holder.mcardview.setCardBackgroundColor(Color.BLACK);
                 holder.celldate.setTextColor(Color.WHITE);
                 holder.mcardview.setEnabled(true);
             } else if (daysofmonthLD.size() <= 7) {
-                holder.mcardview.setBackgroundColor(0);
+                holder.mcardview.setCardBackgroundColor(0);
             }
             Log.i("day",String.valueOf(d));
             Log.i("day",String.valueOf(now));
