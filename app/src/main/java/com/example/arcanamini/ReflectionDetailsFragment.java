@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,8 @@ import androidx.camera.core.CameraProvider;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -72,6 +75,7 @@ public class ReflectionDetailsFragment extends Fragment {
     Boolean edit;
     int position;
     ReadDatabaseHelper databaseHelper;
+    Activity activity;
     public ReflectionDetailsFragment() {
         // Required empty public constructor
     }
@@ -91,6 +95,8 @@ public class ReflectionDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        activity = this.getActivity();
+
         View v =  inflater.inflate(R.layout.fragment_reflection_details, container, false);
         imageWrapper = v.findViewById(R.id.imageWrapper);
         imageWrapper.setVisibility(View.GONE);//show image
@@ -181,8 +187,14 @@ public class ReflectionDetailsFragment extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, 0);
+                //ask for permission to take picture
+                if(allPermissionsGranted()){
+                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePicture, 0);
+                }else{
+                    ActivityCompat.requestPermissions(activity, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
+                }
+
             }
         });
 
@@ -281,4 +293,13 @@ public class ReflectionDetailsFragment extends Fragment {
         }
     }
 
+    private boolean allPermissionsGranted() {
+
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this.getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
