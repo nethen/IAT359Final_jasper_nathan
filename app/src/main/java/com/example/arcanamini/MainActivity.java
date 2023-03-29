@@ -9,14 +9,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import android.widget.Toast;
 
@@ -27,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     AppBarConfiguration appBarConfiguration;
     BottomNavigationView bottomNavigationView;
     FragmentManager supportFragmentManager = getSupportFragmentManager();
-    Button goOnboardButton;
     Context context;
 //    final View androidRobotView = findViewById(R.id.bottom_nav);
     SharedPreferences sharedPref;
@@ -58,16 +54,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.activity_main, R.id.activity_librarium2, R.id.activity_archive).build();
         Log.i("navHost", String.valueOf(navHostFragment));
-
-        goOnboardButton = findViewById(R.id.gotoOnboardButton);
-        goOnboardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (context, OnBoardingActivity.class);
-                context.startActivity(intent);
-            }
-        });
-
 
     }
 
