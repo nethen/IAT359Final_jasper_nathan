@@ -62,7 +62,7 @@ public class CamActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_cam);
-        Toast.makeText(this, String.valueOf(item), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, String.valueOf(item), Toast.LENGTH_SHORT).show();
         return NavigationUI.onNavDestinationSelected(item, navController)
                 || super.onOptionsItemSelected(item);
     }

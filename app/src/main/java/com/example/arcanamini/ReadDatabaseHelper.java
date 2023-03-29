@@ -50,7 +50,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(CREATE_TABLE);
 
-            Toast.makeText(mContext, "onCreate() called", Toast.LENGTH_LONG).show();
+            //Toast.makeText(mContext, "onCreate() called", Toast.LENGTH_LONG).show();
         } catch (SQLException e) {
             Toast.makeText(mContext, "exception onCreate() db", Toast.LENGTH_LONG).show();
         }
@@ -59,7 +59,7 @@ public class ReadDatabaseHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(SQL_DELETE_ENTRIES);
             onCreate(db);
-            Toast.makeText(mContext, "onUpgrade called", Toast.LENGTH_LONG).show();
+            //Toast.makeText(mContext, "onUpgrade called", Toast.LENGTH_LONG).show();
         } catch (SQLException e) {
             Toast.makeText(mContext, "exception onUpgrade() db", Toast.LENGTH_LONG).show();
         }

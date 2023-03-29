@@ -87,9 +87,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition(); //what item has been clicked
-                    Toast.makeText(context,
-                            "You have clicked " + ((TextView) view.findViewById(R.id.card_title)).getText().toString(),
-                            Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,
+//                            "You have clicked " + ((TextView) view.findViewById(R.id.card_title)).getText().toString(),
+//                            Toast.LENGTH_SHORT).show();
 
                     Bundle b = new Bundle();
                     b.putInt ("ITEM_KEY", position );

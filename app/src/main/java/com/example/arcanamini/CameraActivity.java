@@ -195,7 +195,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 //                Intent intent = new Intent (this, ReflectionDetailsActivity.class);
 //                intent.putExtra ("ITEM_KEY", position);
 //                this.startActivity(intent);
-                Toast.makeText(this,"saved", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this,"saved", Toast.LENGTH_LONG).show();
                 break;
             }
             case R.id.startReflectModeButton: {
@@ -225,12 +225,12 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 new ImageCapture.OnImageSavedCallback() {
                     @Override
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                        Toast.makeText(CameraActivity.this, "Saving...", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(CameraActivity.this, "Saving...", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(@NonNull ImageCaptureException exception) {
-                        Toast.makeText(CameraActivity.this, "Error: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(CameraActivity.this, "Error: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
