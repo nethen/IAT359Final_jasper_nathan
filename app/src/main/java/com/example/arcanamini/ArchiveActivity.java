@@ -3,6 +3,9 @@ package com.example.arcanamini;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,15 +51,11 @@ public class ArchiveActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.activity_archive);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.activity_main, R.id.activity_librarium2, R.id.activity_archive).build();
+
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_archive);
-        return NavigationUI.onNavDestinationSelected(item, navController)
-                || super.onOptionsItemSelected(item);
-    }
+
 
 
 }
